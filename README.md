@@ -4,7 +4,7 @@ This repository contains the groupwork of group SE_08 for the Software Engineeri
 | Username   | Name                           |
 | ---------- | ------------------------------ |
 | GHCMaxim   | Phan Huy Hiep - 20210328       |
-| hacaothu.3 | Cao Thị Thu Hà - 20215271      |
+| hacaothu03 | Cao Thị Thu Hà - 20215271      |
 |            |                                |
 |            |                                |
 
