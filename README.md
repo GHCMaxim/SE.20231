@@ -16,5 +16,6 @@ If you are cloning this repository for the first time, please do the following:
 - (Optional) Install lazygit to trivialize git usage
 ### Commits
 Please add your item using either `lazygit` or `git add` and use `pnpm cz` to follow the commit conventions. This will help others be able to know what you have done during your time working with the repo.
+
 Additionally, please consider adding few items at the time, going in slightly more details on what you have done. Doing this will help with rollbacks for mistakes you've made.
 
