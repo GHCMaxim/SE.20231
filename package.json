@@ -1,0 +1,36 @@
+{
+    "name": "stma",
+    "version": "0.1.0",
+    "scripts": {
+        "postinstall": "husky install",
+        "commit": "cz",
+        "lint_isort": "pipenv run isort --profile black -l 125 .",
+        "lint_black": "pipenv run black .",
+        "lint_ruff": "pipenv run ruff . --fix --show-fixes",
+        "lint_prettier": "prettier --tab-width 4 --write .",
+        "lint": "pnpm lint_isort && pnpm lint_black && pnpm lint_ruff && pnpm lint_prettier",
+        "start": "pnpm build && pipenv run flask --app main_web.py run",
+        "build": "node ./templates.pug/build.js"
+    },
+    "config": {
+        "commitizen": {
+            "path": "@commitlint/cz-commitlint"
+        }
+    },
+    "license": "MIT OR Apache-2.0",
+    "devDependencies": {
+        "@commitlint/cli": "^17.4.4",
+        "@commitlint/config-conventional": "^17.4.4",
+        "@commitlint/cz-commitlint": "^17.4.4",
+        "commitizen": "^4.3.0",
+        "husky": "^8.0.3",
+        "inquirer": "^8.0.0",
+        "prettier": "3.0.0"
+    },
+    "volta": {
+        "node": "18.16.0"
+    },
+    "dependencies": {
+        "pug": "^3.0.2"
+    }
+}
