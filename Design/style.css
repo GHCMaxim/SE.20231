@@ -1,0 +1,9 @@
+.InputStyle{
+    border-radius: 25px;
+    border: solid 1px white;
+    background: transparent;
+    width: 300px;
+    padding: 10px 20px;
+    box-shadow: 0 0 0 2px #5669cc;
+  }
+  

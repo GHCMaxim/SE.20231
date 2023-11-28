@@ -35,7 +35,7 @@
                         <a class="nav-link" href="#" style="color: white;">Quản lý thu phí, đóng góp</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" style="color: white;">Quản lý khen thưởng <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="page1.html" style="color: white;">Quản lý khen thưởng <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
@@ -54,24 +54,40 @@
                 <nav class="sidebar py-2 mb-4">
                     <ul class="nav flex-column" id="nav_accordion">
                         <li class="nav-item">
-                            <a class="nav-link" href="page1.html"> Danh sách khen thưởng </a>
+                            <a class="nav-link" href="page2.html"> Danh sách khen thưởng </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> Lịch sử khen thưởng </a>
+                            <a class="nav-link" href="page3.html"> Lịch sử khen thưởng </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> Tạo mới đợt khen thưởng </a>
+                            <a class="nav-link" href="page4.html"> Tạo mới đợt khen thưởng </a>
                         </li>
                     </ul>
                 </nav>
             </div>
     
             <!-- Content Section (70%) -->
-            <div class="col-md-9">
+            <div class="col-md-9 d-flex justify-content-center align-items-center">
                 <!-- Your content goes here -->
-                <h2>Main Content</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
+                <div class="container">
+                    <form class="form-card" onsubmit="event.preventDefault()">
+                        <div class="row justify-content-center">
+                            <div class="form-group col-sm-6 flex-column d-flex justify-content-center align-items-center">
+                                <label class="form-control-label px-3 text-left" >Mã đợt khen thưởng<span class="text-danger"> *</span></label>
+                                <input class="InputStyle" placeholder="Nhập mã số đợt khen thưởng" type="text">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <button type="submit" class="btn btn-primary" style="background-color: #5669cc; color: white; padding: 10px; border-radius: 30px; text-align: center;">Hiển thị danh sách</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
+            
         </div>
     </div>
     
