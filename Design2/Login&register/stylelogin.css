@@ -1,0 +1,65 @@
+
+        /*  style CSS file */
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            position: relative; /* Add this line */
+        }
+        .logo {
+            display: block; /* Add this line */
+            margin: 20px auto; /* Change this line */
+            text-align: center; /* Add this line */
+        }
+        .logo img {
+            width: 200px; /* Change this line */
+        }
+        .form {
+            position: absolute; /* Add this line */
+            width: 50%;
+            top: 50%; /* Add this line */
+            left: 50%; /* Add this line */
+        }
+        .form input {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .form button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            border: none;
+            background-color: #5669cc;
+            color: white;
+            cursor: pointer;
+        }
+        .form button:hover {
+            opacity: 0.8;
+        }
+        .form a {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            text-align: center;
+            color: #5669cc;
+            text-decoration: none;
+        }
+        .form a:hover {
+            text-decoration: underline;
+        }
+        .image {
+            float: left; /* Add this line */
+            width: 50%;
+            margin-top: 20px; /* Add this line */
+        }
+        .image img {
+            width: 100%;
+            height: auto;
+        }
+        .clear {
+            clear: both;
+        }
+  

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Quản lý thu phí, đóng góp</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #5669cc;">
+        <div class="container">
+            <a class="navbar-brand" href="#" style="padding: 0;">
+                <img src="Images/Logo1.png" width="70" style="width: auto; max-height: 70px;"
+                    class="d-inline-block align-top" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="mr-auto"></div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color: white;">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color: white;">Quản lý hộ khẩu, nhân khẩu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="slide17.html" style="color: white;">Quản lý thu phí, đóng góp</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="page1.html" style="color: white;">Quản lý khen thưởng <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+        <!-- Column 1 (30%) -->
+        <div class="col-md-3" style="background-color: #ffffff; color: #5669cc; padding: 15px; border-radius: 10px;">
+            <!-- Row 1: QUẢN LÝ HỘ KHẨU -->
+            <div class="menu-header"
+                style="background-color: #5669cc; color: white; padding: 10px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; text-align: center;">
+                <h5>QUẢN LÝ HỘ KHẨU</h5>
+            </div>
+
+            <nav class="sidebar py-2 mb-4">
+                <ul class="nav flex-column" id="nav_accordion1">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> Thêm nhân khẩu mới </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> Tạo hộ khẩu mới </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> Tách hộ khẩu </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> Thay đổi chủ hộ </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Row 2: QUẢN LÝ NHÂN KHẨU -->
+            <div class="menu-header"
+                style="background-color: #5669cc; color: white; padding: 10px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; text-align: center;">
+                <h5>QUẢN LÝ NHÂN KHẨU</h5>
+            </div>
+
+            <nav class="sidebar py-2 mb-4">
+                <ul class="nav flex-column" id="nav_accordion2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> Tạm trú, tạm vắng </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> Nhân khẩu chuyển đi </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="slide16.html"> Nhân khẩu qua đời </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Column 2 (70%) -->
+        <div class="col-md-9 ">
+            <!-- Your additional content goes here -->
+            <div class=" d-flex justify-content-center align-items-center">
+                <!-- Your content goes here -->
+                <div class="container ">
+                    <form class="form-card" onsubmit="event.preventDefault()">
+                        <div class="row justify-content-center">
+                            <div class="form-group col-sm-6 flex-column d-flex justify-content-center align-items-center">
+                                <label class="form-control-label px-3 text-left" >Số hộ khẩu<span class="text-danger"> *</span></label>
+                                <!-- Add a wrapper div with position: relative -->
+                                <div style="position: relative;">
+                                <input class="InputStyle" placeholder="Nhập số hộ khẩu" type="text">
+                                <!-- Add a button with position: absolute and right: 0 -->
+                                <button type="submit" style="position: absolute; right: 0;">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col-sm-6 flex-column d-flex justify-content-center align-items-center">
+                                <label class="form-control-label px-3 text-left" >Số CCCD chủ hộ<span class="text-danger"> *</span></label>
+                                <input class="InputStyle" placeholder="Nhập số CCCD " type="text">
+                            </div>
+                        </div>
