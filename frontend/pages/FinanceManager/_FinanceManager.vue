@@ -1,0 +1,57 @@
+<script setup lang="ts">
+import NavigationBar from "../../components/NavigationBar.vue";
+import RightSideContainer from "../../components/RightSideContainer.vue";
+import SideBar from "./SideBar.vue";
+import BillEssentials from "./EntryComponents/BillEssentials.vue";
+import BillByHousehold from "./EntryComponents/BillByHousehold.vue";
+import ContributionInfo from "./EntryComponents/ContributionInfo.vue";
+import ManagementFee from "./EntryComponents/ManagementFee.vue";
+import ParkingFee from "./EntryComponents/ParkingFee.vue";
+import QuarterlyReport from "./EntryComponents/QuarterlyReport.vue";
+import ServiceFee from "./EntryComponents/ServiceFee.vue";
+import UpdateContribution from "./EntryComponents/UpdateContribution.vue";
+import FinanceEntryType from "./entries";
+import { ref } from "vue";
+
+const currentEntryRef = ref(FinanceEntryType.ParkingFee);
+</script>
+
+<template>
+	<div>
+		<NavigationBar />
+		<div class="flex flex-row">
+			<SideBar
+				:current-entry="currentEntryRef"
+				@update:current-entry="currentEntryRef = $event"
+			/>
+			<RightSideContainer>
+				<BillEssentials
+					v-if="currentEntryRef === FinanceEntryType.BillEssentials"
+				/>
+				<BillByHousehold
+					v-if="currentEntryRef === FinanceEntryType.BillByHousehold"
+				/>
+				<ContributionInfo
+					v-if="currentEntryRef === FinanceEntryType.ContributionInfo"
+				/>
+				<ManagementFee
+					v-if="currentEntryRef === FinanceEntryType.ManagementFee"
+				/>
+				<ParkingFee
+					v-if="currentEntryRef === FinanceEntryType.ParkingFee"
+				/>
+				<QuarterlyReport
+					v-if="currentEntryRef === FinanceEntryType.QuarterlyReport"
+				/>
+				<ServiceFee
+					v-if="currentEntryRef === FinanceEntryType.ServiceFee"
+				/>
+				<UpdateContribution
+					v-if="
+						currentEntryRef === FinanceEntryType.UpdateContribution
+					"
+				/>
+			</RightSideContainer>
+		</div>
+	</div>
+</template>
