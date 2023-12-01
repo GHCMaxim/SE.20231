@@ -1,0 +1,1 @@
+<template>RewardHistory</template>
