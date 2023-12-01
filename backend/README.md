@@ -1,4 +1,4 @@
-# hust-software-engineering-server
+# server
 
 a backend for a residential management system, built using FastAPI.
 
