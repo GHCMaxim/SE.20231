@@ -1,0 +1,50 @@
+<script setup lang="ts">
+import ThreeInputFormWrapper from "../../../components/OneColFormWrapper.vue";
+import InputBox from "../../../components/InputBox.vue";
+import { ref } from "vue";
+
+const contribution_id = ref("");
+const contribution_name = ref("");
+const contribution_amount = ref("");
+
+const message = ref("");
+
+function handleUpdateContribution() {
+	message.value = "";
+
+	const fields = [contribution_id, contribution_name, contribution_amount];
+
+	if (!fields.every((field) => field.value)) {
+		message.value = "Vui lòng điền đầy đủ thông tin";
+		return;
+	}
+	// TODO: implement API
+}
+</script>
+
+<template>
+	<ThreeInputFormWrapper>
+		<InputBox
+			title="Mã đợt đóng góp"
+			placeholder="Nhập mã đợt đóng góp"
+			@update="contribution_id = $event.value"
+		/>
+		<InputBox
+			title="Tên đợt đóng góp"
+			placeholder="Nhập tên đợt đóng góp"
+			@update="contribution_name = $event.value"
+		/>
+		<InputBox
+			title="Tổng số tiền thu được"
+			placeholder="Nhập số tiền"
+			@update="contribution_amount = $event.value"
+		/>
+		<button
+			class="btn btn-primary w-full"
+			@click="handleUpdateContribution()"
+		>
+			Cập nhật
+		</button>
+		<div v-if="message">{{ message }}</div>
+	</ThreeInputFormWrapper>
+</template>

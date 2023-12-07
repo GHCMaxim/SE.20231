@@ -1,0 +1,399 @@
+<script setup lang="ts">
+import { reactive, ref } from "vue";
+
+type dataEntry = {
+	itemID: number;
+	rate: string;
+	name: string;
+};
+
+const data = reactive([
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+	{
+		itemID: Math.floor(Math.random() * 100),
+		rate: Math.floor(Math.random() * 100000).toString(),
+		name: "lorem",
+	},
+]);
+
+const dataSplitted = ref<dataEntry[][]>([]);
+const dataPerPage = ref(10);
+const currentPage = ref(1);
+const totalPages = Math.ceil(data.length / dataPerPage.value);
+
+function splitData() {
+	dataSplitted.value = [];
+	let temp: dataEntry[] = [];
+	for (let i = 0; i < data.length; i++) {
+		if (i % dataPerPage.value === 0) {
+			dataSplitted.value.push(temp);
+			temp = [];
+		}
+		temp.push(data[i]);
+	}
+	dataSplitted.value.push(temp);
+}
+
+splitData();
+
+function nextPage() {
+	if (currentPage.value + 1 > totalPages) {
+		return;
+	}
+	currentPage.value++;
+}
+
+function prevPage() {
+	if (currentPage.value - 1 < 1) {
+		return;
+	}
+	currentPage.value--;
+}
+
+function firstPage() {
+	currentPage.value = 1;
+}
+
+function lastPage() {
+	currentPage.value = totalPages;
+}
+
+const currentlyModifying = ref(-1);
+const newRate = ref("");
+const newName = ref("");
+
+function deleteEntry(index: number) {
+	data.splice(index, 1);
+}
+
+function modifyEntry(index: number) {
+	if (index < 0 || index >= data.length) {
+		return;
+	}
+	currentlyModifying.value = index;
+}
+
+function saveModification() {
+	if (
+		currentlyModifying.value < 0 ||
+		currentlyModifying.value >= data.length
+	) {
+		return;
+	}
+
+	if (newRate.value === "" || newName.value === "") {
+		return;
+	}
+	data[currentlyModifying.value].rate = newRate.value;
+	data[currentlyModifying.value].name = newName.value;
+	currentlyModifying.value = -1;
+
+	newRate.value = "";
+	newName.value = "";
+}
+
+function cancelModification() {
+	currentlyModifying.value = -1;
+	newRate.value = "";
+	newName.value = "";
+}
+</script>
+
+<template>
+	<div
+		class="flex h-full flex-col items-center justify-center gap-4 overflow-y-auto"
+	>
+		<table v-if="data.length">
+			<thead class="[&_th]:min-w-[200px] [&_th]:px-4 [&_th]:py-2">
+				<tr>
+					<th>Mã</th>
+					<th>Tên</th>
+					<th>Đơn giá</th>
+					<th>Hành động</th>
+				</tr>
+			</thead>
+			<tbody
+				class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
+			>
+				<tr
+					v-for="(item, index) in dataSplitted[currentPage]"
+					:key="`${item.itemID}-${index}`"
+				>
+					<td>{{ item.itemID }}</td>
+					<td>{{ item.name }}</td>
+					<td>{{ item.rate }}</td>
+					<td class="flex items-center justify-center gap-2">
+						<button
+							class="btn btn-primary btn-sm"
+							@click="modifyEntry(index)"
+						>
+							Chỉnh sửa
+						</button>
+						<button
+							class="btn btn-error btn-sm"
+							@click="deleteEntry(index)"
+						>
+							Xóa
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div v-else class="text-center">
+			<h1 class="text-2xl font-bold">Không có dữ liệu</h1>
+		</div>
+		<div
+			v-show="currentlyModifying !== -1"
+			class="flex flex-row items-center justify-center gap-4"
+		>
+			<input
+				v-model="newName"
+				type="text"
+				placeholder="new name"
+				class="input input-bordered w-full"
+			/>
+			<input
+				v-model="newRate"
+				type="text"
+				placeholder="new rate"
+				class="input input-bordered w-full"
+			/>
+			<button class="btn btn-primary btn-sm" @click="saveModification()">
+				Lưu
+			</button>
+			<button class="btn btn-error btn-sm" @click="cancelModification()">
+				Hủy
+			</button>
+		</div>
+
+		<div class="flex flex-row items-center justify-center gap-4">
+			<button
+				class="btn btn-primary btn-sm"
+				:disabled="currentPage === 1"
+				@click="firstPage()"
+			>
+				Trang đầu
+			</button>
+			<button
+				class="btn btn-primary btn-sm"
+				:disabled="currentPage === 1"
+				@click="prevPage()"
+			>
+				Trang trước
+			</button>
+			<button
+				class="btn btn-primary btn-sm"
+				:disabled="currentPage === totalPages"
+				@click="nextPage()"
+			>
+				Trang sau
+			</button>
+			<button
+				class="btn btn-primary btn-sm"
+				:disabled="currentPage === totalPages"
+				@click="lastPage()"
+			>
+				Trang cuối
+			</button>
+		</div>
+	</div>
+</template>

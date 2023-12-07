@@ -32,7 +32,7 @@ const entriesBottom = [
 		<ul class="mx-1 flex flex-col items-start justify-center font-medium">
 			<li v-for="entry in entriesTop" :key="entry" class="text-primary">
 				<button
-					class="max-w-[290px] whitespace-nowrap bg-transparent py-1 outline-none hover:border-transparent"
+					class="max-w-[290px] whitespace-nowrap bg-transparent py-1 hover:border-transparent"
 					:class="currentEntry === entry ? 'font-bold' : ''"
 					@click="$emit('update:currentEntry', entry)"
 				>
@@ -48,7 +48,7 @@ const entriesBottom = [
 				class="text-primary"
 			>
 				<button
-					class="bg-transparent py-1 pr-0 outline-none hover:border-transparent"
+					class="bg-transparent py-1 pr-0 hover:border-transparent"
 					:class="currentEntry === entry ? 'font-bold' : ''"
 					@click="$emit('update:currentEntry', entry)"
 				>

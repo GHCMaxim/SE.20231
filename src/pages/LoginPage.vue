@@ -1,3 +1,9 @@
+<script setup lang="ts">
+function forgot_password() {
+	alert("Liên hệ admin để lấy lại mật khẩu");
+}
+</script>
+
 <template>
 	<div class="grid h-screen w-full grid-cols-[1fr_600px]">
 		<img
@@ -30,10 +36,14 @@
 				/>
 			</div>
 
-			<!-- TODO: thay route -->
-			<router-link to="/" class="w-80 text-end">
-				Quên mật khẩu?
-			</router-link>
+			<div class="flex w-80 justify-end">
+				<button
+					class="m-0 w-fit border-none bg-transparent p-0 text-end active:outline-none"
+					@click="forgot_password()"
+				>
+					Quên mật khẩu?
+				</button>
+			</div>
 
 			<!-- TODO: login handler -->
 			<router-link to="/">

@@ -28,12 +28,11 @@ const entriesBottom = [
 <template>
 	<div>
 		<SidebarEntry title="quản lý thu phí" />
-		<ul
-			class="mx-1 flex flex-col items-start justify-center font-medium [&_button]:bg-transparent [&_button]:py-1 [&_button]:outline-none [&_button]:hover:border-transparent [&_li]:text-primary"
-		>
-			<li v-for="entry in entriesTop" :key="entry">
+		<ul class="mx-1 flex flex-col items-start justify-center font-medium">
+			<li v-for="entry in entriesTop" :key="entry" class="text-primary">
 				<button
 					:class="currentEntry === entry ? 'font-bold' : ''"
+					class="bg-transparent py-1 hover:border-transparent"
 					@click="$emit('update:currentEntry', entry)"
 				>
 					{{ entry }}
@@ -41,12 +40,15 @@ const entriesBottom = [
 			</li>
 		</ul>
 		<SidebarEntry title="quản lý đóng góp" />
-		<ul
-			class="mx-1 flex flex-col items-start justify-center font-medium [&_button]:bg-transparent [&_button]:py-1 [&_button]:outline-none [&_button]:hover:border-transparent [&_li]:text-primary"
-		>
-			<li v-for="entry in entriesBottom" :key="entry">
+		<ul class="mx-1 flex flex-col items-start justify-center font-medium">
+			<li
+				v-for="entry in entriesBottom"
+				:key="entry"
+				class="text-primary"
+			>
 				<button
 					:class="currentEntry === entry ? 'font-bold' : ''"
+					class="bg-transparent py-1 outline-none hover:border-transparent"
 					@click="$emit('update:currentEntry', entry)"
 				>
 					{{ entry }}
