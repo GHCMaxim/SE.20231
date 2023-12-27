@@ -23,7 +23,7 @@ watchdog = "^3.0.0"
 poethepoet = "^0.24.4"
 
 [tool.poe.tasks.dev]
-cmd = "poetry run uvicorn hust_software_engineering_server:app --reload"
+cmd = "poetry run uvicorn SE_Backend:app --reload"
 
 [tool.poe.tasks.format]
 cmd = "poetry run ruff format ."
