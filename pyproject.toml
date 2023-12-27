@@ -31,3 +31,6 @@ cmd = "poetry run ruff format ."
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks.init-db]
+cmd = "poetry run python SE_Backend/routes/initiate.py"
