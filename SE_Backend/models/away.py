@@ -17,5 +17,6 @@ class Away(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     household_id: Mapped[str] = mapped_column(ForeignKey("household_registrations.id"))
+    cccd: Mapped[str] = mapped_column(ForeignKey("person.cccd"))
     away_type_id: Mapped[int] = mapped_column(ForeignKey("away_types.id"))
     description: Mapped[str] = mapped_column(String, nullable=False)
