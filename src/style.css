@@ -15,11 +15,13 @@
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+
+	--main-color: #5669cc;
 }
 
 a {
 	font-weight: 500;
-	color: #5669cc;
+	color: var(--main-color);
 	text-decoration: inherit;
 }
 
@@ -53,7 +55,7 @@ button {
 	transition: border-color 0.25s;
 }
 button:hover {
-	border-color: #5669cc;
+	border-color: var(--main-color);
 }
 button:focus,
 button:focus-visible {
