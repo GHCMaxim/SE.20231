@@ -22,6 +22,7 @@ def get_aways_by_type(db: Session, away_type_id: int):
 def create_away(db: Session, away: schemas.away.AwayCreate):
     db_away = models.Away(
         household_id=away.household_id,
+        cccd = away.cccd,
         away_type_id=away.away_type_id,
         description=away.description,
     )
