@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import FinanceManager from "./pages/FinanceManager/_FinanceManager.vue";
-import Home from "./pages/HomePage.vue";
+import Home from "./pages/HomePage/_HomePage.vue";
 import HouseManager from "./pages/HouseManager/_HouseManager.vue";
 import Login from "./pages/LoginPage.vue";
 import Register from "./pages/RegisterPage.vue";
