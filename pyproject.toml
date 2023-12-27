@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "SE_Backend"
+version = "0.1.0"
+description = ""
+authors = ["GHCMaxim <maxim080503@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+sqlalchemy = "^2.0.23"
+fastapi = "^0.104.1"
+uvicorn = { extras = ["standard"], version = "^0.24.0.post1" }
+argon2-cffi = "^23.1.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+cryptography = "^41.0.7"
+passlib = {extras = ["argon2"], version = "^1.7.4"}
+python-multipart = "^0.0.6"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.6"
+watchdog = "^3.0.0"
+poethepoet = "^0.24.4"
+
+[tool.poe.tasks.dev]
+cmd = "poetry run uvicorn hust_software_engineering_server:app --reload"
+
+[tool.poe.tasks.format]
+cmd = "poetry run ruff format ."
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
