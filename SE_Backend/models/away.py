@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
+
 from ..database import Base
 
 
@@ -9,7 +10,7 @@ class AwayType(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=False)
-    status: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    active: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
 
 class Away(Base):
