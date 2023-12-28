@@ -75,6 +75,6 @@ def count_rewards(db: Session):
     # Returns the number of rewards in the current year
     return (
         db.query(models.Reward)
-        .filter((extract("year"), models.Reward.date) == datetime.today().year)
+        .filter(extract("year", models.Reward.date) == datetime.today().year)
         .count()
     )
