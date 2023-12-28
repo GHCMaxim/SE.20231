@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import get_db
 
+from . import get_db
 from .. import schemas, database
 
 rewards = APIRouter(tags=["rewards"])
@@ -40,21 +40,27 @@ def get_reward_type(id: int, db: Session = Depends(get_db)):
     return db_reward_type
 
 
-@rewards.post("/api/rewards", response_model=schemas.reward.RewardType)
+@rewards.post("/api/rewards_types", response_model=schemas.reward.RewardType)
 def post_reward_type(
     reward_type: schemas.reward.RewardTypeCreate, db: Session = Depends(get_db)
 ):
     return database.reward.create_reward_type(db, reward_type=reward_type)
 
+
 @rewards.put("/api/rewards/{id}", response_model=schemas.reward.Reward)
-def put_reward(id: int, reward: schemas.reward.RewardModify, db: Session = Depends(get_db)):
+def put_reward(
+    id: int, reward: schemas.reward.RewardModify, db: Session = Depends(get_db)
+):
     db_reward = database.reward.get_reward(db, id=id)
     if db_reward is None:
         raise HTTPException(status_code=404, detail="reward not found.")
     return database.reward.update_reward(db, reward=reward)
 
+
 @rewards.put("/api/reward_types/{id}", response_model=schemas.reward.RewardType)
-def put_reward_type(id: int, reward_type: schemas.reward.RewardTypeModify, db: Session = Depends(get_db)):
+def put_reward_type(
+    id: int, reward_type: schemas.reward.RewardTypeModify, db: Session = Depends(get_db)
+):
     db_reward_type = database.reward.get_reward_type(db, id=id)
     if db_reward_type is None:
         raise HTTPException(status_code=404, detail="reward type not found.")
