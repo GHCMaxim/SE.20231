@@ -6,7 +6,7 @@ class RelationshipBase(BaseModel):
     relationship: str
     birth_id: int
     alive: bool
-    death_paper_id: int
+    death_paper_id: int | None
     household_id: str
 
 
