@@ -76,3 +76,51 @@ def count_income(db: Session):
     )
 
     return [last_month, last_last_month]
+
+
+def calculate_total_income(db: Session):
+    db_incomes = (
+        db.query(models.Income)
+        .filter(
+            (models.Income.income_time >= datetime.today().replace(day=1))
+            & (
+                models.Income.income_time
+                <= (
+                    (datetime.today() + relativedelta(months=+1)).replace(day=1)
+                    + relativedelta(days=-1)
+                )
+            )
+        )
+        .all()
+    )
+    db_spendings = (
+        db.query(models.Spending)
+        .filter(
+            (models.Spending.date >= datetime.today().replace(day=1))
+            & (
+                models.Spending.date
+                <= (
+                    (datetime.today() + relativedelta(months=+1)).replace(day=1)
+                    + relativedelta(days=-1)
+                )
+            )
+        )
+        .all()
+    )
+
+    total_income = 0
+
+    for income in db_incomes:
+        total_income += income.total
+
+    for spending in db_spendings:
+        total_income -= spending.total
+
+    db_total_income = schemas.income.TotalIncomeCreate(
+        total=total_income,
+        calc_date=datetime.today(),
+    )
+
+    create_total_income(db, db_total_income)
+
+    return db_total_income
