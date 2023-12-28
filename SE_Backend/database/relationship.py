@@ -29,7 +29,14 @@ def create_relationship(
 
     return db_relationship
 
-def put_relationship(cccd: int, relationship: schemas.relationship.RelationshipModify, db: Session):
-    db.query(models.Relationship).filter(models.Relationship.cccd == cccd).update(relationship.dict())
+
+def put_relationship(
+    cccd: int, relationship: schemas.relationship.RelationshipModify, db: Session
+):
+    db.query(models.Relationship).filter(models.Relationship.cccd == cccd).update(
+        relationship.dict()
+    )
     db.commit()
-    return db.query(models.Relationship).filter(models.Relationship.cccd == cccd).first()
+    return (
+        db.query(models.Relationship).filter(models.Relationship.cccd == cccd).first()
+    )

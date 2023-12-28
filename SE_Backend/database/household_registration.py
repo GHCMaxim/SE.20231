@@ -31,10 +31,20 @@ def create_household_registration(
 
     return db_household
 
+
 def count_households(db: Session):
     return db.query(models.HouseholdRegistration).count()
 
-def modify_household_registrations(db: Session, household: schemas.household_registration.HouseholdRegistrationModify):
-    db.query(models.HouseholdRegistration).filter(models.HouseholdRegistration.id == household.id).update(household.dict())
+
+def modify_household_registrations(
+    db: Session, household: schemas.household_registration.HouseholdRegistrationModify
+):
+    db.query(models.HouseholdRegistration).filter(
+        models.HouseholdRegistration.id == household.id
+    ).update(household.model_dump())
     db.commit()
-    return db.query(models.HouseholdRegistration).filter(models.HouseholdRegistration.id == household.id).first()
+    return (
+        db.query(models.HouseholdRegistration)
+        .filter(models.HouseholdRegistration.id == household.id)
+        .first()
+    )

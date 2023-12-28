@@ -28,8 +28,10 @@ class AwayModify(AwayBase):
     id: int
     household_id: str
     away_type_id: int
+
     class Config:
         from_attributes = True
+
 
 class AwayType(AwayBase):
     id: int

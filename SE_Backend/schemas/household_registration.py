@@ -19,6 +19,7 @@ class HouseholdRegistration(HouseholdRegistrationBase):
     class Config:
         from_attributes = True
 
+
 class HouseholdRegistrationModify(HouseholdRegistrationBase):
     pass
 

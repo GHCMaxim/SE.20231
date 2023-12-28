@@ -28,8 +28,11 @@ def post_person(person: schemas.person.PersonCreate, db: Session = Depends(get_d
         raise HTTPException(status_code=400, detail="person already registered.")
     return database.person.create_person(db, person=person)
 
+
 @people.put("/api/people/{cccd}", response_model=schemas.person.Person)
-def put_person(cccd: str, person: schemas.person.PersonModify, db: Session = Depends(get_db)):
+def put_person(
+    cccd: str, person: schemas.person.PersonModify, db: Session = Depends(get_db)
+):
     db_user = database.person.get_person(db, cccd=person.cccd)
     if not db_user:
         raise HTTPException(status_code=404, detail="person not found.")

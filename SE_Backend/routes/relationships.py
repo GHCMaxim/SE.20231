@@ -33,9 +33,14 @@ def post_relationship(
 ):
     return database.relationship.create_relationship(db, relationship=relationship)
 
-@relationships.put("/api/relationships/{cccd}", response_model=schemas.relationship.RelationshipModify)
+
+@relationships.put(
+    "/api/relationships/{cccd}", response_model=schemas.relationship.RelationshipModify
+)
 def update_relationship(
-    cccd: int, relationship: schemas.relationship.RelationshipModify, db: Session = Depends(get_db)
+    cccd: int,
+    relationship: schemas.relationship.RelationshipModify,
+    db: Session = Depends(get_db),
 ):
     db_relationship = database.relationship.get_relationship(db, id=cccd)
     if db_relationship is None:

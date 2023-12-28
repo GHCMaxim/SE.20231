@@ -34,15 +34,19 @@ def create_person(db: Session, person: schemas.person.PersonCreate):
 
     return db_person
 
+
 def update_person(db: Session, person: schemas.person.PersonModify):
-    db.query(models.Person).filter(models.Person.cccd == person.cccd).update(person.dict())
+    db.query(models.Person).filter(models.Person.cccd == person.cccd).update(
+        person.dict()
+    )
     db.commit()
-    
+
     return db.query(models.Person).filter(models.Person.cccd == person.cccd).first()
 
 
 def count_people(db: Session):
     return db.query(models.Person).count()
+
 
 def count_age(db: Session):
     # Count by age list: 0-10. 11-18, 19-30, 31-50, 51-70, 71+
@@ -50,13 +54,25 @@ def count_age(db: Session):
     num = []
     for i in range:
         if range[-1] == i:
-            num.append(db.query(models.Person).filter(models.Person.dob.year < datetime.now().year - i).count())
+            num.append(
+                db.query(models.Person)
+                .filter(models.Person.dob.year < datetime.now().year - i)
+                .count()
+            )
         else:
-            num.append(db.query(models.Person).filter(models.Person.dob.year < datetime.now().year - i, models.Person.dob.year > datetime.now().year - i+1).count())
+            num.append(
+                db.query(models.Person)
+                .filter(
+                    models.Person.dob.year < datetime.now().year - i,
+                    models.Person.dob.year > datetime.now().year - i + 1,
+                )
+                .count()
+            )
     return num
 
+
 def count_gender(db: Session):
-    range = ["M","F"]
+    range = ["M", "F"]
     num = []
     for i in range:
         num.append(db.query(models.Person).folter(models.Person.sex == i).count())

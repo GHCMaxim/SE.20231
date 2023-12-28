@@ -34,4 +34,3 @@ def get_age(db: Session = Depends(get_db)):
 @statistics.get("/api/statistics/gender", response_model=list[int])
 def get_gender(db: Session = Depends(get_db)):
     return database.person.count_gender(db)
-

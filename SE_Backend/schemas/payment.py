@@ -41,6 +41,7 @@ class PaymentType(PaymentBase):
     class Config:
         from_attributes = True
 
+
 class PaymentTypeModify(PaymentBase):
     id: int
     rate: int
@@ -48,6 +49,7 @@ class PaymentTypeModify(PaymentBase):
 
     class Config:
         from_attributes = True
+
 
 class PaymentModify(PaymentBase):
     id: int

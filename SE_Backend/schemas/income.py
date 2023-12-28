@@ -35,6 +35,7 @@ class TotalIncome(IncomeBase):
     class Config:
         from_attributes = True
 
+
 class IncomeUpdate(IncomeBase):
     id: int
     total: int
@@ -43,4 +44,3 @@ class IncomeUpdate(IncomeBase):
 
     class Config:
         from_attributes = True
-

@@ -46,13 +46,29 @@ def create_total_income(db: Session, total_income: schemas.income.TotalIncomeCre
 
     return db_total_income
 
+
 def update_income(db: Session, income: schemas.income.IncomeUpdate):
     db.query(models.Income).filter(models.Income.id == income.id).update(income.dict())
     db.commit()
-    
+
     return db.query(models.Income).filter(models.Income.id == income.id).first()
+
 
 def count_income(db: Session):
     # Returns the total amount of Income last month, in millions, and percentage increase/decrease since the month before
-    return list(db.query(models.TotalIncome).filter(models.TotalIncome.calc_date.month == datetime.now() - datetime.timedelta(months=1))/1000000,
-                db.query(models.TotalIncome).filter(models.TotalIncome.calc_date.month == datetime.now() - datetime.timedelta(months=1))/db.query(models.TotalIncome).filter(models.TotalIncome.calc_date.month == datetime.now() - datetime.timedelta(months=2))-1)
+    return list(
+        db.query(models.TotalIncome).filter(
+            models.TotalIncome.calc_date.month
+            == datetime.now() - datetime.timedelta(months=1)
+        )
+        / 1000000,
+        db.query(models.TotalIncome).filter(
+            models.TotalIncome.calc_date.month
+            == datetime.now() - datetime.timedelta(months=1)
+        )
+        / db.query(models.TotalIncome).filter(
+            models.TotalIncome.calc_date.month
+            == datetime.now() - datetime.timedelta(months=2)
+        )
+        - 1,
+    )
