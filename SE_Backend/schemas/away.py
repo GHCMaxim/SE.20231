@@ -21,7 +21,7 @@ class Away(AwayBase):
 
 class AwayTypeCreate(AwayBase):
     name: str
-    active: bool
+    status: bool
 
 
 class AwayModify(AwayBase):
@@ -36,7 +36,7 @@ class AwayModify(AwayBase):
 class AwayType(AwayBase):
     id: int
     name: str
-    active: bool
+    status: bool
 
     class Config:
         from_attributes = True
