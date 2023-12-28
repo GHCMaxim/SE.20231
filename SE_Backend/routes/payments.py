@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import get_db
 
+from . import get_db
 from .. import schemas, database
 
 payments = APIRouter(tags=["payments"])
@@ -9,8 +9,8 @@ payments = APIRouter(tags=["payments"])
 
 @payments.get("/api/payments", response_model=list[schemas.payment.Payment])
 def get_payments(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    payments = database.payment.get_payments(db, skip=skip, limit=limit)
-    return payments
+    db_payments = database.payment.get_payments(db, skip=skip, limit=limit)
+    return db_payments
 
 
 @payments.get("/api/payments/{id}", response_model=schemas.payment.Payment)
@@ -56,15 +56,23 @@ def post_payment_type(
 ):
     return database.payment.create_payment_type(db, payment_type=payment_type)
 
+
 @payments.put("/api/payments/{id}", response_model=schemas.payment.Payment)
-def put_payment(id: int, payment: schemas.payment.PaymentModify, db: Session = Depends(get_db)):
+def put_payment(
+    id: int, payment: schemas.payment.PaymentModify, db: Session = Depends(get_db)
+):
     db_payment = database.payment.get_payment(db, id=id)
     if db_payment is None:
         raise HTTPException(status_code=404, detail="payment not found.")
     return database.payment.update_payment(db, payment=payment)
 
+
 @payments.put("/api/payment_types/{id}", response_model=schemas.payment.PaymentType)
-def put_payment_type(id: int, payment_type: schemas.payment.PaymentTypeModify, db: Session = Depends(get_db)):
+def put_payment_type(
+    id: int,
+    payment_type: schemas.payment.PaymentTypeModify,
+    db: Session = Depends(get_db),
+):
     db_payment_type = database.payment.get_payment_type(db, id=id)
     if db_payment_type is None:
         raise HTTPException(status_code=404, detail="payment type not found.")
