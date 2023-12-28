@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import get_db
 
+from . import get_db
 from .. import schemas, database
 
 household_registrations = APIRouter(tags=["household_registrations"])
@@ -9,24 +9,24 @@ household_registrations = APIRouter(tags=["household_registrations"])
 
 @household_registrations.get(
     "/api/household_registrations",
-    response_model=schemas.household_registration.HouseholdRegistration,
+    response_model=list[schemas.household_registration.HouseholdRegistration],
 )
-def get_household_registration(
+def get_household_registrations(
     skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 ):
-    household_registrations = (
+    db_household_registrations = (
         database.household_registration.get_household_registrations(
             db, skip=skip, limit=limit
         )
     )
-    return household_registrations
+    return db_household_registrations
 
 
 @household_registrations.get(
     "/api/household_registrations/{id}",
-    response_model=list[schemas.household_registration.HouseholdRegistration],
+    response_model=schemas.household_registration.HouseholdRegistration,
 )
-def get_household_registrations(id: str, db: Session = Depends(get_db)):
+def get_household_registration(id: str, db: Session = Depends(get_db)):
     db_household_registration = (
         database.household_registration.get_household_registration(db, id=id)
     )

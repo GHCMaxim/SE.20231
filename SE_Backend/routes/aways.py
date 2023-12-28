@@ -21,13 +21,15 @@ def get_away(id: int, db: Session = Depends(get_db)):
     return db_away
 
 
-@aways.get("/api/aways/by_household/{household_id}", response_model=schemas.away.Away)
+@aways.get(
+    "/api/aways/by_household/{household_id}", response_model=list[schemas.away.Away]
+)
 def get_aways_by_household(household_id: str, db: Session = Depends(get_db)):
     db_aways = database.away.get_aways_by_household(db, household_id=household_id)
     return db_aways
 
 
-@aways.get("/api/aways/by_type/{away_type_id}", response_model=schemas.away.Away)
+@aways.get("/api/aways/by_type/{away_type_id}", response_model=list[schemas.away.Away])
 def get_aways_by_type(away_type_id: int, db: Session = Depends(get_db)):
     db_aways = database.away.get_aways_by_type(db, away_type_id=away_type_id)
     return db_aways
