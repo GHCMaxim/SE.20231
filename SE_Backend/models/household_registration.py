@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import DateTime, String
+from sqlalchemy import DateTime, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from ..database import Base
 
@@ -11,3 +11,4 @@ class HouseholdRegistration(Base):
     name: Mapped[str] = mapped_column(String, nullable=False)
     location: Mapped[str] = mapped_column(String, nullable=False)
     creation_date: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
+    owner: Mapped[str] = mapped_column(ForeignKey("people.cccd"))

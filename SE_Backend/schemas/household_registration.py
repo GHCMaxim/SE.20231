@@ -6,6 +6,7 @@ class HouseholdRegistrationBase(BaseModel):
     name: str
     location: str
     creation_date: str
+    owner: str
 
 
 class HouseholdRegistrationCreate(HouseholdRegistrationBase):
