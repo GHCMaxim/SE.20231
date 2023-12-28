@@ -3,8 +3,10 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 
 
-def get_relationship(db: Session, id: int):
-    return db.query(models.Relationship).filter(models.Relationship.id == id).first()
+def get_relationship(db: Session, cccd: str):
+    return (
+        db.query(models.Relationship).filter(models.Relationship.cccd == cccd).first()
+    )
 
 
 def get_relationships(db: Session, skip: int = 0, limit: int = 100):

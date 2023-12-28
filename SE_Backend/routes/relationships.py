@@ -18,10 +18,10 @@ def get_relationships(skip: int = 0, limit: int = 100, db: Session = Depends(get
 
 
 @relationships.get(
-    "/api/relationships/{id}", response_model=schemas.relationship.Relationship
+    "/api/relationships/{cccd}", response_model=schemas.relationship.Relationship
 )
-def get_relationship(id: int, db: Session = Depends(get_db)):
-    db_relationship = database.relationship.get_relationship(db, id=id)
+def get_relationship(cccd: str, db: Session = Depends(get_db)):
+    db_relationship = database.relationship.get_relationship(db, cccd=cccd)
     if db_relationship is None:
         raise HTTPException(status_code=404, detail="relationship not found.")
     return db_relationship
