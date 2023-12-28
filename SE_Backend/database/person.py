@@ -1,5 +1,6 @@
 import uuid
-import datetime
+from datetime import datetime
+
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
@@ -50,10 +51,10 @@ def count_people(db: Session):
 
 def count_age(db: Session):
     # Count by age list: 0-10. 11-18, 19-30, 31-50, 51-70, 71+
-    range = [0, 11, 19, 31, 51, 71]
+    age_range = [0, 11, 19, 31, 51, 71]
     num = []
-    for i in range:
-        if range[-1] == i:
+    for i in age_range:
+        if age_range[-1] == i:
             num.append(
                 db.query(models.Person)
                 .filter(models.Person.dob.year < datetime.now().year - i)
@@ -72,8 +73,9 @@ def count_age(db: Session):
 
 
 def count_gender(db: Session):
-    range = ["M", "F"]
-    num = []
-    for i in range:
-        num.append(db.query(models.Person).folter(models.Person.sex == i).count())
+    num = [
+        db.query(models.Person)
+        .filter((models.Person.sex == "M") | (models.Person.sex == "F"))
+        .count()
+    ]
     return num
