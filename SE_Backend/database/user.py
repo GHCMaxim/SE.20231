@@ -1,4 +1,5 @@
 import uuid
+
 from argon2 import PasswordHasher
 from sqlalchemy.orm import Session
 
@@ -20,7 +21,9 @@ def get_user_by_username(db: Session, username: str):
 def create_user(db: Session, user: schemas.user.UserCreate):
     ph = PasswordHasher()
     hashed_password = ph.hash(user.password)
+    id = uuid.uuid4()
     db_user = models.User(
+        id=id,
         address=user.address,
         name=user.name,
         sex=user.sex,
