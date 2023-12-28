@@ -1,5 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
+from dateutil.relativedelta import relativedelta
 from sqlalchemy import extract
 from sqlalchemy.orm import Session
 
@@ -61,10 +62,10 @@ def count_income(db: Session):
     return [
         db.query(models.TotalIncome).filter(
             extract("month", models.TotalIncome.calc_date)
-            == datetime.now() - timedelta(months=1)
+            == datetime.today() + relativedelta(months=-1)
         ),
         db.query(models.TotalIncome).filter(
             extract("month", models.TotalIncome.calc_date)
-            == datetime.now() - timedelta(months=2)
+            == datetime.today() + relativedelta(months=-2)
         ),
     ]

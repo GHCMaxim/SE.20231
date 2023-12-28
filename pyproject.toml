@@ -15,6 +15,7 @@ python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 cryptography = "^41.0.7"
 passlib = {extras = ["argon2"], version = "^1.7.4"}
 python-multipart = "^0.0.6"
+python-dateutil = "^2.8.2"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -31,6 +32,7 @@ cmd = "poetry run ruff format ."
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
 
 [tool.poe.tasks.init-db]
 cmd = "poetry run python SE_Backend/routes/initiate.py"
