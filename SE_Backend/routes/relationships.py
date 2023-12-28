@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import get_db
 
+from . import get_db
 from .. import schemas, database
 
 relationships = APIRouter(tags=["relationships"])
@@ -11,8 +11,10 @@ relationships = APIRouter(tags=["relationships"])
     "/api/relationships", response_model=list[schemas.relationship.Relationship]
 )
 def get_relationships(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    relationships = database.relationship.get_relationships(db, skip=skip, limit=limit)
-    return relationships
+    db_relationships = database.relationship.get_relationships(
+        db, skip=skip, limit=limit
+    )
+    return db_relationships
 
 
 @relationships.get(
