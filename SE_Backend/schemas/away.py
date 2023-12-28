@@ -21,7 +21,7 @@ class Away(AwayBase):
 
 class AwayTypeCreate(AwayBase):
     name: str
-    active: bool
+    status: bool
 
 
 class AwayModify(AwayBase):
