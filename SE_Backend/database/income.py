@@ -28,6 +28,27 @@ def create_income(db: Session, income: schemas.income.IncomeCreate):
     return db_income
 
 
+def get_total_income(db: Session, id: int):
+    return db.query(models.TotalIncome).filter(models.TotalIncome.id == id).first()
+
+
+def get_total_incomes(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.TotalIncome).offset(skip).limit(limit).all()
+
+
+def create_total_income(db: Session, total_income: schemas.income.TotalIncomeCreate):
+    db_total_income = models.income.Income(
+        total=total_income.total,
+        calc_date=total_income.calc_date,
+    )
+
+    db.add(db_total_income)
+    db.commit()
+    db.refresh(db_total_income)
+
+    return db_total_income
+
+
 def update_income(db: Session, id: int, income: schemas.income.IncomeUpdate):
     db.query(models.Income).filter(models.Income.id == id).update(income.model_dump())
     db.commit()
