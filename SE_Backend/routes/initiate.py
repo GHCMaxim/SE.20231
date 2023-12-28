@@ -1,12 +1,16 @@
 import uuid
 from datetime import datetime
 
+from passlib.context import CryptContext
+
 from SE_Backend import models
 from SE_Backend.database import SessionLocal
 
 db = SessionLocal()
 
 person_id = uuid.uuid4()
+
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 user = models.User(
     id=person_id,
@@ -16,7 +20,7 @@ user = models.User(
     cccd="123456789012",
     job="Sinh vien",
     username="username",
-    password="password",
+    password=pwd_context.hash("password"),
     permissions=1,
 )
 
