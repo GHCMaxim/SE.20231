@@ -1,4 +1,5 @@
 import datetime
+
 from pydantic import BaseModel
 
 
@@ -6,6 +7,7 @@ class SpendingBase(BaseModel):
     description: str
     total: int
     date: datetime.date
+    household_id: str
     total_id: int
 
 
