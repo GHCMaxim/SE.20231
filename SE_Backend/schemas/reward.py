@@ -35,3 +35,18 @@ class RewardType(RewardTypeBase):
 
     class Config:
         from_attributes = True
+
+class RewardTypeModify(RewardTypeBase):
+    id: int
+    name: str
+    description: str
+    active: bool
+
+    class Config:
+        from_attributes = True
+
+class RewardModify(RewardBase):
+    id: int
+
+    class Config:
+        from_attributes = True

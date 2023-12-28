@@ -19,3 +19,9 @@ class Relationship(RelationshipBase):
 
     class Config:
         from_attributes = True
+
+class RelationshipModify(RelationshipBase):
+    pass
+
+    class Config:
+        from_attributes = True

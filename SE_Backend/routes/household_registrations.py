@@ -51,3 +51,10 @@ def post_household(
     return database.household_registration.create_household_registration(
         db, household=household
     )
+
+@household_registrations.put("/api/household_registrations/{id}", response_model=schemas.household_registration.HouseholdRegistration)
+def put_household(id: str, household: schemas.household_registration.HouseholdRegistrationModify, db: Session = Depends(get_db)):
+    db_household = database.household_registration.get_household_registration(db, id=id)
+    if db_household is None:
+        raise HTTPException(status_code=404, detail="household not found.")
+    return database.household_registration.update_household_registration(db, household=household)

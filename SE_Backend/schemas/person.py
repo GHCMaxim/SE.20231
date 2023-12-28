@@ -24,3 +24,6 @@ class Person(PersonBase):
 
     class Config:
         from_attributes = True
+
+class PersonModify(PersonBase):
+    pass

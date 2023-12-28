@@ -34,6 +34,13 @@ def create_person(db: Session, person: schemas.person.PersonCreate):
 
     return db_person
 
+def update_person(db: Session, person: schemas.person.PersonModify):
+    db.query(models.Person).filter(models.Person.cccd == person.cccd).update(person.dict())
+    db.commit()
+    
+    return db.query(models.Person).filter(models.Person.cccd == person.cccd).first()
+
+
 def count_people(db: Session):
     return db.query(models.Person).count()
 

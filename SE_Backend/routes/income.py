@@ -45,3 +45,10 @@ def post_total_income(
     total_income: schemas.income.TotalIncomeCreate, db: Session = Depends(get_db)
 ):
     return database.income.create_total_income(db, total_income=total_income)
+
+@incomes.put("/api/total_income/{id}", response_model=schemas.income.TotalIncome)
+def put_income(id: int, total_income: schemas.income.IncomeUpdate, db: Session = Depends(get_db)):
+    db_total_income = database.income.get_total_income(db, id=id)
+    if db_total_income is None:
+        raise HTTPException(status_code=404, detail="total_income not found.")
+    return database.income.update_total_income(db, total_income=total_income)

@@ -55,3 +55,17 @@ def post_payment_type(
     payment_type: schemas.payment.PaymentTypeCreate, db: Session = Depends(get_db)
 ):
     return database.payment.create_payment_type(db, payment_type=payment_type)
+
+@payments.put("/api/payments/{id}", response_model=schemas.payment.Payment)
+def put_payment(id: int, payment: schemas.payment.PaymentModify, db: Session = Depends(get_db)):
+    db_payment = database.payment.get_payment(db, id=id)
+    if db_payment is None:
+        raise HTTPException(status_code=404, detail="payment not found.")
+    return database.payment.update_payment(db, payment=payment)
+
+@payments.put("/api/payment_types/{id}", response_model=schemas.payment.PaymentType)
+def put_payment_type(id: int, payment_type: schemas.payment.PaymentTypeModify, db: Session = Depends(get_db)):
+    db_payment_type = database.payment.get_payment_type(db, id=id)
+    if db_payment_type is None:
+        raise HTTPException(status_code=404, detail="payment type not found.")
+    return database.payment.update_payment_type(db, payment_type=payment_type)

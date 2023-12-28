@@ -34,3 +34,13 @@ class TotalIncome(IncomeBase):
 
     class Config:
         from_attributes = True
+
+class IncomeUpdate(IncomeBase):
+    id: int
+    total: int
+    income_time: datetime.datetime
+    total_income_id: int
+
+    class Config:
+        from_attributes = True
+
