@@ -22,7 +22,8 @@ def get_payment(id: int, db: Session = Depends(get_db)):
 
 
 @payments.get(
-    "/api/payments/by_household/{household_id}", response_model=schemas.payment.Payment
+    "/api/payments/by_household/{household_id}",
+    response_model=list[schemas.payment.Payment],
 )
 def get_payment_by_household(household_id: str, db: Session = Depends(get_db)):
     db_payments = database.payment.get_payments_by_household(
