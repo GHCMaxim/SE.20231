@@ -1,3 +1,5 @@
+import datetime
+
 from pydantic import BaseModel
 
 
@@ -5,7 +7,7 @@ class HouseholdRegistrationBase(BaseModel):
     id: str
     name: str
     location: str
-    creation_date: str
+    creation_date: datetime.datetime
     owner: str
 
 
