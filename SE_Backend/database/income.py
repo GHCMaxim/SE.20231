@@ -1,4 +1,6 @@
-import datetime
+from datetime import datetime, timedelta
+
+from sqlalchemy import extract
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
@@ -56,19 +58,13 @@ def update_income(db: Session, income: schemas.income.IncomeUpdate):
 
 def count_income(db: Session):
     # Returns the total amount of Income last month, in millions, and percentage increase/decrease since the month before
-    return list(
+    return [
         db.query(models.TotalIncome).filter(
-            models.TotalIncome.calc_date.month
-            == datetime.now() - datetime.timedelta(months=1)
-        )
-        / 1000000,
+            extract("month", models.TotalIncome.calc_date)
+            == datetime.now() - timedelta(months=1)
+        ),
         db.query(models.TotalIncome).filter(
-            models.TotalIncome.calc_date.month
-            == datetime.now() - datetime.timedelta(months=1)
-        )
-        / db.query(models.TotalIncome).filter(
-            models.TotalIncome.calc_date.month
-            == datetime.now() - datetime.timedelta(months=2)
-        )
-        - 1,
-    )
+            extract("month", models.TotalIncome.calc_date)
+            == datetime.now() - timedelta(months=2)
+        ),
+    ]
