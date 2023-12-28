@@ -16,7 +16,6 @@ def create_spending(db: Session, spending: schemas.spending.SpendingCreate):
         description=spending.description,
         total=spending.total,
         date=spending.date,
-        total_id=spending.total_id,
     )
 
     db.add(db_spending)

@@ -10,14 +10,12 @@ class IncomeBase(BaseModel):
 class IncomeCreate(IncomeBase):
     total: int
     income_time: datetime.datetime
-    total_income_id: int
 
 
 class Income(IncomeBase):
     id: int
     total: int
     income_time: datetime.datetime
-    total_income_id: int
 
     class Config:
         from_attributes = True
@@ -27,7 +25,6 @@ class IncomeUpdate(IncomeBase):
     id: int
     total: int
     income_time: datetime.datetime
-    total_income_id: int
 
     class Config:
         from_attributes = True

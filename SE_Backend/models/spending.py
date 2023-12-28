@@ -14,4 +14,3 @@ class Spending(Base):
     total: Mapped[int] = mapped_column(Integer, nullable=False)
     date: Mapped[datetime.date] = mapped_column(Date, nullable=False)
     household_id: Mapped[str] = mapped_column(ForeignKey("household_registrations.id"))
-    total_id: Mapped[int] = mapped_column(ForeignKey("total_income.id"))

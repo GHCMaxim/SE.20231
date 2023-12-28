@@ -52,19 +52,11 @@ household = models.HouseholdRegistration(
     owner="123456789012",
 )
 
-total_income = models.TotalIncome(
-    id=1,
-    total=100000,
-    calc_date=datetime.now(),
-    description="what",
-)
-
 income = models.Income(
     id=1,
     description="yes",
     total=100000,
     income_time=datetime.now(),
-    total_income_id=1,
 )
 
 spendings = models.Spending(
@@ -73,7 +65,6 @@ spendings = models.Spending(
     total=100000,
     description="Mua thuc pham",
     household_id=1,
-    total_id=1,
 )
 
 reward_type = models.RewardType(
@@ -135,7 +126,6 @@ db.add(person)
 db.add(relationship)
 db.add(household)
 db.add(birth)
-db.add(total_income)
 db.add(income)
 db.add(spendings)
 db.add(reward_type)

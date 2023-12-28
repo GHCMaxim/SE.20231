@@ -8,7 +8,6 @@ class SpendingBase(BaseModel):
     total: int
     date: datetime.date
     household_id: str
-    total_id: int
 
 
 class SpendingCreate(SpendingBase):

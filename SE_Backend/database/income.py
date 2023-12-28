@@ -19,7 +19,6 @@ def create_income(db: Session, income: schemas.income.IncomeCreate):
     db_income = models.income.Income(
         total=income.total,
         income_time=income.income_time,
-        total_income_id=income.total_income_id,
     )
 
     db.add(db_income)
