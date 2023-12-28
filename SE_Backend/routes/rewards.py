@@ -9,8 +9,8 @@ rewards = APIRouter(tags=["rewards"])
 
 @rewards.get("/api/rewards", response_model=list[schemas.reward.Reward])
 def get_rewards(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    rewards = database.reward.get_rewards(db, skip=skip, limit=limit)
-    return rewards
+    db_rewards = database.reward.get_rewards(db, skip=skip, limit=limit)
+    return db_rewards
 
 
 @rewards.get("/api/rewards/{id}", response_model=schemas.reward.Reward)

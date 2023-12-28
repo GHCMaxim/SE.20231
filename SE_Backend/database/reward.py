@@ -1,4 +1,5 @@
 import datetime
+
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
@@ -48,17 +49,29 @@ def create_reward_type(db: Session, reward_type: schemas.reward.RewardTypeCreate
 
     return db_reward_type
 
+
 def update_reward_type(db: Session, reward_type: schemas.reward.RewardTypeModify):
-    db.query(models.RewardType).filter(models.RewardType.id == reward_type.id).update(reward_type.dict())
+    db.query(models.RewardType).filter(models.RewardType.id == reward_type.id).update(
+        reward_type.dict()
+    )
     db.commit()
-    return db.query(models.RewardType).filter(models.RewardType.id == reward_type.id).first()
-        
+    return (
+        db.query(models.RewardType)
+        .filter(models.RewardType.id == reward_type.id)
+        .first()
+    )
+
+
 def update_reward(db: Session, reward: schemas.reward.RewardModify):
     db.query(models.Reward).filter(models.Reward.id == reward.id).update(reward.dict())
     db.commit()
     return db.query(models.Reward).filter(models.Reward.id == reward.id).first()
-    
+
 
 def count_rewards(db: Session):
     # Returns the number of rewards in the current year
-    return db.query(models.Reward).filter(models.Reward.date.year == datetime.now().year).count()
+    return (
+        db.query(models.Reward)
+        .filter(models.Reward.date.year == datetime.now().year)
+        .count()
+    )
