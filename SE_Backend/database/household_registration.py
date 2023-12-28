@@ -37,10 +37,12 @@ def count_households(db: Session):
 
 
 def modify_household_registrations(
-    db: Session, household: schemas.household_registration.HouseholdRegistrationModify
+    db: Session,
+    id: str,
+    household: schemas.household_registration.HouseholdRegistrationModify,
 ):
     db.query(models.HouseholdRegistration).filter(
-        models.HouseholdRegistration.id == household.id
+        models.HouseholdRegistration.id == id
     ).update(household.model_dump())
     db.commit()
     return (

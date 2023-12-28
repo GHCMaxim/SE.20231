@@ -40,11 +40,11 @@ def post_relationship(
     "/api/relationships/{cccd}", response_model=schemas.relationship.RelationshipModify
 )
 def update_relationship(
-    cccd: int,
+    cccd: str,
     relationship: schemas.relationship.RelationshipModify,
     db: Session = Depends(get_db),
 ):
-    db_relationship = database.relationship.get_relationship(db, id=cccd)
+    db_relationship = database.relationship.get_relationship(db, cccd=cccd)
     if db_relationship is None:
         raise HTTPException(status_code=404, detail="relationship not found.")
-    return database.relationship.update_relationship(db, relationship=relationship)
+    return database.relationship.put_relationship(db, cccd, relationship=relationship)

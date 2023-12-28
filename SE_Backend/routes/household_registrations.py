@@ -65,6 +65,6 @@ def put_household(
     db_household = database.household_registration.get_household_registration(db, id=id)
     if db_household is None:
         raise HTTPException(status_code=404, detail="household not found.")
-    return database.household_registration.update_household_registration(
-        db, household=household
+    return database.household_registration.modify_household_registrations(
+        db, id, household=household
     )

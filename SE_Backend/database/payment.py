@@ -58,17 +58,23 @@ def create_payment_type(db: Session, payment_type: schemas.payment.PaymentTypeCr
     return db_payment_type
 
 
-def update_payment(id: int, payment: schemas.payment.PaymentModify, db: Session):
-    db.query(models.Payment).filter(models.Payment.id == id).update(payment.dict())
+def update_payment(db: Session, id: int, payment: schemas.payment.PaymentModify):
+    db.query(models.Payment).filter(models.Payment.id == id).update(
+        payment.model_dump()
+    )
     db.commit()
-    return db.query(models.Payment).filter(models.Payment.id == id).first()
+    return db.query(models.Payment).filter(models.Payment.id == payment.id).first()
 
 
 def update_payment_type(
-    id: int, payment_type: schemas.payment.PaymentTypeModify, db: Session
+    db: Session, id: int, payment_type: schemas.payment.PaymentTypeModify
 ):
     db.query(models.PaymentType).filter(models.PaymentType.id == id).update(
         payment_type.model_dump()
     )
     db.commit()
-    return db.query(models.PaymentType).filter(models.PaymentType.id == id).first()
+    return (
+        db.query(models.PaymentType)
+        .filter(models.PaymentType.id == payment_type.id)
+        .first()
+    )

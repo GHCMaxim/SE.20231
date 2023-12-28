@@ -56,8 +56,8 @@ def create_away_type(db: Session, away_type: schemas.away.AwayTypeCreate):
     return db_away_type
 
 
-def put_away(id: int, away: schemas.away.AwayModify, db: Session):
-    db.query(models.Away).filter(models.Away.id == away.id).update(away.dict())
+def put_away(db: Session, id: int, away: schemas.away.AwayModify):
+    db.query(models.Away).filter(models.Away.id == id).update(away.model_dump())
     db.commit()
 
     return db.query(models.Away).filter(models.Away.id == away.id).first()

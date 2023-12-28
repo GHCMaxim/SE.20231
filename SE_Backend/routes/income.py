@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import get_db
 
+from . import get_db
 from .. import schemas, database
 
 incomes = APIRouter(tags=["incomes"])
@@ -47,11 +47,11 @@ def post_total_income(
     return database.income.create_total_income(db, total_income=total_income)
 
 
-@incomes.put("/api/total_income/{id}", response_model=schemas.income.TotalIncome)
+@incomes.put("/api/incomes/{id}", response_model=schemas.income.Income)
 def put_income(
-    id: int, total_income: schemas.income.IncomeUpdate, db: Session = Depends(get_db)
+    id: int, income: schemas.income.IncomeUpdate, db: Session = Depends(get_db)
 ):
-    db_total_income = database.income.get_total_income(db, id=id)
+    db_total_income = database.income.get_income(db, id=id)
     if db_total_income is None:
-        raise HTTPException(status_code=404, detail="total_income not found.")
-    return database.income.update_total_income(db, total_income=total_income)
+        raise HTTPException(status_code=404, detail="income not found.")
+    return database.income.update_income(db, id, income=income)

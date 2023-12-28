@@ -50,8 +50,8 @@ def create_total_income(db: Session, total_income: schemas.income.TotalIncomeCre
     return db_total_income
 
 
-def update_income(db: Session, income: schemas.income.IncomeUpdate):
-    db.query(models.Income).filter(models.Income.id == income.id).update(income.dict())
+def update_income(db: Session, id: int, income: schemas.income.IncomeUpdate):
+    db.query(models.Income).filter(models.Income.id == id).update(income.model_dump())
     db.commit()
 
     return db.query(models.Income).filter(models.Income.id == income.id).first()

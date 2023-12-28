@@ -63,7 +63,7 @@ def post_away_type(
 
 @aways.put("/api/aways/{id}", response_model=schemas.away.Away)
 def put_away(id: int, away: schemas.away.AwayModify, db: Session = Depends(get_db)):
-    db_away = database.away.get_away(db, id=away.id)
+    db_away = database.away.get_away(db, id=id)
     if db_away is None:
         raise HTTPException(status_code=404, detail="away not found.")
-    return database.away.put_away(db, away=away)
+    return database.away.put_away(db, id, away=away)

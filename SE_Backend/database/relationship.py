@@ -33,12 +33,14 @@ def create_relationship(
 
 
 def put_relationship(
-    cccd: int, relationship: schemas.relationship.RelationshipModify, db: Session
+    db: Session, cccd: str, relationship: schemas.relationship.RelationshipModify
 ):
     db.query(models.Relationship).filter(models.Relationship.cccd == cccd).update(
-        relationship.dict()
+        relationship.model_dump()
     )
     db.commit()
     return (
-        db.query(models.Relationship).filter(models.Relationship.cccd == cccd).first()
+        db.query(models.Relationship)
+        .filter(models.Relationship.cccd == relationship.cccd)
+        .first()
     )

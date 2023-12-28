@@ -37,9 +37,9 @@ def create_person(db: Session, person: schemas.person.PersonCreate):
     return db_person
 
 
-def update_person(db: Session, person: schemas.person.PersonModify):
-    db.query(models.Person).filter(models.Person.cccd == person.cccd).update(
-        person.dict()
+def update_person(db: Session, cccd: str, person: schemas.person.PersonModify):
+    db.query(models.Person).filter(models.Person.cccd == cccd).update(
+        person.model_dump()
     )
     db.commit()
 
