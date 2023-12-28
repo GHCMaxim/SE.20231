@@ -1,6 +1,7 @@
 import uuid
 from datetime import datetime
 
+from sqlalchemy import extract
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
@@ -57,15 +58,15 @@ def count_age(db: Session):
         if age_range[-1] == i:
             num.append(
                 db.query(models.Person)
-                .filter(models.Person.dob.year < datetime.now().year - i)
+                .filter(extract("year", models.Person.dob) < datetime.now().year - i)
                 .count()
             )
         else:
             num.append(
                 db.query(models.Person)
                 .filter(
-                    models.Person.dob.year < datetime.now().year - i,
-                    models.Person.dob.year > datetime.now().year - i + 1,
+                    (extract("year", models.Person.dob) < datetime.now().year - i)
+                    & (extract("year", models.Person.dob) > datetime.now().year - i + 1)
                 )
                 .count()
             )
