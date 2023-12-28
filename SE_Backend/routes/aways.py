@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import get_db
 
+from . import get_db
 from .. import schemas, database
 
 aways = APIRouter(tags=["aways"])
@@ -27,7 +27,7 @@ def get_aways_by_household(household_id: str, db: Session = Depends(get_db)):
     return db_aways
 
 
-@aways.get("/api/aways/by_household/{household_id}", response_model=schemas.away.Away)
+@aways.get("/api/aways/by_type/{away_type_id}", response_model=schemas.away.Away)
 def get_aways_by_type(away_type_id: int, db: Session = Depends(get_db)):
     db_aways = database.away.get_aways_by_type(db, away_type_id=away_type_id)
     return db_aways
