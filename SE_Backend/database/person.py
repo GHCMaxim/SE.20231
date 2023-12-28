@@ -54,19 +54,25 @@ def count_age(db: Session):
     # Count by age list: 0-10. 11-18, 19-30, 31-50, 51-70, 71+
     age_range = [0, 11, 19, 31, 51, 71]
     num = []
-    for i in age_range:
-        if age_range[-1] == i:
+    for i, n in enumerate(age_range):
+        if age_range[-1] == n:
             num.append(
                 db.query(models.Person)
-                .filter(extract("year", models.Person.dob) < datetime.now().year - i)
+                .filter(extract("year", models.Person.dob) < datetime.now().year - n)
                 .count()
             )
         else:
             num.append(
                 db.query(models.Person)
                 .filter(
-                    (extract("year", models.Person.dob) < datetime.now().year - i)
-                    & (extract("year", models.Person.dob) > datetime.now().year - i + 1)
+                    (
+                        extract("year", models.Person.dob)
+                        < datetime.now().year - age_range[i]
+                    )
+                    & (
+                        extract("year", models.Person.dob)
+                        > datetime.now().year - age_range[i + 1]
+                    )
                 )
                 .count()
             )
