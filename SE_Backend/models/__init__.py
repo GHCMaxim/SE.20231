@@ -3,7 +3,7 @@ from .birth import Birth
 from .household_registration import (
     HouseholdRegistration,
 )
-from .income import Income, TotalIncome
+from .income import Income
 from .payment import Payment, PaymentType
 from .person import Person
 from .relationship import Relationship
@@ -18,7 +18,6 @@ __all__ = [
     "Birth",
     "HouseholdRegistration",
     "Income",
-    "TotalIncome",
     "Payment",
     "PaymentType",
     "Person",
