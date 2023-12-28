@@ -59,13 +59,12 @@ def update_income(db: Session, income: schemas.income.IncomeUpdate):
 
 def count_income(db: Session):
     # Returns the total amount of Income last month, in millions, and percentage increase/decrease since the month before
-    return [
-        db.query(models.TotalIncome).filter(
-            extract("month", models.TotalIncome.calc_date)
-            == datetime.today() + relativedelta(months=-1)
-        ),
-        db.query(models.TotalIncome).filter(
-            extract("month", models.TotalIncome.calc_date)
-            == datetime.today() + relativedelta(months=-2)
-        ),
-    ]
+    last_month = db.query(models.TotalIncome).filter(
+        extract("month", models.TotalIncome.calc_date)
+        == datetime.today() + relativedelta(months=-1)
+    )
+    last_last_month = db.query(models.TotalIncome).filter(
+        extract("month", models.TotalIncome.calc_date)
+        == datetime.today() + relativedelta(months=-2)
+    )
+    return [last_month, last_last_month]
