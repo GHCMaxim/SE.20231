@@ -1,11 +1,13 @@
 import datetime
+import uuid
+
 from pydantic import BaseModel
 
 
 class RewardBase(BaseModel):
     reward_type_id: int
     date: datetime.date
-    recipient: str
+    recipient: uuid.UUID
     spending_id: int
 
 
@@ -36,6 +38,7 @@ class RewardType(RewardTypeBase):
     class Config:
         from_attributes = True
 
+
 class RewardTypeModify(RewardTypeBase):
     id: int
     name: str
@@ -44,6 +47,7 @@ class RewardTypeModify(RewardTypeBase):
 
     class Config:
         from_attributes = True
+
 
 class RewardModify(RewardBase):
     id: int
