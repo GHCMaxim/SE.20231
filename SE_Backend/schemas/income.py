@@ -1,4 +1,5 @@
 import datetime
+
 from pydantic import BaseModel
 
 
@@ -17,20 +18,6 @@ class Income(IncomeBase):
     total: int
     income_time: datetime.datetime
     total_income_id: int
-
-    class Config:
-        from_attributes = True
-
-
-class TotalIncomeCreate(IncomeBase):
-    total: int
-    calc_date: datetime.datetime
-
-
-class TotalIncome(IncomeBase):
-    id: int
-    total: int
-    calc_date: datetime.datetime
 
     class Config:
         from_attributes = True
