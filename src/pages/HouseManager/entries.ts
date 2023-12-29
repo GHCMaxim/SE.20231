@@ -1,5 +1,6 @@
 enum HouseEntryType {
 	AddNewPerson = "Thêm nhân khẩu mới",
+	AddPersonToHousehold = "Thêm thành viên vào hộ khẩu",
 	AddNewHousehold = "Tạo hộ khẩu mới",
 	SplitHousehold = "Tách hộ khẩu",
 	ChangeHouseholder = "Thay đổi chủ hộ",

@@ -25,27 +25,48 @@ const currentEntryRef = ref(FinanceEntryType.ParkingFee);
 				@update:current-entry="currentEntryRef = $event"
 			/>
 			<RightSideContainer>
-				<BillEssentials
-					v-if="currentEntryRef === FinanceEntryType.BillEssentials"
-				/>
-				<BillByHousehold
-					v-if="currentEntryRef === FinanceEntryType.BillByHousehold"
-				/>
-				<ContributionInfo
-					v-if="currentEntryRef === FinanceEntryType.ContributionInfo"
-				/>
-				<ManagementFee
-					v-if="currentEntryRef === FinanceEntryType.ManagementFee"
-				/>
-				<ParkingFee
-					v-if="currentEntryRef === FinanceEntryType.ParkingFee"
-				/>
+				<Suspense>
+					<BillEssentials
+						v-if="
+							currentEntryRef === FinanceEntryType.BillEssentials
+						"
+					/>
+				</Suspense>
+				<Suspense>
+					<BillByHousehold
+						v-if="
+							currentEntryRef === FinanceEntryType.BillByHousehold
+						"
+					/>
+				</Suspense>
+				<Suspense>
+					<ContributionInfo
+						v-if="
+							currentEntryRef ===
+							FinanceEntryType.ContributionInfo
+						"
+					/>
+				</Suspense>
+				<Suspense>
+					<ManagementFee
+						v-if="
+							currentEntryRef === FinanceEntryType.ManagementFee
+						"
+					/>
+				</Suspense>
+				<Suspense>
+					<ParkingFee
+						v-if="currentEntryRef === FinanceEntryType.ParkingFee"
+					/>
+				</Suspense>
 				<QuarterlyReport
 					v-if="currentEntryRef === FinanceEntryType.QuarterlyReport"
 				/>
-				<ServiceFee
-					v-if="currentEntryRef === FinanceEntryType.ServiceFee"
-				/>
+				<Suspense>
+					<ServiceFee
+						v-if="currentEntryRef === FinanceEntryType.ServiceFee"
+					/>
+				</Suspense>
 				<UpdateContribution
 					v-if="
 						currentEntryRef === FinanceEntryType.UpdateContribution

@@ -14,6 +14,7 @@ defineEmits(["update:currentEntry"]);
 const entriesTop = [
 	HouseEntryType.AddNewPerson,
 	HouseEntryType.AddNewHousehold,
+	HouseEntryType.AddPersonToHousehold,
 	HouseEntryType.SplitHousehold,
 	HouseEntryType.ChangeHouseholder,
 ];

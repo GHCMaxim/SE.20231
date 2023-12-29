@@ -8,6 +8,9 @@ This repository contains the groupwork of group SE_08 for the Software Engineeri
 |            |                                |
 |            |                                |
 
+## Installation:
+- For development purposes, you should clone this and use `pnpm dev` to enter development
+- For normal usage, you should build this by going into a admin'd terminal and entering `pnpm build:<architecture>` with <architechture> being [win, linux, mac]
 ## Development
 ### First time
 If you are cloning this repository for the first time, please do the following:

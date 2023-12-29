@@ -2,6 +2,7 @@
 import ThreeInputFormWrapper from "../../../components/OneColFormWrapper.vue";
 import InputBox from "../../../components/InputBox.vue";
 import { ref } from "vue";
+import { API } from "../../../store";
 
 const household_ssn = ref("");
 const ssn = ref("");
@@ -9,7 +10,7 @@ const deadge_reason = ref("");
 
 const message = ref("");
 
-function handleDedgePerson() {
+async function handleDedgePerson() {
 	message.value = "";
 
 	const fields = [ssn, household_ssn, deadge_reason];
@@ -18,7 +19,25 @@ function handleDedgePerson() {
 		message.value = "Vui lòng điền đầy đủ thông tin";
 		return;
 	}
-	// TODO: implement API
+	const response = await fetch(API + "/api/aways", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			accept: "application/json",
+		},
+		body: JSON.stringify({
+			household_id: household_ssn.value,
+			cccd: ssn.value,
+			away_type_id: 2,
+			description: deadge_reason.value,
+		}),
+	});
+
+	if (!response.ok) {
+		message.value = response.statusText;
+	} else {
+		message.value = "Xử lý thành công";
+	}
 }
 </script>
 

@@ -5,6 +5,8 @@ import electron from "vite-plugin-electron";
 import renderer from "vite-plugin-electron-renderer";
 import { notBundle } from "vite-plugin-electron/plugin";
 import pkg from "./package.json";
+import { liveDesigner } from '@pinegrow/vite-plugin';
+import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
@@ -16,6 +18,24 @@ export default defineConfig(({ command }) => {
 
 	return {
 		plugins: [
+			topLevelAwait({
+				promiseExportName: "__tla",
+				promiseImportName: i => `__tla_${i}`
+			}),
+            liveDesigner({
+                tailwindcss: {
+                    /* Please ensure that you update the filenames and paths to accurately match those used in your project. */
+                    configPath: 'tailwind.config.js',
+                    cssPath: '@/assets/css/tailwind.css',
+                    // themePath: false, // Set to false so that Design Panel is not used
+                    // restartOnConfigUpdate: true,
+                    restartOnThemeUpdate: true,
+                },
+                 devServerUrls: {
+                    /* Please ensure that you update this URL with the actual URL of your remote dev-server. */
+                    network: 'http://localhost:5173', // If running a remote dev-server
+                },
+            }),
 			vue(),
 			electron([
 				{
@@ -34,6 +54,7 @@ export default defineConfig(({ command }) => {
 						build: {
 							sourcemap,
 							minify: isBuild,
+							target: "esnext",
 							outDir: "dist-electron/main",
 							rollupOptions: {
 								// Some third-party Node.js libraries may not be built correctly by Vite, especially `C/C++` addons,
@@ -46,6 +67,14 @@ export default defineConfig(({ command }) => {
 										: {},
 								),
 							},
+						},
+						esbuild: {
+							target: "esnext"
+						},
+						optimizeDeps: {
+							esbuildOptions: {
+								target: "esnext"
+							}
 						},
 						plugins: [
 							// This is just an option to improve build performance, it's non-deterministic!
@@ -66,6 +95,7 @@ export default defineConfig(({ command }) => {
 							sourcemap: sourcemap ? "inline" : undefined, // #332
 							minify: isBuild,
 							outDir: "dist-electron/preload",
+							target: "esnext",
 							rollupOptions: {
 								external: Object.keys(
 									"dependencies" in pkg
@@ -73,6 +103,14 @@ export default defineConfig(({ command }) => {
 										: {},
 								),
 							},
+						},
+						esbuild: {
+							target: "esnext"
+						},
+						optimizeDeps: {
+							esbuildOptions: {
+								target: "esnext"
+							}
 						},
 						plugins: [isServe && notBundle()],
 					},

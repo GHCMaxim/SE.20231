@@ -18,7 +18,7 @@ function handleUpdateContribution() {
 		message.value = "Vui lòng điền đầy đủ thông tin";
 		return;
 	}
-	// TODO: implement API
+	// TODO: implement put API
 }
 </script>
 

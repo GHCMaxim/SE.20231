@@ -4,18 +4,16 @@ import InputBox from "../../../components/InputBox.vue";
 import { ref } from "vue";
 import { API } from "../../../store";
 
-const household_ssn = ref("");
-const name = ref("");
-const creation_date = ref("");
-const location = ref("");
-const owner = ref("");
+const cccd = ref("");
+const relationship = ref("");
+const household_id = ref("");
 
 const message = ref("");
 
 async function handleAddNewHousehold() {
 	message.value = "";
 
-	const fields = [household_ssn, location, owner, name, creation_date];
+	const fields = [household_id, relationship, cccd];
 	if (!fields.every((field) => field.value)) {
 		message.value = "Vui lòng điền đầy đủ thông tin";
 		return;
@@ -28,11 +26,12 @@ async function handleAddNewHousehold() {
 			accept: "application/json",
 		},
 		body: JSON.stringify({
-			id: household_ssn.value,
-			name: name.value,
-			location: location.value,
-			creation_date: creation_date.value,
-			owner: owner.value,
+			cccd: cccd.value,
+			relationship: relationship.value,
+			birth_id: null,
+			alive: "true",
+			death_paper_id: null,
+			household_id: household_id.value,
 		}),
 	});
 	if (!response.ok) {
@@ -46,29 +45,19 @@ async function handleAddNewHousehold() {
 <template>
 	<OneColFormWrapper class="w-full">
 		<InputBox
+			title="Số căn cước công dân"
+			placeholder="CCCD"
+			@update="cccd = $event.value"
+		/>
+		<InputBox
+			title="Mối quan hệ với chủ hộ"
+			placeholder="Con trai / Bố / Mẹ"
+			@update="relationship = $event.value"
+		/>
+		<InputBox
 			title="Số hộ khẩu"
 			placeholder="Nhập số hộ khẩu"
-			@update="household_ssn = $event.value"
-		/>
-		<InputBox
-			title="Số tên căn hộ"
-			placeholder="N02-1810"
-			@update="name = $event.value"
-		/>
-		<InputBox
-			title="Số địa chỉ hộ khẩu"
-			placeholder="Nhập địa chỉ"
-			@update="location = $event.value"
-		/>
-		<InputBox
-			title="Số căn cước chủ hộ khẩu"
-			placeholder="Nhập số căn cước"
-			@update="owner = $event.value"
-		/>
-		<InputBox
-			title="Số ngày thành lập sổ hộ khẩu"
-			placeholder="DD/MM/YYYY"
-			@update="creation_date = $event.value"
+			@update="household_id = $event.value"
 		/>
 
 		<button class="btn btn-primary w-full" @click="handleAddNewHousehold()">

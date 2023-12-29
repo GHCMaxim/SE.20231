@@ -6,6 +6,7 @@ import HouseEntryType from "./entries";
 import AddNewHousehold from "./EntryComponents/AddNewHousehold.vue";
 import AddNewPerson from "./EntryComponents/AddNewPerson.vue";
 import ChangeHouseholder from "./EntryComponents/ChangeHouseholder.vue";
+import AddPersonToHousehold from "./EntryComponents/AddPersonToHousehold.vue";
 import Deceased from "./EntryComponents/DedgePerson.vue";
 import MoveOut from "./EntryComponents/MoveOut.vue";
 import SplitHousehold from "./EntryComponents/SplitHousehold.vue";
@@ -26,6 +27,11 @@ const currentEntryRef = ref(HouseEntryType.AddNewPerson);
 			<RightSideContainer>
 				<AddNewHousehold
 					v-if="currentEntryRef === HouseEntryType.AddNewHousehold"
+				/>
+				<AddPersonToHousehold
+					v-if="
+						currentEntryRef === HouseEntryType.AddPersonToHousehold
+					"
 				/>
 				<AddNewPerson
 					v-if="currentEntryRef === HouseEntryType.AddNewPerson"
