@@ -11,7 +11,7 @@ const username = ref("");
 const password = ref("");
 
 const message = ref("");
-
+const $cookies = inject<VueCookies>("$cookies");
 async function login() {
 	const formData = new URLSearchParams();
 	formData.append("username", username.value);
@@ -25,7 +25,6 @@ async function login() {
 		message.value = response.statusText;
 	} else {
 		const token = await response.json().then(resp => resp.access_token);
-		const $cookies = inject<VueCookies>("$cookies");
 		$cookies!.set("token", token);
 	}
 }
