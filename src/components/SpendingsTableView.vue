@@ -147,13 +147,13 @@ function cancelModification() {
 		>
 			<input
 				v-model="new_date"
-				type="text"
+				type="date"
 				placeholder="Ngày đóng góp"
 				class="input input-bordered w-full"
 			/>
 			<input
 				v-model="new_household_id"
-				type="text"
+				type="number"
 				placeholder="Nhà đóng góp"
 				class="input input-bordered w-full"
 			/>
@@ -165,7 +165,7 @@ function cancelModification() {
 			/>
 			<input
 				v-model="new_total"
-				type="text"
+				type="number"
 				placeholder="Tổng giá trị"
 				class="input input-bordered w-full"
 			/>

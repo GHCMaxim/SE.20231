@@ -146,6 +146,8 @@ async function register() {
 						type="text"
 						placeholder="0123456789"
 						class="input input-bordered w-full"
+						pattern="\d{12}"
+						title="CCCD phải có 12 chữ số"
 					/>
 				</div>
 				<div>

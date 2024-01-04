@@ -49,6 +49,8 @@ async function handleAddNewHousehold() {
 			title="Số hộ khẩu"
 			placeholder="Nhập số hộ khẩu"
 			@update="household_ssn = $event.value"
+			type="number"
+			warn = "Số sổ hộ khẩu chỉ có số"
 		/>
 		<InputBox
 			title="Số tên căn hộ"
@@ -64,11 +66,14 @@ async function handleAddNewHousehold() {
 			title="Số căn cước chủ hộ khẩu"
 			placeholder="Nhập số căn cước"
 			@update="owner = $event.value"
+			type="number"
+			warn = "Số căn cước chỉ có số"
 		/>
 		<InputBox
 			title="Số ngày thành lập sổ hộ khẩu"
 			placeholder="DD/MM/YYYY"
 			@update="creation_date = $event.value"
+			type="date"
 		/>
 
 		<button class="btn btn-primary w-full" @click="handleAddNewHousehold()">

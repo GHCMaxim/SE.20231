@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import router from "../router";
+import {inject} from "vue";
+import type { VueCookies } from "vue-cookies"
+
 
 const items = [
 	["Thống kê", "chart-mixed", "/statistics"],
@@ -7,29 +10,40 @@ const items = [
 	// TODO: replace route
 	["Thông báo", "bell", "/"],
 ];
-
+const $cookies = inject<VueCookies>("$cookies");
 const userName = "Nguyễn Văn A";
 const avatar = "https://picsum.photos/200";
 const currentRoute = router.currentRoute.value.path;
+function logout(){
+	// clear cookies
+	$cookies!.remove("token");
+	router.push("/login");
+}
 </script>
 
 <template>
 	<div class="sticky top-0">
 		<div
-			class="flex h-16 w-full flex-row items-center justify-end gap-10 px-5"
+			class="flex h-16 w-full flex-row items-center justify-between px-5"
 		>
-			<router-link
+
+			<button class="btn btn-ghost " @click="logout">Đăng xuất</button>
+
+			<div class="flex flex-row gap-10 items-center">
+				<router-link
 				v-for="item in items"
 				:key="item[0]"
 				class="flex h-full flex-row items-center justify-center gap-3 font-semibold text-primary/90 transition-all hover:text-primary"
 				:to="item[2]"
 			>
+
 				<i :class="`fa-light fa-${item[1]}`" />
 				<div>{{ item[0] }}</div>
 			</router-link>
 			<div class="flex items-center justify-center gap-4">
 				<div>{{ userName }}</div>
 				<img :src="avatar" alt="avatar" class="h-10 rounded-full" />
+			</div>
 			</div>
 		</div>
 

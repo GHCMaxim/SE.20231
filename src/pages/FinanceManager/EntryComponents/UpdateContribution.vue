@@ -28,6 +28,8 @@ function handleUpdateContribution() {
 			title="Mã đợt đóng góp"
 			placeholder="Nhập mã đợt đóng góp"
 			@update="contribution_id = $event.value"
+			type="number"
+			warn="Mã đợt đóng góp chỉ bao gồm các chữ số"
 		/>
 		<InputBox
 			title="Tên đợt đóng góp"
@@ -38,6 +40,8 @@ function handleUpdateContribution() {
 			title="Tổng số tiền thu được"
 			placeholder="Nhập số tiền"
 			@update="contribution_amount = $event.value"
+			type="number"
+			warn="Số tiền chỉ bao gồm các chữ số"
 		/>
 		<button
 			class="btn btn-primary w-full"

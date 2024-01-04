@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineEmits(["update"]);
-defineProps({
+const props = defineProps({
 	title: {
 		type: String,
 		default: "",
@@ -9,16 +9,30 @@ defineProps({
 		type: String,
 		default: "",
 	},
+	pattern: {
+		type: String,
+		default: "",
+	},
+	warn: {
+		type: String,
+		default: "",
+	},
+	type: {
+		type: String,
+		default: "text",
+	},
 });
 </script>
 
 <template>
 	<div class="w-full">
-		<div class="mx-auto mb-2 text-start">{{ title }}</div>
+		<div class="mx-auto mb-2 text-start">{{ props.title }}</div>
 		<input
-			type="text"
-			:placeholder="placeholder"
+			:type="props.type"
+			:placeholder="props.placeholder"
 			class="input input-bordered w-full"
+			:pattern="props.pattern"
+			:title="props.warn"
 			@input="$emit('update', $event.target)"
 		/>
 	</div>

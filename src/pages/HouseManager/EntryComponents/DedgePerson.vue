@@ -47,10 +47,13 @@ async function handleDedgePerson() {
 			title="Số hộ khẩu"
 			placeholder="Nhập số hộ khẩu"
 			@update="household_ssn = $event.value"
+			type="number"
 		/>
 		<InputBox
 			title="Số căn cước"
 			placeholder="Nhập số căn cước của nhân khẩu qua đời"
+			pattern="^\d{12}$"
+			warn="Số căn cước phải có 12 chữ số"
 			@update="ssn = $event.value"
 		/>
 		<InputBox

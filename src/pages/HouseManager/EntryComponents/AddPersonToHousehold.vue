@@ -47,6 +47,8 @@ async function handleAddNewHousehold() {
 		<InputBox
 			title="Số căn cước công dân"
 			placeholder="CCCD"
+			pattern ="\d{12}"
+			warn = "Số CCCD phải là 12 chữ số"
 			@update="cccd = $event.value"
 		/>
 		<InputBox
@@ -57,6 +59,8 @@ async function handleAddNewHousehold() {
 		<InputBox
 			title="Số hộ khẩu"
 			placeholder="Nhập số hộ khẩu"
+			type="number"
+			warn="Số hộ khẩu phải là số"
 			@update="household_id = $event.value"
 		/>
 

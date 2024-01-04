@@ -70,6 +70,9 @@ async function handleAddNewPerson() {
 				title="Số căn cước"
 				placeholder="Nhập số căn cước"
 				@update="ssn = $event.value"
+				pattern="\d{12}"
+				warn = "Mã căn cước phải có 12 chữ số"
+
 			/>
 			<div class="grid grid-cols-2 flex-row gap-3">
 				<InputBox
@@ -105,11 +108,15 @@ async function handleAddNewPerson() {
 				title="Ngày sinh"
 				placeholder="Nhập ngày sinh"
 				@update="dob = $event.value"
+				type="date"
 			/>
 			<InputBox
 				title="Số điện thoại"
 				placeholder="0123456789"
+				pattern="\d{10}"
+				warn = "Số điện thoại phải có 10 chữ số"
 				@update="phone = $event.value"
+
 			/>
 			<InputBox
 				title="Nơi làm việc"

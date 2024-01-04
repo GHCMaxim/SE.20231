@@ -46,11 +46,14 @@ async function handleMoveOut() {
 		<InputBox
 			title="Số hộ khẩu"
 			placeholder="Nhập số hộ khẩu"
+			type = "number"
 			@update="household_ssn = $event.value"
 		/>
 		<InputBox
 			title="Số căn cước"
 			placeholder="Nhập số căn cước của nhân khẩu qua đời"
+			pattern="\d{12}"
+			warn="Số căn cước chỉ có 12 chữ số"
 			@update="ssn = $event.value"
 		/>
 		<InputBox

@@ -142,7 +142,7 @@ function cancelModification() {
 		>
 			<input
 				v-model="newdate"
-				type="text"
+				type="date"
 				placeholder="new date"
 				class="input input-bordered w-full"
 			/>

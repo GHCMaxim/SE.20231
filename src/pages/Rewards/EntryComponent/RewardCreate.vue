@@ -45,17 +45,21 @@ async function handleCreate() {
 		<InputBox
 			title="Điền mã loại phần thưởng"
 			placeholder="1 - Phần thưởng cho học sinh / 2 - Phần thưởng đặc biệt"
+			pattern = "[1-2]"
 			@update="reward_type_id = $event.value"
 		/>
 		<InputBox
 			title="Điền ngày nhận phần thưởng"
-			placeholder="YYYY-MM-DD"
+			placeholder="MM-DD-YYYY"
 			@update="reward_date = $event.value"
+			type="date"
 		/>
 		<InputBox
 			title="Điền CCCD người nhận phần thưởng"
 			placeholder="Nhập CCCD"
 			@update="cccd = $event.value"
+			pattern="\d{12}"
+			warn="CCCD phải có 12 chữ số"
 		/>
 		<button class="btn btn-primary w-full" @click="handleCreate()">
 			Tạo phần thưởng

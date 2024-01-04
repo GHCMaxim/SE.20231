@@ -146,7 +146,7 @@ function cancelModification() {
 			/>
 			<input
 				v-model="newRate"
-				type="text"
+				type="number"
 				placeholder="new rate"
 				class="input input-bordered w-full"
 			/>

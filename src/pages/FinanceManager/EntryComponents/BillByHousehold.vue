@@ -34,6 +34,8 @@ await get_data();
 			title="Nhập mã hộ gia đình"
 			placeholder="Mã hộ gia đình"
 			@update="id = $event.value"
+			warn="Vui lòng nhập số"
+			type="number"
 		/>
 		<button class="btn btn-primary w-full" @click="handleGetId()">
 			Xem
