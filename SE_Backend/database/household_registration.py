@@ -23,6 +23,7 @@ def create_household_registration(
         name=household.name,
         location=household.location,
         creation_date=household.creation_date,
+        owner=household.owner,
     )
 
     db.add(db_household)
