@@ -7,7 +7,7 @@ class HouseholdRegistrationBase(BaseModel):
     id: str
     name: str
     location: str
-    creation_date: datetime.datetime
+    creation_date: datetime.date
     owner: str
 
 

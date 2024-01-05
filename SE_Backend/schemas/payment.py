@@ -8,8 +8,8 @@ class PaymentBase(BaseModel):
 
 class PaymentCreate(PaymentBase):
     type_id: int
-    creation_date: datetime.datetime
-    expiration_date: datetime.datetime
+    creation_date: datetime.date
+    expiration_date: datetime.date
     price: int
     household: str
     income_id: int
@@ -18,8 +18,8 @@ class PaymentCreate(PaymentBase):
 class Payment(PaymentBase):
     id: int
     type_id: int
-    creation_date: datetime.datetime
-    expiration_date: datetime.datetime
+    creation_date: datetime.date
+    expiration_date: datetime.date
     price: int
     household: str
     income_id: int
@@ -54,8 +54,8 @@ class PaymentTypeModify(PaymentBase):
 class PaymentModify(PaymentBase):
     id: int
     type_id: int
-    creation_date: datetime.datetime
-    expiration_date: datetime.datetime
+    creation_date: datetime.date
+    expiration_date: datetime.date
     price: int
     household: str
     income_id: int
