@@ -24,3 +24,4 @@ class PaymentType(Base):
     name: Mapped[str] = mapped_column(String, nullable=False)
     rate: Mapped[int] = mapped_column(Integer, nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    type: Mapped[int] = mapped_column(Integer, nullable=False)

@@ -49,6 +49,7 @@ def create_payment_type(db: Session, payment_type: schemas.payment.PaymentTypeCr
         name=payment_type.name,
         rate=payment_type.rate,
         active=payment_type.active,
+        type = payment_type.type,
     )
 
     db.add(db_payment_type)

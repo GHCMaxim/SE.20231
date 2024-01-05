@@ -68,13 +68,13 @@ def put_payment(
     return database.payment.update_payment(db, id, payment=payment)
 
 
-@payments.put("/api/payment_types/{id}", response_model=schemas.payment.PaymentType)
+@payments.put("/api/payment_types/{type}", response_model=schemas.payment.PaymentType)
 def put_payment_type(
-    id: int,
+    type: int,
     payment_type: schemas.payment.PaymentTypeModify,
     db: Session = Depends(get_db),
 ):
-    db_payment_type = database.payment.get_payment_type(db, id=id)
+    db_payment_type = database.payment.get_payment_type(db, type=type)
     if db_payment_type is None:
         raise HTTPException(status_code=404, detail="payment type not found.")
     return database.payment.update_payment_type(db, id, payment_type=payment_type)
