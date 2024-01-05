@@ -22,7 +22,7 @@ async function handleAddNewHousehold() {
 	}
 
 	const date = creation_date.value.split("/");
-	creation_date.value = date[2] + "-" + date[1] + "-" + date[0];
+	creation_date.value = date[1] + "-" + date[2] + "-" + date[0];
 
 	const response = await fetch(API + "/api/household_registrations", {
 		method: "POST",
