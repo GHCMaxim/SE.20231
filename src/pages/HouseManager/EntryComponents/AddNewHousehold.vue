@@ -21,7 +21,7 @@ async function handleAddNewHousehold() {
 		return;
 	}
 
-	const response = await fetch(API + "api/household", {
+	const response = await fetch(API + "/api/household_registrations", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
