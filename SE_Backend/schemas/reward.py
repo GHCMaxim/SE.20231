@@ -7,7 +7,7 @@ from pydantic import BaseModel
 class RewardBase(BaseModel):
     reward_type_id: int
     date: datetime.date
-    recipient: uuid.UUID
+    recipient: str
     spending_id: int
 
 

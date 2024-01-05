@@ -82,7 +82,7 @@ reward = models.Reward(
     id=1,
     reward_type_id=1,
     date=datetime(2021, 1, 1),
-    recipient=person_id,
+    recipient=123456789012,
     spending_id=1,
 )
 

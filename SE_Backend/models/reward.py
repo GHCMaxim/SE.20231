@@ -13,7 +13,7 @@ class Reward(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     reward_type_id: Mapped[int] = mapped_column(ForeignKey("reward_types.id"))
     date: Mapped[datetime.date] = mapped_column(Date, nullable=False)
-    recipient: Mapped[uuid.UUID] = mapped_column(ForeignKey("people.id"))
+    recipient: Mapped[str] = mapped_column(ForeignKey("people.cccd"))
     spending_id: Mapped[int] = mapped_column(ForeignKey("spendings.id"))
 
 
