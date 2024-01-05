@@ -35,6 +35,12 @@ async function handleAddNewPerson() {
 		return;
 	}
 
+	if (sex.value === "Nữ"){
+		sex.value = "F";
+	}
+	else{
+		sex.value = "M";
+	}
 	const response = await fetch(API + "/api/people", {
 		method: "POST",
 		headers: {
