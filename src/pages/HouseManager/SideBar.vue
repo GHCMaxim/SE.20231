@@ -28,7 +28,7 @@ const entriesBottom = [
 
 <template>
 	<div>
-		<SidebarEntry title="quản lý thu phí" />
+		<SidebarEntry title="quản lý hộ khẩu" />
 		<ul class="mx-1 flex flex-col items-start justify-center font-medium">
 			<li v-for="entry in entriesTop" :key="entry" class="text-primary">
 				<button
@@ -40,7 +40,7 @@ const entriesBottom = [
 				</button>
 			</li>
 		</ul>
-		<SidebarEntry title="quản lý đóng góp" />
+		<SidebarEntry title="quản lý nhân khẩu" />
 		<ul class="mx-1 flex flex-col items-start justify-center font-medium">
 			<li
 				v-for="entry in entriesBottom"
