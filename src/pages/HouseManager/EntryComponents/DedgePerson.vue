@@ -42,6 +42,7 @@ async function handleDedgePerson() {
 </script>
 
 <template>
+	<form>
 	<ThreeInputFormWrapper>
 		<InputBox
 			title="Số hộ khẩu"
@@ -61,9 +62,12 @@ async function handleDedgePerson() {
 			placeholder="Tuổi già"
 			@update="deadge_reason = $event.value"
 		/>
-		<button class="btn btn-primary w-full" @click="handleDedgePerson()">
+		<button 
+		type = "submit"
+		class="btn btn-primary w-full" @click="handleDedgePerson()">
 			Cập nhật
 		</button>
 		<div v-if="message">{{ message }}</div>
 	</ThreeInputFormWrapper>
+	</form>
 </template>

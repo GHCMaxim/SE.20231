@@ -29,6 +29,7 @@ async function handleGetId() {
 await get_data();
 </script>
 <template>
+	<form>
 	<SmallFormWrapper class="">
 		<InputBox
 			title="Nhập mã hộ gia đình"
@@ -37,9 +38,12 @@ await get_data();
 			warn="Vui lòng nhập số"
 			type="number"
 		/>
-		<button class="btn btn-primary w-full" @click="handleGetId()">
+		<button 
+		type = "submit"
+		class="btn btn-primary w-full" @click="handleGetId()">
 			Xem
 		</button>
 	</SmallFormWrapper>
+	</form>
 	<RateTableView :data="res_data" />
 </template>

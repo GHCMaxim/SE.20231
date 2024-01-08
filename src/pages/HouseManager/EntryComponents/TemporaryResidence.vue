@@ -42,6 +42,7 @@ async function handleMoveOut() {
 </script>
 
 <template>
+	<form>
 	<ThreeInputFormWrapper>
 		<InputBox
 			title="Số hộ khẩu"
@@ -61,9 +62,12 @@ async function handleMoveOut() {
 			placeholder="Đi học"
 			@update="move_out_reason = $event.value"
 		/>
-		<button class="btn btn-primary w-full" @click="handleMoveOut()">
+		<button 
+		type = "submit"
+		class="btn btn-primary w-full" @click="handleMoveOut()">
 			Cập nhật
 		</button>
 		<div v-if="message">{{ message }}</div>
 	</ThreeInputFormWrapper>
+	</form>
 </template>

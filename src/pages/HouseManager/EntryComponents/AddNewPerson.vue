@@ -69,7 +69,7 @@ async function handleAddNewPerson() {
 </script>
 <template>
 	<div class="flex h-full flex-col items-center justify-center gap-3">
-		<div
+		<form
 			class="mx-auto mb-10 mt-8 grid w-4/5 max-w-2xl grid-cols-2 grid-rows-4 gap-x-10 gap-y-7"
 		>
 			<InputBox
@@ -129,13 +129,15 @@ async function handleAddNewPerson() {
 				placeholder="Số 1, Đại Cồ Việt, Hai Bà Trưng, Hà Nội"
 				@update="workplace = $event.value"
 			/>
-		</div>
-		<button
+			<button
+			type = "submit"
 			class="btn btn-primary w-80 self-center"
 			@click="handleAddNewPerson()"
 		>
 			Đăng ký
-		</button>
+			</button>
+		</form>
+		
 		<div v-if="message">{{ message }}</div>
 	</div>
 </template>

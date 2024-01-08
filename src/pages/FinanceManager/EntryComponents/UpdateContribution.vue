@@ -23,6 +23,7 @@ function handleUpdateContribution() {
 </script>
 
 <template>
+	<form>
 	<ThreeInputFormWrapper>
 		<InputBox
 			title="Mã đợt đóng góp"
@@ -44,6 +45,7 @@ function handleUpdateContribution() {
 			warn="Số tiền chỉ bao gồm các chữ số"
 		/>
 		<button
+			type = "submit"	
 			class="btn btn-primary w-full"
 			@click="handleUpdateContribution()"
 		>
@@ -51,4 +53,5 @@ function handleUpdateContribution() {
 		</button>
 		<div v-if="message">{{ message }}</div>
 	</ThreeInputFormWrapper>
+	</form>
 </template>

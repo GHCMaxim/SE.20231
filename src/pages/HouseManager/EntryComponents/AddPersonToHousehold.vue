@@ -19,7 +19,7 @@ async function handleAddNewHousehold() {
 		return;
 	}
 
-	const response = await fetch(API + "api/household", {
+	const response = await fetch(API + "/api/household", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -43,6 +43,7 @@ async function handleAddNewHousehold() {
 </script>
 
 <template>
+	<form>
 	<OneColFormWrapper class="w-full">
 		<InputBox
 			title="Số căn cước công dân"
@@ -64,9 +65,12 @@ async function handleAddNewHousehold() {
 			@update="household_id = $event.value"
 		/>
 
-		<button class="btn btn-primary w-full" @click="handleAddNewHousehold()">
+		<button 
+			type = "submit"
+			class="btn btn-primary w-full" @click="handleAddNewHousehold()">
 			Tạo mới
 		</button>
 		<div v-if="message">{{ message }}</div>
 	</OneColFormWrapper>
+	</form>
 </template>
