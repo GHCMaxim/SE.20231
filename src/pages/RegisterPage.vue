@@ -79,7 +79,7 @@ async function register() {
 				Đã có tài khoản?
 				<router-link to="/login"> Đăng nhập </router-link>
 			</div>
-		<form>
+		<form @submit.prevent="register()">
 			<div
 				class="mx-10 mb-12 mt-8 grid grid-cols-2 grid-rows-4 gap-x-10 gap-y-7"
 			>
@@ -165,7 +165,7 @@ async function register() {
 			<!-- TODO: register handler -->
 				<button 
 				type = "submit"
-				class="btn btn-primary w-80" @click="register()">
+				class="btn btn-primary w-80" >
 					Đăng ký
 				</button>
 				<div v-if = "message">{{message}}</div>

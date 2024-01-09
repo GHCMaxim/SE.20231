@@ -23,7 +23,7 @@ function handleUpdateContribution() {
 </script>
 
 <template>
-	<form>
+	<form @submit.prevent="handleUpdateContribution()">
 	<ThreeInputFormWrapper>
 		<InputBox
 			title="Mã đợt đóng góp"
@@ -47,7 +47,6 @@ function handleUpdateContribution() {
 		<button
 			type = "submit"	
 			class="btn btn-primary w-full"
-			@click="handleUpdateContribution()"
 		>
 			Cập nhật
 		</button>

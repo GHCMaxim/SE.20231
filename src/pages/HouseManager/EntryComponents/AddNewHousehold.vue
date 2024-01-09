@@ -45,7 +45,7 @@ async function handleAddNewHousehold() {
 </script>
 
 <template>
-	<form>
+	<form @submit.prevent="handleAddNewHousehold()">
 	<OneColFormWrapper class="w-full">
 		<InputBox
 			title="Số hộ khẩu"
@@ -80,7 +80,7 @@ async function handleAddNewHousehold() {
 
 		<button 
 			type = "submit"
-			class="btn btn-primary w-full" @click="handleAddNewHousehold()">
+			class="btn btn-primary w-full">
 			Tạo mới
 		</button>
 		<div v-if="message">{{ message }}</div>

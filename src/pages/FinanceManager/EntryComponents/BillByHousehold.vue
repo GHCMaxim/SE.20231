@@ -29,7 +29,7 @@ async function handleGetId() {
 await get_data();
 </script>
 <template>
-	<form>
+	<form @submit.prevent="handleGetId()">
 	<SmallFormWrapper class="">
 		<InputBox
 			title="Nhập mã hộ gia đình"

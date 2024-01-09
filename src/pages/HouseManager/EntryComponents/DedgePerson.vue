@@ -42,7 +42,7 @@ async function handleDedgePerson() {
 </script>
 
 <template>
-	<form>
+	<form @submit.prevent="handleDedgePerson()">
 	<ThreeInputFormWrapper>
 		<InputBox
 			title="Số hộ khẩu"
@@ -64,7 +64,7 @@ async function handleDedgePerson() {
 		/>
 		<button 
 		type = "submit"
-		class="btn btn-primary w-full" @click="handleDedgePerson()">
+		class="btn btn-primary w-full">
 			Cập nhật
 		</button>
 		<div v-if="message">{{ message }}</div>

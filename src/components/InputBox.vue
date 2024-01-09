@@ -11,7 +11,7 @@ const props = defineProps({
 	},
 	pattern: {
 		type: String,
-		default: "",
+		default: ".*",
 	},
 	warn: {
 		type: String,
