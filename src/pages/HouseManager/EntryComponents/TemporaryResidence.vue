@@ -52,7 +52,7 @@ async function handleMoveOut() {
 		/>
 		<InputBox
 			title="Số căn cước"
-			placeholder="Nhập số căn cước của nhân khẩu qua đời"
+			placeholder="Nhập số căn cước của nhân khẩu tạm trú, tạm vắng"
 			pattern="\d{12}"
 			warn="Số căn cước chỉ có 12 chữ số"
 			@update="ssn = $event.value"
