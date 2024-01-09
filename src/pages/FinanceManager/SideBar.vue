@@ -21,7 +21,6 @@ const entriesTop = [
 
 const entriesBottom = [
 	FinanceEntryType.ContributionInfo,
-	FinanceEntryType.UpdateContribution,
 	FinanceEntryType.QuarterlyReport,
 ];
 </script>

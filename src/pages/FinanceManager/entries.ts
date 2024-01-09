@@ -6,7 +6,6 @@ enum FinanceEntryType {
 	ParkingFee = "Phí gửi xe",
 	QuarterlyReport = "Chi tiết quý",
 	ServiceFee = "Phí dịch vụ chung cư",
-	UpdateContribution = "Cập nhật khoản đóng góp",
 }
 
 export default FinanceEntryType;
