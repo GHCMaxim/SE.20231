@@ -23,6 +23,7 @@ class Payment(PaymentBase):
     price: int
     household: str
     income_id: int
+    paid: bool
 
     class Config:
         from_attributes = True

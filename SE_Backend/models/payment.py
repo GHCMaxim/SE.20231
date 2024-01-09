@@ -15,6 +15,7 @@ class Payment(Base):
     price: Mapped[int] = mapped_column(Integer, nullable=False)
     household: Mapped[str] = mapped_column(ForeignKey("household_registrations.id"))
     income_id: Mapped[int] = mapped_column(ForeignKey("income.id"))
+    paid: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
 
 class PaymentType(Base):
