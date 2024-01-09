@@ -11,6 +11,7 @@ from .reward import Reward, RewardType
 from .spending import Spending
 from .user import User
 from .vehicle import Vehicle
+from .contributions import Contributions
 
 __all__ = [
     "Away",
@@ -28,4 +29,5 @@ __all__ = [
     "Spending",
     "User",
     "Vehicle",
+    "Contributions",
 ]

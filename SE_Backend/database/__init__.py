@@ -24,4 +24,5 @@ from . import (
     spending,
     user,
     vehicle,
+    contributions,
 )

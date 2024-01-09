@@ -3,6 +3,7 @@ from . import (
     auth,
     away,
     birth,
+    contributions,
     household_registration,
     income,
     payment,

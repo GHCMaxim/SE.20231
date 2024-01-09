@@ -26,4 +26,5 @@ from . import (
     statistics,
     users,
     vehicles,
+    contributions,
 )
