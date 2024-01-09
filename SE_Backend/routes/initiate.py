@@ -123,7 +123,10 @@ payment_type = models.PaymentType(
     name="Phi nuoc",
     rate=100000,
     active=True,
+    type = 1,
 )
+
+
 
 db.add(user)
 db.add(person)
@@ -138,6 +141,7 @@ db.add(vehicle)
 db.add(away_type)
 db.add(away)
 db.add(payment_type)
+db.add(payment_type2)
 db.add(payment)
 db.commit()
 db.close()

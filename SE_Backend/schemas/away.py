@@ -7,12 +7,14 @@ class AwayBase(BaseModel):
 
 class AwayCreate(AwayBase):
     household_id: str
+    cccd: str
     away_type_id: int
 
 
 class Away(AwayBase):
     id: int
     household_id: str
+    cccd: str
     away_type_id: int
 
     class Config:

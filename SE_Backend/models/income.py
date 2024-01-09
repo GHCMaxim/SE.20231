@@ -12,7 +12,7 @@ class Income(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     description: Mapped[str] = mapped_column(String, nullable=False)
     total: Mapped[int] = mapped_column(Integer, nullable=False)
-    income_time: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
+    income_time: Mapped[datetime.date] = mapped_column(DateTime, nullable=False)
 
 
 class TotalIncome(Base):
@@ -20,5 +20,5 @@ class TotalIncome(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     total: Mapped[int] = mapped_column(Integer, nullable=False)
-    calc_date: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
+    calc_date: Mapped[datetime.date] = mapped_column(DateTime, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=False)
