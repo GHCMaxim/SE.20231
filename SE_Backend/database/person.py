@@ -82,7 +82,10 @@ def count_age(db: Session):
 def count_gender(db: Session):
     num = [
         db.query(models.Person)
-        .filter((models.Person.sex == "M") | (models.Person.sex == "F"))
+        .filter((models.Person.sex == "M"))
+        .count(),
+        db.query(models.Person)
+        .filter((models.Person.sex == "F"))
         .count()
     ]
     return num
