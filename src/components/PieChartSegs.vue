@@ -25,7 +25,7 @@ const data = {
 		{
 			backgroundColor: [
 				"#41B883",
-				"#E46651",
+				"#FFC800",
 			],
 			data: res_data.value,
 		},
