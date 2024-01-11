@@ -68,6 +68,8 @@ async function handleAddNewVehicle(){
                 class="btn btn-primary w-full">
                 Đăng ký
             </button>
+
+            <div v-if = "message">{{ message }}</div>
         </OneColFormWrapper>
     </form>
 </template>
