@@ -24,12 +24,11 @@ async function login() {
 	if (!response.ok) {
 		message.value = response.statusText;
 	} else {
-		const token = await response.json().then(resp => resp.access_token);
+		const token = await response.json().then((resp) => resp.access_token);
 		$cookies!.set("token", token);
 	}
 }
 </script>
-
 
 <template>
 	<div class="grid h-screen w-full grid-cols-[1fr_600px]">
@@ -48,9 +47,9 @@ async function login() {
 			<div class="flex w-80 flex-col items-start">
 				<div class="mb-2 justify-items-start text-lg">Tài khoản</div>
 				<input
+					v-model="username"
 					type="text"
 					placeholder="Nhập tài khoản"
-					v-model="username"
 					class="input input-bordered w-full max-w-xs"
 				/>
 			</div>
@@ -58,9 +57,9 @@ async function login() {
 			<div class="flex w-80 flex-col items-start">
 				<div class="mb-2 justify-items-start text-lg">Mật khẩu</div>
 				<input
+					v-model="password"
 					type="password"
 					placeholder="Nhập mật khẩu"
-					v-model="password"
 					class="input input-bordered w-full max-w-xs"
 				/>
 			</div>
@@ -76,7 +75,9 @@ async function login() {
 
 			<!-- TODO: login handler -->
 			<router-link to="/">
-				<button class="btn btn-primary w-80" @click="login()">Đăng nhập</button>
+				<button class="btn btn-primary w-80" @click="login()">
+					Đăng nhập
+				</button>
 			</router-link>
 
 			<div class="w-80">

@@ -20,7 +20,7 @@ const filteredData = computed(() => {
 		return props.data;
 	}
 	return props.data.filter((item) =>
-		item.id.toString().includes(searchTerm.value.toLowerCase())
+		item.id.toString().includes(searchTerm.value.toLowerCase()),
 	);
 });
 
@@ -29,12 +29,12 @@ function splitData() {
 	let temp: RewardTableViewType = [];
 	for (let i = 0; i < props.data.length; i++) {
 		if (i % dataPerPage.value === 0) {
-            dataSplitted.value.push(temp);
-            temp = [];
-        }
-        temp.push(filteredData.value[i]);
-    }
-    dataSplitted.value.push(temp);
+			dataSplitted.value.push(temp);
+			temp = [];
+		}
+		temp.push(filteredData.value[i]);
+	}
+	dataSplitted.value.push(temp);
 }
 splitData();
 
@@ -111,8 +111,13 @@ watchEffect(() => {
 	<div
 		class="h-120 flex flex-col items-center justify-center gap-4 overflow-y-auto"
 	>
-		<div class="search-container ">
-			<input class="border rounded mx-auto bg-white mt-2 mb-2" v-model="searchTerm" type="text" placeholder=" Tìm kiếm theo mã PT..." />
+		<div class="search-container">
+			<input
+				v-model="searchTerm"
+				class="mx-auto my-2 rounded border bg-white"
+				type="text"
+				placeholder=" Tìm kiếm theo mã PT..."
+			/>
 		</div>
 		<table v-if="props.data.length">
 			<thead class="[&_th]:min-w-[200px] [&_th]:px-4 [&_th]:py-2">

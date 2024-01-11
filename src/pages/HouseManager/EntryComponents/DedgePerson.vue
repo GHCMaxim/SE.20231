@@ -43,31 +43,29 @@ async function handleDedgePerson() {
 
 <template>
 	<form @submit.prevent="handleDedgePerson()">
-	<ThreeInputFormWrapper>
-		<InputBox
-			title="Số hộ khẩu"
-			placeholder="Nhập số hộ khẩu"
-			@update="household_ssn = $event.value"
-			type="number"
-		/>
-		<InputBox
-			title="Số căn cước"
-			placeholder="Nhập số căn cước của nhân khẩu qua đời"
-			pattern="^\d{12}$"
-			warn="Số căn cước phải có 12 chữ số"
-			@update="ssn = $event.value"
-		/>
-		<InputBox
-			title="Lý do qua đời"
-			placeholder="Tuổi già"
-			@update="deadge_reason = $event.value"
-		/>
-		<button 
-		type = "submit"
-		class="btn btn-primary w-full">
-			Cập nhật
-		</button>
-		<div v-if="message">{{ message }}</div>
-	</ThreeInputFormWrapper>
+		<ThreeInputFormWrapper>
+			<InputBox
+				title="Số hộ khẩu"
+				placeholder="Nhập số hộ khẩu"
+				type="number"
+				@update="household_ssn = $event.value"
+			/>
+			<InputBox
+				title="Số căn cước"
+				placeholder="Nhập số căn cước của nhân khẩu qua đời"
+				pattern="^\d{12}$"
+				warn="Số căn cước phải có 12 chữ số"
+				@update="ssn = $event.value"
+			/>
+			<InputBox
+				title="Lý do qua đời"
+				placeholder="Tuổi già"
+				@update="deadge_reason = $event.value"
+			/>
+			<button type="submit" class="btn btn-primary w-full">
+				Cập nhật
+			</button>
+			<div v-if="message">{{ message }}</div>
+		</ThreeInputFormWrapper>
 	</form>
 </template>

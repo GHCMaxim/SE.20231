@@ -3,7 +3,7 @@ import NavigationBar from "../../components/NavigationBar.vue";
 import SidebarEntry from "../../components/SidebarEntry.vue";
 import Card from "./Card.vue";
 import User from "./User.vue";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 
 const house_nums = ref("");
 const people_nums = ref("");
@@ -11,6 +11,29 @@ const fund = ref("");
 const fund_change = ref("");
 const reward = ref("");
 
+type User = {
+	avatar: string;
+	name: string;
+	role: string;
+};
+
+const users: Ref<User[]> = ref([
+	{
+		avatar: "https://picsum.photos/200",
+		name: "Nguyễn Văn A",
+		role: "Chủ tịch",
+	},
+	{
+		avatar: "https://picsum.photos/201",
+		name: "Nguyễn Văn B",
+		role: "Phó chủ tịch",
+	},
+	{
+		avatar: "https://picsum.photos/202",
+		name: "Nguyễn Văn C",
+		role: "Thư ký",
+	},
+]);
 async function handlePeopleNums() {
 	const res = await fetch("http://localhost:8000/api/statistics/people");
 	let data = await res.json();
@@ -19,7 +42,6 @@ async function handlePeopleNums() {
 	}
 	people_nums.value = data;
 }
-
 async function handleFund() {
 	const res = await fetch("http://localhost:8000/api/statistics/income");
 	let data = await res.json();
@@ -37,7 +59,6 @@ async function handleHouseNums() {
 	}
 	house_nums.value = data;
 }
-
 async function handleReward() {
 	const res = await fetch("http://localhost:8000/api/statistics/rewards");
 	let data = await res.json();
@@ -46,11 +67,22 @@ async function handleReward() {
 	}
 	reward.value = data;
 }
+async function handleUsers() {
+	// For presentation only
+	const res = await fetch("http://localhost:8000/api/statistics/users");
+	try {
+		const data = (await res.json()) as User[];
+		users.value = data;
+	} catch (error) {
+		console.error(error);
+	}
+}
 Promise.all([
 	handlePeopleNums(),
 	handleFund(),
 	handleHouseNums(),
 	handleReward(),
+	// handleUsers(),
 ]);
 </script>
 
@@ -138,9 +170,13 @@ Promise.all([
 			>
 				<div class="w-full text-start text-2xl">Ban quản trị</div>
 				<div class="flex flex-col gap-5">
-					<User />
-					<User />
-					<User />
+					<User
+						v-for="user in users"
+						:key="user.name"
+						:avatar="user.avatar"
+						:name="user.name"
+						:role="user.role"
+					/>
 				</div>
 				<a href="#" class="mt-3 font-semibold text-primary"
 					>Hiện tất cả</a

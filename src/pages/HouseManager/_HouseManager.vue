@@ -13,6 +13,7 @@ import SplitHousehold from "./EntryComponents/SplitHousehold.vue";
 import TemporaryResidence from "./EntryComponents/TemporaryResidence.vue";
 import AddVehicleToHousehold from "./EntryComponents/AddVehicleToHousehold.vue";
 import { ref } from "vue";
+
 const currentEntryRef = ref(HouseEntryType.AddNewPerson);
 </script>
 
@@ -41,7 +42,9 @@ const currentEntryRef = ref(HouseEntryType.AddNewPerson);
 					v-if="currentEntryRef === HouseEntryType.ChangeHouseholder"
 				/>
 				<AddVehicleToHousehold
-					v-if="currentEntryRef === HouseEntryType.AddVehicleToHousehold"
+					v-if="
+						currentEntryRef === HouseEntryType.AddVehicleToHousehold
+					"
 				/>
 				<Deceased
 					v-if="currentEntryRef === HouseEntryType.DedgePerson"

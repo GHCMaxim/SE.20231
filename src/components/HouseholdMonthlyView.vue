@@ -115,13 +115,13 @@ function lastPage() {
 			<tbody
 				class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
 			>
-				<tr v-for="(item) in dataSplitted[currentPage]">
+				<tr v-for="item in dataSplitted[currentPage]">
 					<td>{{ item.household }}</td>
 					<td>{{ item.vehicle_payment }}</td>
 					<td>{{ item.house_payment }}</td>
 					<td>{{ item.service_payment }}</td>
 					<td>{{ item.total_payment }}</td>
-                    <td>{{ item.total_paid }}</td>
+					<td>{{ item.total_paid }}</td>
 					<!-- <td class="flex items-center justify-center gap-2">
 						<button
 							class="btn btn-primary btn-sm"

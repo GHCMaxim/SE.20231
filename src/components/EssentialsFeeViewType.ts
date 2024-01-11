@@ -1,12 +1,7 @@
 type item = {
-    name : string;
-    id : number;
-    type_id : number;
-    creation_date : string;
-    price : number;
-    household : string;
-    income_id : number;
-    paid : boolean;
-}
+	household: string;
+	service_payment: number;
+	paid: boolean;
+};
 
 export type EssentialsFeeViewType = item[];

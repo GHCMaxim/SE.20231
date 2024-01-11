@@ -23,10 +23,7 @@ const data = {
 	labels: ["M", "F"],
 	datasets: [
 		{
-			backgroundColor: [
-				"#41B883",
-				"#FFC800",
-			],
+			backgroundColor: ["#41B883", "#FFC800"],
 			data: res_data.value,
 		},
 	],

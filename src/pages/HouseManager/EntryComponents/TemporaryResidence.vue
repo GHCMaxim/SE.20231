@@ -43,31 +43,29 @@ async function handleMoveOut() {
 
 <template>
 	<form @submit.prevent="handleMoveOut()">
-	<ThreeInputFormWrapper>
-		<InputBox
-			title="Số hộ khẩu"
-			placeholder="Nhập số hộ khẩu"
-			type = "number"
-			@update="household_ssn = $event.value"
-		/>
-		<InputBox
-			title="Số căn cước"
-			placeholder="Nhập số căn cước của nhân khẩu tạm trú, tạm vắng"
-			pattern="\d{12}"
-			warn="Số căn cước chỉ có 12 chữ số"
-			@update="ssn = $event.value"
-		/>
-		<InputBox
-			title="Lý do tạm trú/tạm vắng"
-			placeholder="Đi học"
-			@update="move_out_reason = $event.value"
-		/>
-		<button 
-		type = "submit"
-		class="btn btn-primary w-full">
-			Cập nhật
-		</button>
-		<div v-if="message">{{ message }}</div>
-	</ThreeInputFormWrapper>
+		<ThreeInputFormWrapper>
+			<InputBox
+				title="Số hộ khẩu"
+				placeholder="Nhập số hộ khẩu"
+				type="number"
+				@update="household_ssn = $event.value"
+			/>
+			<InputBox
+				title="Số căn cước"
+				placeholder="Nhập số căn cước của nhân khẩu tạm trú, tạm vắng"
+				pattern="\d{12}"
+				warn="Số căn cước chỉ có 12 chữ số"
+				@update="ssn = $event.value"
+			/>
+			<InputBox
+				title="Lý do tạm trú/tạm vắng"
+				placeholder="Đi học"
+				@update="move_out_reason = $event.value"
+			/>
+			<button type="submit" class="btn btn-primary w-full">
+				Cập nhật
+			</button>
+			<div v-if="message">{{ message }}</div>
+		</ThreeInputFormWrapper>
 	</form>
 </template>

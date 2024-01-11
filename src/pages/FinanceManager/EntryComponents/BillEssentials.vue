@@ -6,7 +6,9 @@ import { EssentialsFeeViewType } from "../../../components/EssentialsFeeViewType
 const res_data = ref<EssentialsFeeViewType>([]);
 
 async function get_data() {
-	const res = await fetch("http://localhost:8000/api/payments/monthly/service");
+	const res = await fetch(
+		"http://localhost:8000/api/payments/monthly/service",
+	);
 	const data = await res.json();
 	res_data.value = data;
 }

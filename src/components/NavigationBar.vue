@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { inject } from "vue";
 import router from "../router";
-import {inject} from "vue";
-import type { VueCookies } from "vue-cookies"
-
+import type { VueCookies } from "vue-cookies";
+import parseToken from "../parseToken";
 
 const items = [
 	["Thống kê", "chart-mixed", "/statistics"],
@@ -11,10 +11,10 @@ const items = [
 	["Thông báo", "bell", "/"],
 ];
 const $cookies = inject<VueCookies>("$cookies");
-const userName = "Nguyễn Văn A";
+const userName = parseToken()?.name ?? "Người dùng";
 const avatar = "https://picsum.photos/200";
 const currentRoute = router.currentRoute.value.path;
-function logout(){
+function logout() {
 	// clear cookies
 	$cookies!.remove("token");
 	router.push("/login");
@@ -26,24 +26,22 @@ function logout(){
 		<div
 			class="flex h-16 w-full flex-row items-center justify-between px-5"
 		>
+			<button class="btn btn-ghost" @click="logout">Đăng xuất</button>
 
-			<button class="btn btn-ghost " @click="logout">Đăng xuất</button>
-
-			<div class="flex flex-row gap-10 items-center">
+			<div class="flex flex-row items-center gap-10">
 				<router-link
-				v-for="item in items"
-				:key="item[0]"
-				class="flex h-full flex-row items-center justify-center gap-3 font-semibold text-primary/90 transition-all hover:text-primary"
-				:to="item[2]"
-			>
-
-				<i :class="`fa-light fa-${item[1]}`" />
-				<div>{{ item[0] }}</div>
-			</router-link>
-			<div class="flex items-center justify-center gap-4">
-				<div>{{ userName }}</div>
-				<img :src="avatar" alt="avatar" class="h-10 rounded-full" />
-			</div>
+					v-for="item in items"
+					:key="item[0]"
+					class="flex h-full flex-row items-center justify-center gap-3 font-semibold text-primary/90 transition-all hover:text-primary"
+					:to="item[2]"
+				>
+					<i :class="`fa-light fa-${item[1]}`" />
+					<div>{{ item[0] }}</div>
+				</router-link>
+				<div class="flex items-center justify-center gap-4">
+					<div>{{ userName }}</div>
+					<img :src="avatar" alt="avatar" class="h-10 rounded-full" />
+				</div>
 			</div>
 		</div>
 

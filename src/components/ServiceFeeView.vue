@@ -27,14 +27,14 @@ function splitData() {
 	dataSplitted.value.push(temp);
 }
 
-function getHouseTypeDescription(houseType: number){
-    const houseTypeMap: { [houseType: number]: string } = {
-        3: "Chung cư giá rẻ",
-        4: "Chung cư thường",
-        5: "Chung cư cao cấp"
-    };
+function getHouseTypeDescription(houseType: number) {
+	const houseTypeMap: { [houseType: number]: string } = {
+		1: "Chung cư giá rẻ",
+		2: "Chung cư thường",
+		3: "Chung cư cao cấp",
+	};
 
-    return houseTypeMap[houseType];
+	return houseTypeMap[houseType];
 }
 
 splitData();
@@ -60,7 +60,6 @@ function firstPage() {
 function lastPage() {
 	currentPage.value = totalPages;
 }
-
 
 // function deleteEntry(index: number) {
 // 	props.data.splice(index, 1);
@@ -109,8 +108,8 @@ function lastPage() {
 			<thead class="[&_th]:min-w-[200px] [&_th]:px-4 [&_th]:py-2">
 				<tr>
 					<th>Mã hộ</th>
-                    <th>Loại nhà</th>
-                    <th>Diện tích nhà (m2)</th>
+					<th>Loại nhà</th>
+					<th>Diện tích nhà (m2)</th>
 					<th>Tổng tiền</th>
 					<th>Đã trả</th>
 				</tr>
@@ -118,10 +117,10 @@ function lastPage() {
 			<tbody
 				class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
 			>
-				<tr v-for="(item) in dataSplitted[currentPage]">
+				<tr v-for="item in dataSplitted[currentPage]">
 					<td>{{ item.household }}</td>
-                    <td>{{ getHouseTypeDescription(item.house_type) }}</td>
-                    <td>{{ item.size }}</td>
+					<td>{{ getHouseTypeDescription(item.house_type) }}</td>
+					<td>{{ item.size }}</td>
 					<td>{{ item.price }}</td>
 					<td>{{ item.paid }}</td>
 					<!-- <td class="flex items-center justify-center gap-2">
@@ -144,35 +143,35 @@ function lastPage() {
 		<div v-else class="text-center">
 			<h1 class="text-2xl font-bold">Không có dữ liệu</h1>
 		</div>
-		</div>
-		<div class="flex flex-row items-center justify-center gap-4">
-			<button
-				class="btn btn-primary btn-sm"
-				:disabled="currentPage === 1"
-				@click="firstPage()"
-			>
-				Trang đầu
-			</button>
-			<button
-				class="btn btn-primary btn-sm"
-				:disabled="currentPage === 1"
-				@click="prevPage()"
-			>
-				Trang trước
-			</button>
-			<button
-				class="btn btn-primary btn-sm"
-				:disabled="currentPage === totalPages"
-				@click="nextPage()"
-			>
-				Trang sau
-			</button>
-			<button
-				class="btn btn-primary btn-sm"
-				:disabled="currentPage === totalPages"
-				@click="lastPage()"
-			>
-				Trang cuối
-			</button>
-		</div>
+	</div>
+	<div class="flex flex-row items-center justify-center gap-4">
+		<button
+			class="btn btn-primary btn-sm"
+			:disabled="currentPage === 1"
+			@click="firstPage()"
+		>
+			Trang đầu
+		</button>
+		<button
+			class="btn btn-primary btn-sm"
+			:disabled="currentPage === 1"
+			@click="prevPage()"
+		>
+			Trang trước
+		</button>
+		<button
+			class="btn btn-primary btn-sm"
+			:disabled="currentPage === totalPages"
+			@click="nextPage()"
+		>
+			Trang sau
+		</button>
+		<button
+			class="btn btn-primary btn-sm"
+			:disabled="currentPage === totalPages"
+			@click="lastPage()"
+		>
+			Trang cuối
+		</button>
+	</div>
 </template>

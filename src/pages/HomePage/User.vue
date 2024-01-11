@@ -2,15 +2,15 @@
 const props = defineProps({
 	avatar: {
 		type: String,
-		default: "https://picsum.photos/200",
+		required: true,
 	},
 	name: {
 		type: String,
-		default: "Nguyễn Văn A",
+		required: true,
 	},
 	role: {
 		type: String,
-		default: "Nhân viên",
+		required: true,
 	},
 });
 </script>

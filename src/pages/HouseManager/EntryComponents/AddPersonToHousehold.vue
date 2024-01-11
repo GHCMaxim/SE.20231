@@ -44,33 +44,31 @@ async function handleAddNewHousehold() {
 
 <template>
 	<form @submit.prevent="handleAddNewHousehold()">
-	<OneColFormWrapper class="w-full">
-		<InputBox
-			title="Số căn cước công dân"
-			placeholder="CCCD"
-			pattern ="\d{12}"
-			warn = "Số CCCD phải là 12 chữ số"
-			@update="cccd = $event.value"
-		/>
-		<InputBox
-			title="Mối quan hệ với chủ hộ"
-			placeholder="Con trai / Bố / Mẹ"
-			@update="relationship = $event.value"
-		/>
-		<InputBox
-			title="Số hộ khẩu"
-			placeholder="Nhập số hộ khẩu"
-			type="number"
-			warn="Số hộ khẩu phải là số"
-			@update="household_id = $event.value"
-		/>
+		<OneColFormWrapper class="w-full">
+			<InputBox
+				title="Số căn cước công dân"
+				placeholder="CCCD"
+				pattern="\d{12}"
+				warn="Số CCCD phải là 12 chữ số"
+				@update="cccd = $event.value"
+			/>
+			<InputBox
+				title="Mối quan hệ với chủ hộ"
+				placeholder="Con trai / Bố / Mẹ"
+				@update="relationship = $event.value"
+			/>
+			<InputBox
+				title="Số hộ khẩu"
+				placeholder="Nhập số hộ khẩu"
+				type="number"
+				warn="Số hộ khẩu phải là số"
+				@update="household_id = $event.value"
+			/>
 
-		<button 
-			type = "submit"
-			class="btn btn-primary w-full" >
-			Tạo mới
-		</button>
-		<div v-if="message">{{ message }}</div>
-	</OneColFormWrapper>
+			<button type="submit" class="btn btn-primary w-full">
+				Tạo mới
+			</button>
+			<div v-if="message">{{ message }}</div>
+		</OneColFormWrapper>
 	</form>
 </template>

@@ -5,8 +5,6 @@ import { HouseholdMonthlyViewType } from "../../../components/HouseholdMonthlyVi
 
 const res_data = ref<HouseholdMonthlyViewType>([]);
 
-
-
 async function get_data() {
 	const res = await fetch(
 		`http://localhost:8000/api/payments/monthly/household`,

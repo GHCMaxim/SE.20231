@@ -51,7 +51,6 @@ function lastPage() {
 	currentPage.value = totalPages;
 }
 
-
 // function deleteEntry(index: number) {
 // 	props.data.splice(index, 1);
 // }
@@ -106,9 +105,9 @@ function lastPage() {
 			<tbody
 				class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
 			>
-				<tr v-for="(item) in dataSplitted[currentPage]">
+				<tr v-for="item in dataSplitted[currentPage]">
 					<td>{{ item.household }}</td>
-					<td>{{ item.price }}</td>
+					<td>{{ item.service_payment }}</td>
 					<td>{{ item.paid }}</td>
 					<!-- <td class="flex items-center justify-center gap-2">
 						<button
@@ -130,35 +129,35 @@ function lastPage() {
 		<div v-else class="text-center">
 			<h1 class="text-2xl font-bold">Không có dữ liệu</h1>
 		</div>
-		</div>
-		<div class="flex flex-row items-center justify-center gap-4">
-			<button
-				class="btn btn-primary btn-sm"
-				:disabled="currentPage === 1"
-				@click="firstPage()"
-			>
-				Trang đầu
-			</button>
-			<button
-				class="btn btn-primary btn-sm"
-				:disabled="currentPage === 1"
-				@click="prevPage()"
-			>
-				Trang trước
-			</button>
-			<button
-				class="btn btn-primary btn-sm"
-				:disabled="currentPage === totalPages"
-				@click="nextPage()"
-			>
-				Trang sau
-			</button>
-			<button
-				class="btn btn-primary btn-sm"
-				:disabled="currentPage === totalPages"
-				@click="lastPage()"
-			>
-				Trang cuối
-			</button>
-		</div>
+	</div>
+	<div class="flex flex-row items-center justify-center gap-4">
+		<button
+			class="btn btn-primary btn-sm"
+			:disabled="currentPage === 1"
+			@click="firstPage()"
+		>
+			Trang đầu
+		</button>
+		<button
+			class="btn btn-primary btn-sm"
+			:disabled="currentPage === 1"
+			@click="prevPage()"
+		>
+			Trang trước
+		</button>
+		<button
+			class="btn btn-primary btn-sm"
+			:disabled="currentPage === totalPages"
+			@click="nextPage()"
+		>
+			Trang sau
+		</button>
+		<button
+			class="btn btn-primary btn-sm"
+			:disabled="currentPage === totalPages"
+			@click="lastPage()"
+		>
+			Trang cuối
+		</button>
+	</div>
 </template>

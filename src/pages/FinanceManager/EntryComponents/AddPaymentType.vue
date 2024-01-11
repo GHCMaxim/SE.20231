@@ -45,42 +45,40 @@ async function handleAddNewHousehold() {
 
 <template>
 	<form @submit.prevent="handleAddNewHousehold()">
-	<OneColFormWrapper class="w-full">
-		<InputBox
-			title="Số hộ khẩu"
-			placeholder="Nhập số hộ khẩu"
-			@update="household_ssn = $event.value"
-			type="number"
-			warn = "Số sổ hộ khẩu chỉ có số"
-		/>
-		<InputBox
-			title="Số tên căn hộ"
-			placeholder="N02-1810"
-			@update="name = $event.value"
-		/>
-		<InputBox
-			title="Số địa chỉ hộ khẩu"
-			placeholder="Nhập địa chỉ"
-			@update="location = $event.value"
-		/>
-		<InputBox
-			title="Số căn cước chủ hộ khẩu"
-			placeholder="Nhập số căn cước"
-			@update="owner = $event.value"
-			type="number"
-			warn = "Số căn cước chỉ có số"
-		/>
-		<InputBox
-			title="Số ngày thành lập sổ hộ khẩu"
-			placeholder="DD/MM/YYYY"
-			@update="creation_date = $event.value"
-			type="date"
-		/>
+		<OneColFormWrapper class="w-full">
+			<InputBox
+				title="Số hộ khẩu"
+				placeholder="Nhập số hộ khẩu"
+				type="number"
+				warn="Số sổ hộ khẩu chỉ có số"
+				@update="household_ssn = $event.value"
+			/>
+			<InputBox
+				title="Số tên căn hộ"
+				placeholder="N02-1810"
+				@update="name = $event.value"
+			/>
+			<InputBox
+				title="Số địa chỉ hộ khẩu"
+				placeholder="Nhập địa chỉ"
+				@update="location = $event.value"
+			/>
+			<InputBox
+				title="Số căn cước chủ hộ khẩu"
+				placeholder="Nhập số căn cước"
+				type="number"
+				warn="Số căn cước chỉ có số"
+				@update="owner = $event.value"
+			/>
+			<InputBox
+				title="Số ngày thành lập sổ hộ khẩu"
+				placeholder="DD/MM/YYYY"
+				type="date"
+				@update="creation_date = $event.value"
+			/>
 
-		<button class="btn btn-primary w-full" >
-			Tạo mới
-		</button>
-		<div v-if="message">{{ message }}</div>
-	</OneColFormWrapper>
+			<button class="btn btn-primary w-full">Tạo mới</button>
+			<div v-if="message">{{ message }}</div>
+		</OneColFormWrapper>
 	</form>
 </template>
