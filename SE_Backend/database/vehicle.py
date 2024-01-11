@@ -1,4 +1,7 @@
+from sqlalchemy import func, select
+from sqlalchemy.sql import label
 from sqlalchemy.orm import Session
+
 
 from .. import models, schemas
 
@@ -27,3 +30,10 @@ def create_vehicle(db: Session, vehicle: schemas.vehicle.VehicleCreate):
     db.refresh(db_vehicle)
 
     return db_vehicle
+
+def count_vehicles_per_household(db: Session):
+    return db.query(
+        models.vehicle.Vehicle.owner,
+        label("count_type_1", func.count(models.vehicle.Vehicle.vehicle_type == "1")),
+        label("count_type_2", func.count(models.vehicle.Vehicle.vehicle_type == "2"))
+    ).group_by(models.vehicle.Vehicle.owner).all()

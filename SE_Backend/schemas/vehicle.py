@@ -16,3 +16,8 @@ class Vehicle(VehicleBase):
 
     class Config:
         from_attributes = True
+
+class VehicleCount(BaseModel):
+    owner : str
+    count_type_1 : int
+    count_type_2 : int
