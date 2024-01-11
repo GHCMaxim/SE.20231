@@ -86,10 +86,33 @@ def update_payment_type(
         .first()
     )
 
+def find_monthly_vehicle_payment(db: Session):
+    current_month = datetime.datetime.now().month
+    current_year = datetime.datetime.now().year
+    return db.query(models.Payment.household, 
+                    func.count(models.Vehicle.vehicle_type == "1").label("vehicle_count_type1"),    
+                    func.count(models.Vehicle.vehicle_type == "2").label("vehicle_count_type2"),
+                    models.Payment.price,
+                    models.Payment.paid
+                    ).join(models.Vehicle, models.Vehicle.owner == models.Payment.household).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").filter(models.Payment.type_id == 0).group_by(models.Payment.household).all()
+
+def find_monthly_house_payment(db: Session):
+    current_month = datetime.datetime.now().month
+    current_year = datetime.datetime.now().year
+    return db.query(models.Payment.household,
+                    models.HouseholdRegistration.house_type,
+                    models.HouseholdRegistration.size,
+                    models.Payment.price,
+                    models.Payment.paid).join(models.HouseholdRegistration, models.HouseholdRegistration.id == models.Payment.household).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").filter(models.Payment.type_id.in_([2, 3, 4])).all()
+
+def find_monthly_service_payment(db: Session):
+    current_month = datetime.datetime.now().month
+    current_year = datetime.datetime.now().year
+    return db.query(models.Payment).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").filter(models.Payment.type_id == -1).all()
+
 def create_monthly_payments(db: Session):
     current_month = datetime.datetime.now().month
     current_year = datetime.datetime.now().year
-    # Check if there exists any payment in the current month
     db_payment = db.query(models.Payment).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").first()
     if db_payment is not None:
         db.refresh(db_payment)
@@ -106,25 +129,12 @@ def create_monthly_payments(db: Session):
             id1 = uuid.uuid4()
             id2 = uuid.uuid4()
             id3 = uuid.uuid4()
-            id4 = uuid.uuid4()
-            id5 = uuid.uuid4()
-            id6 = uuid.uuid4()
             db_payment_vehicle1 = models.Payment(
                 id = id1,
-                name = f"Tiền gửi xe máy tháng {current_month}/{current_year} ", 
-                type_id = 1,
+                name = f"Tiền gửi xe tháng {current_month}/{current_year} ", 
+                type_id = 0,
                 creation_date = f"{current_year}-{current_month}-10",
-                price = vehicle_count[0] * db.query(models.PaymentType).filter(models.PaymentType.id == 1).first().rate,
-                household = household_id,
-                income_id = income_uuid,
-                paid = False
-            )
-            db_payment_vehicle2 = models.Payment(
-                id = id2,
-                name = f"Tiền gửi xe máy tháng {current_month}/{current_year} ", 
-                type_id = 2,
-                creation_date = f"{current_year}-{current_month}-10",
-                price = vehicle_count[1] * db.query(models.PaymentType).filter(models.PaymentType.id == 2).first().rate,
+                price = vehicle_count[0] * db.query(models.PaymentType).filter(models.PaymentType.id == 1).first().rate + vehicle_count[1] * db.query(models.PaymentType).filter(models.PaymentType.id == 2).first().rate,
                 household = household_id,
                 income_id = income_uuid,
                 paid = False
@@ -139,47 +149,21 @@ def create_monthly_payments(db: Session):
                 income_id = income_uuid,
                 paid = False,
             )
-            db_payment_service1 = models.Payment(
-                id = id4,
-                name = f"Tiền điện tháng {current_month}/{current_year} ",
-                type_id = 6,
+            db_payment_service = models.Payment(
+                id = id2,
+                name = f"Tiền quản lý dịch vụ tháng {current_month}/{current_year} ",
+                type_id = -1,
                 creation_date = f"{current_year}-{current_month}-10",
-                price = random.randint(2000, 10000)/10 * db.query(models.PaymentType).filter(models.PaymentType.id == 6).first().rate,
+                price = random.randint(2000, 10000)/10 * db.query(models.PaymentType).filter(models.PaymentType.id == 6).first().rate + random.randint(2000, 10000)/10 * db.query(models.PaymentType).filter(models.PaymentType.id == 7).first().rate + db.query(models.PaymentType).filter(models.PaymentType.id == 8).first().rate,
                 household = household_id,
-                income_id = income_uuid,
-                paid = False,
-            )   
-            db_payment_service2 = models.Payment(
-                id = id5,
-                name = f"Tiền nước tháng {current_month}/{current_year} ",
-                type_id = 7,
-                creation_date = f"{current_year}-{current_month}-10",
-                price = random.randint(2000, 10000)/10 * db.query(models.PaymentType).filter(models.PaymentType.id == 7).first().rate,
-                household = household_id,
-                income_id = income_uuid,
-                paid = False,
-            )
-            db_payment_service3 = models.Payment(
-                id = id6,
-                name = f"Tiền nước tháng {current_month}/{current_year} ",
-                type_id = 7,
-                creation_date = f"{current_year}-{current_month}-10",
-                price = db.query(models.PaymentType).filter(models.PaymentType.id == 7).first().rate,
-                household = household_id,
-                income_id = income_uuid,
+                income_id = None,
                 paid = False,
             )
             db.add(db_payment_vehicle1)
-            db.add(db_payment_vehicle2)
             db.add(db_payment_house)
-            db.add(db_payment_service1)
-            db.add(db_payment_service2)
-            db.add(db_payment_service3)
+            db.add(db_payment_service)
             db.commit()
             db.refresh(db_payment_vehicle1)
-            db.refresh(db_payment_vehicle2)
             db.refresh(db_payment_house)
-            db.refresh(db_payment_service1)
-            db.refresh(db_payment_service2)
-            db.refresh(db_payment_service3)
+            db.refresh(db_payment_service)
         return "Đã tạo xong hóa đơn tháng này."
