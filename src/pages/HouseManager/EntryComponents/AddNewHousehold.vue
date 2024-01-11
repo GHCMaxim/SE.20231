@@ -16,7 +16,7 @@ const message = ref("");
 async function handleAddNewHousehold() {
 	message.value = "";
 
-	const fields = [household_ssn, location, owner, name, creation_date];
+	const fields = [household_ssn, location, owner, name, creation_date, house_type, house_size];
 	if (!fields.every((field) => field.value)) {
 		message.value = "Vui lòng điền đầy đủ thông tin";
 		return;
