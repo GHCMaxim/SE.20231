@@ -21,16 +21,16 @@ def get_contribution(cccd: str, db: Session=Depends(get_db)):
     return db_contribution
 
 
-@contributions.put("/api/contributions/{cccd}", response_model=schemas.contributions.ContributionsModify)
+@contributions.put("/api/contributions/{id}", response_model=schemas.contributions.ContributionsModify)
 def put_contribution(
-    cccd: str,
+    id: str,
     contribution: schemas.contributions.ContributionsModify,
     db: Session=Depends(get_db)
 ):
-    db_contribution = database.contributions.get_contribution(db, cccd=cccd)
+    db_contribution = database.contributions.get_contribution(db, id=id)
     if db_contribution is None:
         raise HTTPException(status_code=404, detail="contribution not found.")
-    return database.contributions.update_contributions(db, id=cccd, contribution=contribution)
+    return database.contributions.update_contributions(db, id=id, contribution=contribution)
 
 
 @contributions.post("/api/contributions", response_model=schemas.contributions.ContributionsBase)
