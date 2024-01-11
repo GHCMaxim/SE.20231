@@ -27,6 +27,20 @@ payment_type2 = models.PaymentType(
     id = 2,
 )
 
+payment_type = models.PaymentType(
+    name = "Phí gửi xe hàng tháng",
+    rate = 0,
+    active = True,
+    id = 0,
+)
+
+payment_type3 = models.PaymentType(
+    name = "Phí quản lý tiền dịch vụ",
+    rate = 0,
+    active = True,
+    id = -1,
+)
+
 payment_type3 = models.PaymentType(
     name = "Tiền quản lý CC giá rẻ",
     rate = 7000,
@@ -68,7 +82,7 @@ payment_type8 = models.PaymentType(
     active = True,
     type = 8,
 )
-
+db.add(payment_type)
 db.add(payment_type1)
 db.add(payment_type2)
 db.add(payment_type3)
@@ -78,4 +92,13 @@ db.add(payment_type6)
 db.add(payment_type7)
 db.add(payment_type8)
 db.commit()
+db.refresh(payment_type)
+db.refresh(payment_type1)
+db.refresh(payment_type2)
+db.refresh(payment_type3)
+db.refresh(payment_type4)
+db.refresh(payment_type5)
+db.refresh(payment_type6)
+db.refresh(payment_type7)
+db.refresh(payment_type8)
 db.close()
