@@ -35,6 +35,8 @@ async function handleAddNewHousehold() {
 			location: location.value,
 			creation_date: creation_date.value,
 			owner: owner.value,
+			size: house_size.value,
+			house_type: house_type.value,
 		}),
 	});
 	if (!response.ok) {
