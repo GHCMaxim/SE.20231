@@ -9,7 +9,6 @@ import ManagementFee from "./EntryComponents/ManagementFee.vue";
 import ParkingFee from "./EntryComponents/ParkingFee.vue";
 import QuarterlyReport from "./EntryComponents/QuarterlyReport.vue";
 import ServiceFee from "./EntryComponents/ServiceFee.vue";
-import UpdateContribution from "./EntryComponents/UpdateContribution.vue";
 import FinanceEntryType from "./entries";
 import { ref } from "vue";
 
@@ -67,11 +66,6 @@ const currentEntryRef = ref(FinanceEntryType.ParkingFee);
 						v-if="currentEntryRef === FinanceEntryType.ServiceFee"
 					/>
 				</Suspense>
-				<UpdateContribution
-					v-if="
-						currentEntryRef === FinanceEntryType.UpdateContribution
-					"
-				/>
 			</RightSideContainer>
 		</div>
 	</div>
