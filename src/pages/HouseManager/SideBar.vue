@@ -17,6 +17,7 @@ const entriesTop = [
 	HouseEntryType.AddPersonToHousehold,
 	HouseEntryType.SplitHousehold,
 	HouseEntryType.ChangeHouseholder,
+	HouseEntryType.AddVehicleToHousehold,
 ];
 
 const entriesBottom = [
