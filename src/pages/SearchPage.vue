@@ -52,6 +52,10 @@ function getData() {
 			PeopleData.value = data[1];
 			PaymentData.value = data[2];
 			RewardData.value = data[3];
+			console.log(responses[0]);
+			console.log(responses[1]);
+			console.log(responses[2]);
+			console.log(responses[3]);
 		});
 	});
 }
@@ -73,19 +77,11 @@ getData();
 				<SidebarEntry title="tìm kiếm" icon="search" />
 				<div class="px-10">
 					<div class="mb-3 text-start">Tìm kiếm theo</div>
-					<select
-						class="select select-primary w-full max-w-xs"
-						title="Chọn"
-						@change="
-							// @ts-ignore
-							changeSearchCategory($event.target?.selectedIndex)
-						"
-					>
-						<option
-							v-for="(field, index) in correspondFields"
-							:key="index"
-							:selected="index === 0"
-						>
+					<select class="select select-primary w-full max-w-xs" title="Chọn" @change="
+						// @ts-ignore
+						changeSearchCategory($event.target?.selectedIndex)
+						">
+						<option v-for="(field, index) in correspondFields" :key="index" :selected="index === 0">
 							{{ field[2] }}
 						</option>
 					</select>
@@ -93,30 +89,19 @@ getData();
 			</div>
 
 			<RightSideContainer>
-				<div
-					v-if="
-						currentSearchCategory === SearchCategory.HouseholdInfo
-					"
-				>
+				<div v-if="currentSearchCategory === SearchCategory.HouseholdInfo
+					">
 					<HouseholdTableView :data="HouseholdData" />
 				</div>
-				<div
-					v-else-if="
-						currentSearchCategory === SearchCategory.PersonInfo
-					"
-				>
+				<div v-else-if="currentSearchCategory === SearchCategory.PersonInfo
+					">
 					<PeopleTableView :data="PeopleData" />
 				</div>
-				<div
-					v-else-if="
-						currentSearchCategory === SearchCategory.Contributions
-					"
-				>
+				<div v-else-if="currentSearchCategory === SearchCategory.Contributions
+					">
 					<PaymentByHouseholdView :data="PaymentData" />
 				</div>
-				<div
-					v-else-if="currentSearchCategory === SearchCategory.Rewards"
-				>
+				<div v-else-if="currentSearchCategory === SearchCategory.Rewards">
 					<RewardTableTypeView :data="RewardData" />
 				</div>
 			</RightSideContainer>

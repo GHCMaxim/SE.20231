@@ -9,6 +9,8 @@ import ManagementFee from "./EntryComponents/ManagementFee.vue";
 import ParkingFee from "./EntryComponents/ParkingFee.vue";
 import QuarterlyReport from "./EntryComponents/QuarterlyReport.vue";
 import ServiceFee from "./EntryComponents/ServiceFee.vue";
+import CreateContributionEvent from "./EntryComponents/CreateContributionEvent.vue";
+import CreateContribution from "./EntryComponents/CreateContribution.vue";
 import FinanceEntryType from "./entries";
 import { ref } from "vue";
 
@@ -19,55 +21,43 @@ const currentEntryRef = ref(FinanceEntryType.ParkingFee);
 	<div>
 		<NavigationBar />
 		<div class="flex flex-row">
-			<SideBar
-				:current-entry="currentEntryRef"
-				@update:current-entry="currentEntryRef = $event"
-			/>
+			<SideBar :current-entry="currentEntryRef" @update:current-entry="currentEntryRef = $event" />
 			<RightSideContainer>
 				<Suspense>
-					<ParkingFee
-						v-if="currentEntryRef === FinanceEntryType.ParkingFee"
-					/>
+					<ParkingFee v-if="currentEntryRef === FinanceEntryType.ParkingFee" />
 				</Suspense>
 				<Suspense>
-					<BillEssentials
-						v-if="
-							currentEntryRef === FinanceEntryType.BillEssentials
-						"
-					/>
+					<BillEssentials v-if="currentEntryRef === FinanceEntryType.BillEssentials
+						" />
 				</Suspense>
 				<Suspense>
-					<ServiceFee
-						v-if="currentEntryRef === FinanceEntryType.ServiceFee"
-					/>
+					<ServiceFee v-if="currentEntryRef === FinanceEntryType.ServiceFee" />
 				</Suspense>
 				<Suspense>
-					<ManagementFee
-						v-if="
-							currentEntryRef === FinanceEntryType.ManagementFee
-						"
-					/>
+					<ManagementFee v-if="currentEntryRef === FinanceEntryType.ManagementFee
+						" />
 				</Suspense>
 				<Suspense>
-					<BillByHousehold
-						v-if="
-							currentEntryRef === FinanceEntryType.BillByHousehold
-						"
-					/>
+					<BillByHousehold v-if="currentEntryRef === FinanceEntryType.BillByHousehold
+						" />
 				</Suspense>
 
 				<Suspense>
-					<ContributionInfo
-						v-if="
-							currentEntryRef ===
-							FinanceEntryType.ContributionInfo
-						"
-					/>
+					<CreateContributionEvent v-if="currentEntryRef ===
+						FinanceEntryType.CreateContributionEvent
+						" />
+				</Suspense>
+				<Suspense>
+					<CreateContribution v-if="currentEntryRef === FinanceEntryType.CreateContribution
+						" />
+				</Suspense>
+				<Suspense>
+					<ContributionInfo v-if="currentEntryRef ===
+						FinanceEntryType.ContributionInfo
+						" />
 				</Suspense>
 
-				<QuarterlyReport
-					v-if="currentEntryRef === FinanceEntryType.QuarterlyReport"
-				/>
+				<QuarterlyReport v-if="currentEntryRef === FinanceEntryType.QuarterlyReport" />
 			</RightSideContainer>
 		</div>
 	</div>

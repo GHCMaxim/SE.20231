@@ -2,7 +2,6 @@
 import { ref } from "vue";
 
 
-// NOTE: for demonstration only
 type Relationship = {
 	cccd: string,
 	relationship: string,
@@ -27,7 +26,6 @@ const selectedHouseholder = ref<string>("");
 const selectedCheckbox = ref(-1);
 const message = ref("");
 async function getData() {
-	// NOTE: for demonstration only
 	const response = await fetch(`http://localhost:8000/api/relationships/household/${householdId.value}`);
 
 	try {

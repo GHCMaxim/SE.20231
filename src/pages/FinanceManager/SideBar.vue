@@ -34,6 +34,8 @@ const entriesTop = [
 ];
 
 const entriesBottom = [
+	FinanceEntryType.CreateContributionEvent,
+	FinanceEntryType.CreateContribution,
 	FinanceEntryType.ContributionInfo,
 	FinanceEntryType.QuarterlyReport,
 ];
@@ -60,36 +62,23 @@ async function handleEmit(entry: FinanceEntryType) {
 		<SidebarEntry title="quản lý thu phí" />
 		<ul class="mx-1 flex flex-col items-start justify-center font-medium">
 			<li v-for="entry in entriesTop" :key="entry" class="text-primary">
-				<button
-					class="max-w-[290px] whitespace-nowrap bg-transparent py-1 hover:border-transparent"
-					:class="currentEntry === entry ? 'font-bold' : ''"
-					@click="handleEmit(entry)"
-				>
+				<button class="max-w-[290px] whitespace-nowrap bg-transparent py-1 hover:border-transparent"
+					:class="currentEntry === entry ? 'font-bold' : ''" @click="handleEmit(entry)">
 					{{ entry }}
 				</button>
 			</li>
 		</ul>
 		<SidebarEntry title="quản lý đóng góp" />
 		<ul class="mx-1 flex flex-col items-start justify-center font-medium">
-			<li
-				v-for="entry in entriesBottom"
-				:key="entry"
-				class="text-primary"
-			>
-				<button
-					class="bg-transparent py-1 pr-0 hover:border-transparent"
-					:class="currentEntry === entry ? 'font-bold' : ''"
-					@click="handleEmit(entry)"
-				>
+			<li v-for="entry in entriesBottom" :key="entry" class="text-primary">
+				<button class="bg-transparent py-1 pr-0 hover:border-transparent"
+					:class="currentEntry === entry ? 'font-bold' : ''" @click="handleEmit(entry)">
 					{{ entry }}
 				</button>
 			</li>
 		</ul>
 		<div class="grow-[100]" />
-		<button
-			class="btn btn-primary my-4 w-40 self-center"
-			@click="make_payments"
-		>
+		<button class="btn btn-primary my-4 w-40 self-center" @click="make_payments">
 			Tạo hoá đơn cho tháng
 		</button>
 		<div v-if="output" class="mb-4">{{ output }}</div>

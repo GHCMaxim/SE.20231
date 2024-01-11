@@ -11,6 +11,7 @@ async function get_data() {
 	);
 	const data = await res.json();
 	res_data.value = data;
+	console.log(data);
 }
 
 await get_data();

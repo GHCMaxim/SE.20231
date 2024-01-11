@@ -20,6 +20,7 @@ const new_contributor = ref("");
 const new_amount = ref("");
 const new_description = ref("");
 const new_contribution_date = ref("");
+const new_contribution_event = ref("");
 function splitData() {
 	dataSplitted.value = [];
 	let temp: ContributionsTableViewType = [];
@@ -80,11 +81,13 @@ async function saveModification() {
 	props.data[currentlyModifying.value].description = new_description.value;
 	props.data[currentlyModifying.value].contribution_date =
 		new_contribution_date.value;
+	props.data[currentlyModifying.value].contribution_event = parseInt(new_contribution_event.value);
 	currentlyModifying.value = -1;
 	new_contributor.value = "";
 	new_amount.value = "";
 	new_description.value = "";
 	new_contribution_date.value = "";
+	new_contribution_event.value = "";
 	new_id.value = "";
 	try {
 		const response = await fetch(
@@ -101,6 +104,7 @@ async function saveModification() {
 					amount: parseInt(new_amount.value),
 					description: new_description.value,
 					contribution_date: new_contribution_date.value,
+					contribution_event: new_contribution_event.value,
 				}),
 			},
 		);
@@ -122,9 +126,7 @@ function cancelModification() {
 }
 </script>
 <template>
-	<div
-		class="h-120 flex flex-col items-center justify-center gap-4 overflow-y-auto"
-	>
+	<div class="h-120 flex flex-col items-center justify-center gap-4 overflow-y-auto">
 		<table v-if="props.data.length">
 			<thead class="[&_th]:min-w-[200px] [&_th]:px-4 [&_th]:py-2">
 				<tr>
@@ -133,29 +135,23 @@ function cancelModification() {
 					<th>Khoản đóng góp</th>
 					<th>Nội dung</th>
 					<th>Ngày đóng góp</th>
+					<th>Mã hđ đóng góp</th>
 					<th>Thao tác</th>
 				</tr>
 			</thead>
-			<tbody
-				class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
-			>
+			<tbody class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2">
 				<tr v-for="(item, index) in dataSplitted[currentPage]">
 					<td>{{ item.id }}</td>
 					<td>{{ item.contributor }}</td>
 					<td>{{ item.amount }}</td>
 					<td>{{ item.description }}</td>
 					<td>{{ item.contribution_date }}</td>
+					<td>{{ item.contribution_event }}</td>
 					<td class="flex items-center justify-center gap-2">
-						<button
-							class="btn btn-primary btn-sm"
-							@click="modifyEntry(index)"
-						>
+						<button class="btn btn-primary btn-sm" @click="modifyEntry(index)">
 							Chỉnh sửa
 						</button>
-						<button
-							class="btn btn-error btn-sm"
-							@click="deleteEntry(index)"
-						>
+						<button class="btn btn-error btn-sm" @click="deleteEntry(index)">
 							Xóa
 						</button>
 					</td>
@@ -165,34 +161,15 @@ function cancelModification() {
 		<div v-else class="text-center">
 			<h1 class="text-2xl font-bold">Không có dữ liệu</h1>
 		</div>
-		<div
-			v-show="currentlyModifying !== -1"
-			class="flex flex-row items-center justify-center gap-4"
-		>
-			<input
-				v-model="new_contributor"
-				type="number"
-				placeholder="CCCD người đóng góp"
-				class="input input-bordered w-full"
-			/>
-			<input
-				v-model="new_amount"
-				type="number"
-				placeholder="Khoản đóng góp"
-				class="input input-bordered w-full"
-			/>
-			<input
-				v-model="new_description"
-				type="text"
-				placeholder="Nội dung"
-				class="input input-bordered w-full"
-			/>
-			<input
-				v-model="new_contribution_date"
-				type="date"
-				placeholder="Ngày đóng góp"
-				class="input input-bordered w-full"
-			/>
+		<div v-show="currentlyModifying !== -1" class="flex flex-row items-center justify-center gap-4">
+			<input v-model="new_contributor" type="number" placeholder="CCCD người đóng góp"
+				class="input input-bordered w-full" />
+			<input v-model="new_amount" type="number" placeholder="Khoản đóng góp" class="input input-bordered w-full" />
+			<input v-model="new_description" type="text" placeholder="Nội dung" class="input input-bordered w-full" />
+			<input v-model="new_contribution_date" type="date" placeholder="Ngày đóng góp"
+				class="input input-bordered w-full" />
+			<input v-model="new_contribution_event" type="number" placeholder="Mã hđ đóng góp"
+				class="input input-bordered w-full" />
 			<button class="btn btn-primary btn-sm" @click="saveModification()">
 				Lưu
 			</button>
@@ -202,32 +179,16 @@ function cancelModification() {
 		</div>
 	</div>
 	<div class="flex flex-row items-center justify-center gap-4">
-		<button
-			class="btn btn-primary btn-sm"
-			:disabled="currentPage === 1"
-			@click="firstPage()"
-		>
+		<button class="btn btn-primary btn-sm" :disabled="currentPage === 1" @click="firstPage()">
 			Trang đầu
 		</button>
-		<button
-			class="btn btn-primary btn-sm"
-			:disabled="currentPage === 1"
-			@click="prevPage()"
-		>
+		<button class="btn btn-primary btn-sm" :disabled="currentPage === 1" @click="prevPage()">
 			Trang trước
 		</button>
-		<button
-			class="btn btn-primary btn-sm"
-			:disabled="currentPage === totalPages"
-			@click="nextPage()"
-		>
+		<button class="btn btn-primary btn-sm" :disabled="currentPage === totalPages" @click="nextPage()">
 			Trang sau
 		</button>
-		<button
-			class="btn btn-primary btn-sm"
-			:disabled="currentPage === totalPages"
-			@click="lastPage()"
-		>
+		<button class="btn btn-primary btn-sm" :disabled="currentPage === totalPages" @click="lastPage()">
 			Trang cuối
 		</button>
 	</div>
