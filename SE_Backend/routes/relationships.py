@@ -48,3 +48,10 @@ def update_relationship(
     if db_relationship is None:
         raise HTTPException(status_code=404, detail="relationship not found.")
     return database.relationship.put_relationship(db, cccd, relationship=relationship)
+
+@relationships.get("/api/relationships/household/{household_id}", response_model=list[schemas.relationship.Relationship])
+def get_people_in_household(household_id: str, db: Session = Depends(get_db)):
+    db_people = database.relationship.get_people_in_household(db, household_id=household_id)
+    if db_people is None:
+        raise HTTPException(status_code=404, detail="household not found.")
+    return db_people

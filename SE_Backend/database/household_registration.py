@@ -53,3 +53,4 @@ def modify_household_registrations(
         .filter(models.HouseholdRegistration.id == household.id)
         .first()
     )
+

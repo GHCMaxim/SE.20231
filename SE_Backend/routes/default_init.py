@@ -41,7 +41,7 @@ payment_type3 = models.PaymentType(
     id = -1,
 )
 
-payment_type3 = models.PaymentType(
+payment_type9 = models.PaymentType(
     name = "Tiền quản lý CC giá rẻ",
     rate = 7000,
     active = True,
@@ -52,35 +52,35 @@ payment_type4 = models.PaymentType(
     name = "Tiền quản lý CC thường",
     rate = 10000,
     active = True,
-    type = 4,
+    id = 4,
 )
 
 payment_type5 = models.PaymentType(
     name = "Tiền quản lý CC cao cấp",
     rate = 15000,
     active = True,
-    type = 5,
+    id = 5,
 )
 
 payment_type6 = models.PaymentType(
     name = "Tiền điện/số",
     rate = 2500,
     active = True,
-    type = 6,
+    id = 6,
 )
 
 payment_type7 = models.PaymentType(
     name = "Tiền nước/số",
     rate = 8000,
     active = True,
-    type = 7,
+    id = 7,
 )
 
 payment_type8 = models.PaymentType(
     name = "Tiền internet",
     rate = 150000,
     active = True,
-    type = 8,
+    id = 8,
 )
 db.add(payment_type)
 db.add(payment_type1)
@@ -91,6 +91,7 @@ db.add(payment_type5)
 db.add(payment_type6)
 db.add(payment_type7)
 db.add(payment_type8)
+db.add(payment_type9)
 db.commit()
 db.refresh(payment_type)
 db.refresh(payment_type1)
@@ -101,4 +102,5 @@ db.refresh(payment_type5)
 db.refresh(payment_type6)
 db.refresh(payment_type7)
 db.refresh(payment_type8)
+db.refresh(payment_type9)
 db.close()

@@ -54,6 +54,8 @@ household = models.HouseholdRegistration(
     location="Ha Noi",
     creation_date=datetime(2021, 1, 1),
     owner="123456789012",
+    house_type=1,
+    size=10,
 )
 
 income = models.Income(
@@ -88,7 +90,7 @@ reward = models.Reward(
 
 vehicle = models.Vehicle(
     license_plate="30a1-12345",
-    vehicle_type="Xe may",
+    vehicle_type=1,
     owner="123456789012",
 )
 
@@ -107,25 +109,6 @@ away = models.Away(
     description="Di hoc",
 )
 
-payment = models.Payment(
-    id=1,
-    name="Phi nuoc",
-    type_id=1,
-    creation_date=datetime(2021, 1, 1),
-    expiration_date=datetime(2021, 1, 1),
-    price=100000,
-    household=1,
-    income_id=1,
-)
-
-payment_type = models.PaymentType(
-    id=1,
-    name="Phi nuoc",
-    rate=100000,
-    active=True,
-    type = 1,
-)
-
 
 
 db.add(user)
@@ -140,8 +123,5 @@ db.add(reward)
 db.add(vehicle)
 db.add(away_type)
 db.add(away)
-db.add(payment_type)
-db.add(payment_type2)
-db.add(payment)
 db.commit()
 db.close()

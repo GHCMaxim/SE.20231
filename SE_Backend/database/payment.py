@@ -110,6 +110,20 @@ def find_monthly_service_payment(db: Session):
     current_year = datetime.datetime.now().year
     return db.query(models.Payment).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").filter(models.Payment.type_id == -1).all()
 
+def find_monthly_payment(db: Session):
+    response = []
+    current_month = datetime.datetime.now().month
+    current_year = datetime.datetime.now().year
+    households = db.query(models.HouseholdRegistration.id).all()
+    for i in households:
+        household = i[0]
+        vehicle_payment = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id == 0).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").first()
+        house_payment_paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id.in_([3, 4, 5])).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").all()
+        service_payment_paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id == -1).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").all()
+        total_payment = vehicle_payment + house_payment_paid + service_payment_paid
+        total_paid = db.query(models.Payment.price).filter(models.Payment.household == household).filter(models.Payment.paid == True).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").all()
+        response.append([household, vehicle_payment, house_payment_paid, service_payment_paid, total_payment, total_paid])
+    return response
 def create_monthly_payments(db: Session):
     current_month = datetime.datetime.now().month
     current_year = datetime.datetime.now().year

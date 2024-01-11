@@ -79,3 +79,11 @@ class PaymentHouse(BaseModel):
     size: int
     price: int
     paid: bool
+
+class PaymentHousehold(BaseModel):
+    household: str
+    vehicle_payment: bool
+    house_payment: bool
+    service_payment: bool
+    total_payment: int
+    total_paid: int

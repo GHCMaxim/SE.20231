@@ -28,7 +28,7 @@ def get_household_registrations(
 )
 def get_household_registration(id: str, db: Session = Depends(get_db)):
     db_household_registration = (
-        database.household_registration.get_household_registration(db, id=id)
+        database.household_registration.get_household_registration(db, owner=id)
     )
     if db_household_registration is None:
         raise HTTPException(status_code=404, detail="household not found.")
@@ -68,3 +68,4 @@ def put_household(
     return database.household_registration.modify_household_registrations(
         db, id, household=household
     )
+

@@ -44,3 +44,11 @@ def put_relationship(
         .filter(models.Relationship.cccd == relationship.cccd)
         .first()
     )
+
+
+def get_people_in_household(db: Session, household_id: str):
+    return (
+        db.query(models.Relationship)
+        .filter(models.Relationship.household_id == household_id)
+        .all()
+    )
