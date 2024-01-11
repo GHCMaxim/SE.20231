@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import RateTableView from "../../../components/RateTableView.vue";
-import { ref } from "vue";
-import { RateTableViewType } from "../../../components/RateTableViewType";
 
-const res_data = ref<RateTableViewType>([]);
+import { ref } from "vue";
+import { VehicleCountViewType } from "../../../components/VehicleCountViewType";
+import VehicleCountView from "../../../components/VehicleCountView.vue";
+
+const res_data = ref<VehicleCountViewType>([]);
 
 async function get_data() {
-	const res = await fetch("http://localhost:8000/api/payments_types/2");
+	const res = await fetch("http://localhost:8000/api/payments/monthly/vehicle");
 	const data = await res.json();
 	res_data.value = data;
 }
@@ -14,5 +15,5 @@ await get_data();
 </script>
 
 <template>
-	<RateTableView :data="res_data" />
+	<VehicleCountView :data="res_data" />
 </template>

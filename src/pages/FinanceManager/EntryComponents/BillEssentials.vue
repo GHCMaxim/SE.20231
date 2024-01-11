@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import RateTableView from "../../../components/RateTableView.vue";
+import EssentialFeeView from "../../../components/EssentialFeeView.vue";
 import { ref } from "vue";
-import { RateTableViewType } from "../../../components/RateTableViewType";
+import { EssentialsFeeViewType } from "../../../components/EssentialsFeeViewType";
 
-const res_data = ref<RateTableViewType>([]);
+const res_data = ref<EssentialsFeeViewType>([]);
 
 async function get_data() {
-	const res = await fetch("http://localhost:8000/api/payments_types/0");
+	const res = await fetch("http://localhost:8000/api/payment/monthly/service");
 	const data = await res.json();
 	res_data.value = data;
 }
@@ -14,5 +14,5 @@ await get_data();
 </script>
 
 <template>
-	<RateTableView :data="res_data" />
+	<EssentialFeeView :data="res_data" />
 </template>
