@@ -4,7 +4,7 @@ from pydantic import BaseModel
 class RelationshipBase(BaseModel):
     cccd: str
     relationship: str
-    birth_id: int
+    birth_id: int | None
     alive: bool
     death_paper_id: int | None
     household_id: str
