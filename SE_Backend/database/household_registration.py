@@ -24,6 +24,8 @@ def create_household_registration(
         location=household.location,
         creation_date=household.creation_date,
         owner=household.owner,
+        size=household.size,
+        house_type=household.house_type,
     )
 
     db.add(db_household)

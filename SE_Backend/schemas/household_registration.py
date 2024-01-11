@@ -9,6 +9,8 @@ class HouseholdRegistrationBase(BaseModel):
     location: str
     creation_date: datetime.date
     owner: str
+    size: int
+    house_type: int
 
 
 class HouseholdRegistrationCreate(HouseholdRegistrationBase):
