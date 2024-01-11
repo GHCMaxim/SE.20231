@@ -8,7 +8,7 @@ const props = defineProps({
 		type: String,
 		required: true,
 	},
-	role: {
+	permissions: {
 		type: String,
 		required: true,
 	},
@@ -20,7 +20,7 @@ const props = defineProps({
 		<img :src="props.avatar" class="h-12 w-12 rounded-full object-cover" />
 		<div class="flex flex-col items-start justify-between">
 			<div class="font-bold">{{ props.name }}</div>
-			<div>{{ props.role }}</div>
+			<div>{{ props.permissions }}</div>
 		</div>
 	</div>
 </template>

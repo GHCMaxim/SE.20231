@@ -44,7 +44,7 @@ router.beforeEach((to, _, next) => {
 			if (!parseToken([1, 2])) return;
 			break;
 		case "Rewards":
-			if (!parseToken([0, 1])) return;
+			if (!parseToken([0, 1, 2])) return;
 			break;
 		default:
 			break;
