@@ -12,7 +12,6 @@ class Payment(Base):
     name: Mapped[str] = mapped_column(String, nullable=False)
     type_id: Mapped[int] = mapped_column(ForeignKey("payment_types.id"))
     creation_date: Mapped[datetime.date] = mapped_column(DateTime, nullable=False)
-    expiration_date: Mapped[datetime.date] = mapped_column(DateTime, nullable=False)
     price: Mapped[int] = mapped_column(Integer, nullable=False)
     household: Mapped[str] = mapped_column(ForeignKey("household_registrations.id"))
     income_id: Mapped[int] = mapped_column(ForeignKey("income.id"))
