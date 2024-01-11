@@ -28,3 +28,17 @@ def get_vehicle(license_plate: str, db: Session = Depends(get_db)):
 @vehicles.post("/api/vehicles", response_model=schemas.vehicle.Vehicle)
 def post_vehicle(vehicle: schemas.vehicle.VehicleCreate, db: Session = Depends(get_db)):
     return database.vehicle.create_vehicle(db, vehicle=vehicle)
+
+@vehicles.put("/api/vehicles/{license_plate}", response_model=schemas.vehicle.Vehicle)
+def put_vehicle(license_plate: str, vehicle: schemas.vehicle.VehicleModify, db: Session = Depends(get_db)):
+    db_vehicle = database.vehicle.get_vehicle(db, license_plate=license_plate)
+    if db_vehicle is None:
+        raise HTTPException(status_code=404, detail="vehicle not found.")
+    return database.vehicle.modify_vehicle(db, license_plate=license_plate, vehicle=vehicle)
+
+@vehicles.delete("api/vehicles/{license_plate}", response_model=schemas.vehicle.Vehicle)
+def delete_vehicle(license_plate: str, db: Session = Depends(get_db)):
+    db_vehicle = database.vehicle.get_vehicle(db, license_plate=license_plate)
+    if db_vehicle is None:
+        raise HTTPException(status_code=404, detail="vehicle not found.")
+    return database.vehicle.delete_vehicle(db, license_plate=license_plate)

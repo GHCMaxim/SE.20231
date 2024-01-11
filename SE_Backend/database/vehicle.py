@@ -31,6 +31,24 @@ def create_vehicle(db: Session, vehicle: schemas.vehicle.VehicleCreate):
 
     return db_vehicle
 
+def delete_vehicle(db: Session, license_plate: str):
+    db_vehicle = db.query(models.Vehicle).filter(models.Vehicle.license_plate == license_plate).first()
+    db.delete(db_vehicle)
+
+    db.commit()
+    db.refresh(db_vehicle)
+    return db_vehicle
+
+def modify_vehicle(db: Session, license_plate: str, vehicle: schemas.vehicle.VehicleModify):
+    db_vehicle = db.query(models.Vehicle).filter(models.Vehicle.license_plate == license_plate).first()
+    db_vehicle.license_plate = vehicle.license_plate
+    db_vehicle.vehicle_type = vehicle.vehicle_type
+    db_vehicle.owner = vehicle.owner
+
+    db.commit()
+    db.refresh(db_vehicle)
+    return db_vehicle
+
 def count_vehicles_per_household(db: Session):
     return db.query(
         models.vehicle.Vehicle.owner,

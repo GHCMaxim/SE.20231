@@ -21,3 +21,8 @@ class VehicleCount(BaseModel):
     owner : str
     count_type_1 : int
     count_type_2 : int
+
+class VehicleModify(VehicleBase):
+    pass 
+    class Config:
+        orm_mode = True
