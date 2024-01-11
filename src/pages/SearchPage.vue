@@ -83,13 +83,6 @@ getData();
 							{{ field[2] }}
 						</option>
 					</select>
-					<div class="my-3 text-start">
-						{{ searchCategoryTitle }}
-					</div>
-					<input type="text" :placeholder="searchCategoryPlaceholder"
-						class="input input-bordered w-full max-w-xs" />
-					<button class="btn btn-primary w-full mt-4" @click="getData()">Tìm
-						kiếm</button>
 				</div>
 			</div>
 

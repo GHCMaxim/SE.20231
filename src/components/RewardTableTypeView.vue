@@ -113,7 +113,7 @@ watchEffect(() => {
 		class="h-120 flex flex-col items-center justify-center gap-4 overflow-y-auto"
 	>
 		<div class="search-container ">
-			<input class="border rounded mx-auto bg-white mt-2 mb-2" v-model="searchTerm" type="number" placeholder=" Tìm kiếm theo mã..." />
+			<input class="border rounded mx-auto bg-white mt-2 mb-2" v-model="searchTerm" type="text" placeholder=" Tìm kiếm theo mã..." />
 		</div>
 		<table v-if="props.data.length">
 			<thead class="[&_th]:min-w-[200px] [&_th]:px-4 [&_th]:py-2">
