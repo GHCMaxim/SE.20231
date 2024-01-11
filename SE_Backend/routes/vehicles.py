@@ -17,7 +17,7 @@ def get_vehicles(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
 def count_vehicles_per_household(db: Session = Depends(get_db)):
     return database.vehicle.count_vehicles_per_household(db)
 
-@vehicles.get("/api/vehicles/{license_plate}", response_model=schemas.vehicle.Vehicle)
+@vehicles.get("/api/vehicles/find/{license_plate}", response_model=schemas.vehicle.Vehicle)
 def get_vehicle(license_plate: str, db: Session = Depends(get_db)):
     db_vehicle = database.vehicle.get_vehicle(db, license_plate=license_plate)
     if db_vehicle is None:
