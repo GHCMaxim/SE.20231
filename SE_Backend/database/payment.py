@@ -1,4 +1,4 @@
-import uuid
+import time
 import datetime
 import random
 from sqlalchemy import func
@@ -24,7 +24,7 @@ def get_payments_by_household(
 
 
 def create_payment(db: Session, payment: schemas.payment.PaymentCreate):
-    id = uuid.uuid4()
+    id = int(time.time()*1000)
     db_payment = models.Payment(
         id = id,
         name= payment.name,
@@ -175,10 +175,9 @@ def create_monthly_payments(db: Session):
             
             house_type = db.query(models.HouseholdRegistration.house_type).filter(models.HouseholdRegistration.id == household_id).first()
             house_size = db.query(models.HouseholdRegistration.size).filter(models.HouseholdRegistration.id == household_id).first()
-            income_uuid = uuid.uuid4()
-            id1 = uuid.uuid4()
-            id2 = uuid.uuid4()
-            id3 = uuid.uuid4()
+            id1 = int(time.time()*1000)
+            id2 = int(time.time()*1000)
+            id3 = int(time.time()*1000)
             db_payment_vehicle1 = models.Payment(
                 id = id1,
                 name = f"Tiền gửi xe tháng {current_month}/{current_year} ", 
