@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import uuid
-
+import time
+from sqlalchemy.sql.functions import func
 from .. import models, schemas
 
 
@@ -19,7 +19,7 @@ def get_contributions(db: Session, skip: int=0, limit: int=100):
 def create_contributions(
     db: Session, contribution: schemas.contributions.ContributionsCreate, contribution_event: schemas.contributions.ContributionEventBase
 ):
-    id = uuid.uuid4()
+    id = int(time.time()*1000)
     db_contribution = models.Contributions(
         id=id,
         contributor=contribution.contributor,
@@ -69,3 +69,12 @@ def modify_contribution_event(db: Session, id: int, contribution_event: schemas.
     db.query(models.ContributionEvent).filter(models.ContributionEvent.id == id).update(contribution_event.model_dump())
     db.commit()
     return db.query(models.ContributionEvent).filter(models.ContributionEvent.id == contribution_event.id).first()
+
+def get_contribution_events_info(db:Session, contribution_event: schemas.contributions.ContributionEventBase):
+    return db.query(models.ContributionEvent.event_time,
+                    models.ContributionEvent.id,
+                    models.ContributionEvent.description,
+                    func.count(models.Contributions.contributor).label("number_of_contributors"),
+                    func.sum(models.Contributions.amount).label("total_amount")).filter(models.Contributions.contribution_event == contribution_event.id).group_by(models.Contributions.contribution_event).all()
+
+

@@ -58,3 +58,7 @@ def put_contribution_event(id: int, contribution_event: schemas.contributions.Co
     if db_contribution_event is None:
         raise HTTPException(status_code=404, detail="contribution event not found.")
     return database.contributions.update_contribution_event(db, id=id, contribution_event=contribution_event)
+
+@contributions.get("/api/contribution_events_count",response_model=schemas.contributions.ContributionEventCount)
+def get_contribution_events_count(db: Session=Depends(get_db)):
+    return database.contributions.get_contribution_events_info(db)

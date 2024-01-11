@@ -1,6 +1,6 @@
-import uuid
+
 import datetime
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Uuid
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 from ..database import Base
 
@@ -8,7 +8,7 @@ from ..database import Base
 class Payment(Base):
     __tablename__ = "payments"
 
-    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     type_id: Mapped[int] = mapped_column(ForeignKey("payment_types.id"))
     creation_date: Mapped[datetime.date] = mapped_column(DateTime, nullable=False)
