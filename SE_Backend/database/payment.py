@@ -87,54 +87,90 @@ def update_payment_type(
     )
 
 def find_monthly_vehicle_payment(db: Session):
+    index = 0
     current_month = datetime.datetime.now().month
-    current_year = datetime.datetime.now().year
-    return db.query(models.Payment.household, 
-                    func.count(models.Vehicle.vehicle_type == "1").label("vehicle_count_type1"),    
-                    func.count(models.Vehicle.vehicle_type == "2").label("vehicle_count_type2"),
-                    models.Payment.price,
-                    models.Payment.paid
-                    ).join(models.Vehicle, models.Vehicle.owner == models.Payment.household).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").filter(models.Payment.type_id == 0).group_by(models.Payment.household).all()
+    current_year = datetime.datetime.now().year 
 
-def find_monthly_house_payment(db: Session):
-    current_month = datetime.datetime.now().month
-    current_year = datetime.datetime.now().year
-    return db.query(models.Payment.household,
-                    models.HouseholdRegistration.house_type,
-                    models.HouseholdRegistration.size,
-                    models.Payment.price,
-                    models.Payment.paid).join(models.HouseholdRegistration, models.HouseholdRegistration.id == models.Payment.household).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").filter(models.Payment.type_id.in_([2, 3, 4])).all()
-
-def find_monthly_service_payment(db: Session):
-    current_month = datetime.datetime.now().month
-    current_year = datetime.datetime.now().year
-    return db.query(models.Payment).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").filter(models.Payment.type_id == -1).all()
-
-def find_monthly_payment(db: Session):
-    response = []
-    current_month = datetime.datetime.now().month
-    current_year = datetime.datetime.now().year
-    households = db.query(models.HouseholdRegistration.id).all()
+    response = [{}]*db.query(models.Payment.household).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).distinct().count()
+    households = db.query(models.Payment.household).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).distinct().all()
+    print(households)
     for i in households:
         household = i[0]
-        vehicle_payment = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id == 0).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").first()
-        house_payment_paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id.in_([3, 4, 5])).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").all()
-        service_payment_paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id == -1).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").all()
-        total_payment = vehicle_payment + house_payment_paid + service_payment_paid
-        total_paid = db.query(models.Payment.price).filter(models.Payment.household == household).filter(models.Payment.paid == True).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").all()
-        response.append([household, vehicle_payment, house_payment_paid, service_payment_paid, total_payment, total_paid])
+        vehicle_type_1 = db.query(models.Vehicle.vehicle_type).filter(models.Vehicle.owner == household).filter(models.Vehicle.vehicle_type == "1").count()
+        vehicle_type_2 = db.query(models.Vehicle.vehicle_type).filter(models.Vehicle.owner == household).filter(models.Vehicle.vehicle_type == "2").count()
+        total_payment = vehicle_type_1 * 70000 + vehicle_type_2 * 1200000
+        paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id == 0).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).first()
+        response[index].update({"household": household, "vehicle_count_type1": vehicle_type_1, "vehicle_count_type2": vehicle_type_2, "price": total_payment, "paid": paid[0]})
+        index += 1
+    return response
+
+
+def find_monthly_house_payment(db: Session):
+    index = 0 
+    current_month = datetime.datetime.now().month
+    current_year = datetime.datetime.now().year
+    response = [{}]*db.query(models.Payment.household).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).distinct().count()
+    households = db.query(models.Payment.household).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).distinct().all()
+    for i in households:
+        household = i[0]
+        house_type = db.query(models.HouseholdRegistration.house_type).filter(models.HouseholdRegistration.id == household).first()
+        house_size = db.query(models.HouseholdRegistration.size).filter(models.HouseholdRegistration.id == household).first()
+        paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id.in_([3, 4, 5])).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10,0,0)).first()
+        price = db.query(models.Payment.price).filter(models.Payment.household == household).filter(models.Payment.type_id.in_([3, 4, 5])).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10,0,0)).first()
+        response[index].update({"household": household, "house_type": house_type[0], "size": house_size[0], "price": price[0], "paid": paid[0]})
+        index += 1
+    return response
+
+def find_monthly_service_payment(db: Session):
+    index = 0
+    current_month = datetime.datetime.now().month
+    current_year = datetime.datetime.now().year
+    response = [{}]*db.query(models.Payment.household).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).distinct().count()
+    households = db.query(models.Payment.household).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).distinct().all()
+    for i in households:
+        household = i[0]
+        service_payment = db.query(models.Payment.price).filter(models.Payment.household == household).filter(models.Payment.type_id == -1).filter(models.Payment.creation_date == (datetime.datetime(current_year, current_month, 10,0,0))).first()
+        paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id == -1).filter(models.Payment.creation_date == (datetime.datetime(current_year, current_month, 10,0,0))).first()
+        response[index].update({"household": household, "service_payment": service_payment[0], "paid": paid[0]})
+        index += 1
+    return response
+
+def find_monthly_payment(db: Session):
+    index = 0
+    current_month = datetime.datetime.now().month
+    current_year = datetime.datetime.now().year
+    response = [{}]*db.query(models.Payment.household).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).distinct().count()
+    households = db.query(models.Payment.household).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).distinct().all()
+    for i in households:
+        household = i[0]
+        vehicle_payment_paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id == 0).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10, 0, 0)).first()
+        house_payment_paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id.in_([3, 4, 5])).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10,0,0)).first()
+        service_payment_paid = db.query(models.Payment.paid).filter(models.Payment.household == household).filter(models.Payment.type_id == -1).filter(models.Payment.creation_date == (datetime.datetime(current_year, current_month, 10,0,0))).first()
+        total_payment = db.query(func.sum(models.Payment.price)).filter(models.Payment.household == household).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10,0,0)).all()
+        print(total_payment)
+        total_paid = db.query(models.Payment.price).filter(models.Payment.household == household).filter(models.Payment.paid == True).filter(models.Payment.creation_date == datetime.datetime(current_year, current_month, 10,0,0)).all()
+        if total_paid == []:
+            total_paid = 0
+        response[index].update({"household": household, "vehicle_payment": vehicle_payment_paid[0], "house_payment": house_payment_paid[0], "service_payment": service_payment_paid[0], "total_payment": total_payment[0][0], "total_paid": total_paid})
+        index += 1
     return response
 def create_monthly_payments(db: Session):
     current_month = datetime.datetime.now().month
     current_year = datetime.datetime.now().year
-    db_payment = db.query(models.Payment).filter(models.Payment.creation_date == f"{current_year}-{current_month}-10").first()
+    income_id_b = int(f"{current_year}{current_month}10")
+    db_payment = db.query(models.Income).filter(models.Income.id == income_id_b).first()
     if db_payment is not None:
-        db.refresh(db_payment)
         return "Hoá đơn đã được tạo rồi."
     else:
-        db.refresh(db_payment)
+        db_income= models.Income(
+            id = income_id_b,
+            description = f"Thu nhập tháng {current_month}/{current_year} ",
+            income_time = datetime.date(current_year, current_month, 10),
+            total = 0,
+        )
         household_ids = db.query(models.HouseholdRegistration.id).all()
-        for household_id in household_ids:
+        for i in household_ids:
+            household_id = i[0]
             vehicle_count = [db.query(models.Vehicle).filter(models.Vehicle.owner == household_id).filter(models.Vehicle.vehicle_type == "1").count(), db.query(models.Vehicle).filter(models.Vehicle.owner == household_id).filter(models.Vehicle.vehicle_type == "2").count()]
             
             house_type = db.query(models.HouseholdRegistration.house_type).filter(models.HouseholdRegistration.id == household_id).first()
@@ -147,32 +183,33 @@ def create_monthly_payments(db: Session):
                 id = id1,
                 name = f"Tiền gửi xe tháng {current_month}/{current_year} ", 
                 type_id = 0,
-                creation_date = f"{current_year}-{current_month}-10",
+                creation_date = datetime.date(current_year, current_month, 10),
                 price = vehicle_count[0] * db.query(models.PaymentType).filter(models.PaymentType.id == 1).first().rate + vehicle_count[1] * db.query(models.PaymentType).filter(models.PaymentType.id == 2).first().rate,
                 household = household_id,
-                income_id = income_uuid,
+                income_id = income_id_b,
                 paid = False
             )
             db_payment_house = models.Payment(
                 id = id3,
                 name = f"Tiền quản lý chung cư tháng {current_month}/{current_year} ",
-                type_id = house_type + 2,
-                creation_date = f"{current_year}-{current_month}-10",
-                price = house_size * db.query(models.PaymentType).filter(models.PaymentType.id == house_type + 2).first().rate,
+                type_id = house_type[0] + 2,
+                creation_date = datetime.date(current_year, current_month, 10),
+                price = house_size[0] * db.query(models.PaymentType).filter(models.PaymentType.id == house_type[0] + 2).first().rate,
                 household = household_id,
-                income_id = income_uuid,
+                income_id = income_id_b,
                 paid = False,
             )
             db_payment_service = models.Payment(
                 id = id2,
                 name = f"Tiền quản lý dịch vụ tháng {current_month}/{current_year} ",
                 type_id = -1,
-                creation_date = f"{current_year}-{current_month}-10",
+                creation_date = datetime.date(current_year, current_month, 10),
                 price = random.randint(2000, 10000)/10 * db.query(models.PaymentType).filter(models.PaymentType.id == 6).first().rate + random.randint(2000, 10000)/10 * db.query(models.PaymentType).filter(models.PaymentType.id == 7).first().rate + db.query(models.PaymentType).filter(models.PaymentType.id == 8).first().rate,
                 household = household_id,
-                income_id = None,
+                income_id = income_id_b,
                 paid = False,
             )
+            db.add(db_income)
             db.add(db_payment_vehicle1)
             db.add(db_payment_house)
             db.add(db_payment_service)

@@ -9,6 +9,7 @@ class ContributionsBase(BaseModel):
     amount: int
     description: str
     contribution_time: datetime.date
+    contribution_event: int
 
 
 class ContributionsCreate(ContributionsBase):
@@ -20,3 +21,19 @@ class ContributionsModify(ContributionsBase):
 
     class Config:
         from_attributes = True
+
+class ContributionEventBase(BaseModel):
+    id: int
+    total_amount: int
+    description: str
+    event_time: datetime.date
+
+class ContributionEventCreate(ContributionEventBase):
+    pass
+
+class ContributionEventModify(ContributionEventBase):
+    pass
+
+    class Config:
+        from_attributes = True
+

@@ -91,7 +91,7 @@ def get_monthly_house_payment(db: Session = Depends(get_db)):
 def get_monthly_vehicle_payment(db: Session = Depends(get_db)):
     return database.payment.find_monthly_vehicle_payment(db)
 
-@payments.get("/api/payments/monthly/service", response_model=list[schemas.payment.Payment])
+@payments.get("/api/payments/monthly/service", response_model=list[schemas.payment.PaymentService])
 def get_monthly_service_payment(db: Session = Depends(get_db)):
     return database.payment.find_monthly_service_payment(db)
 

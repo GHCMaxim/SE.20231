@@ -87,3 +87,8 @@ class PaymentHousehold(BaseModel):
     service_payment: bool
     total_payment: int
     total_paid: int
+
+class PaymentService(BaseModel):
+    household: str
+    service_payment: int
+    paid: bool

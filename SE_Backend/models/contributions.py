@@ -13,3 +13,12 @@ class Contributions(Base):
     amount: Mapped[int] = mapped_column(Integer, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=False)
     contribution_time: Mapped[datetime.date] = mapped_column(DateTime, nullable=False)
+    contribution_event: Mapped[int] = mapped_column(ForeignKey("contribution_events.id"))
+    
+class ContributionEvent(Base):
+    __tablename__ = "contribution_events"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    total_amount = mapped_column(Integer, nullable=False)
+    description: Mapped[str] = mapped_column(String, nullable=False)
+    event_time: Mapped[datetime.date] = mapped_column(DateTime, nullable=False)
