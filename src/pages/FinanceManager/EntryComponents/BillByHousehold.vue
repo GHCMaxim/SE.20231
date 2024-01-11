@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import RateTableView from "../../../components/RateTableView.vue";
+import HouseholdMonthlyView from "../../../components/HouseholdMonthlyView.vue";
 import { ref } from "vue";
-import { RateTableViewType } from "../../../components/RateTableViewType";
+import { HouseholdMonthlyViewType } from "../../../components/HouseholdMonthlyViewType";
 
-const res_data = ref<RateTableViewType>([]);
+const res_data = ref<HouseholdMonthlyViewType>([]);
+
 
 
 async function get_data() {
@@ -17,5 +18,5 @@ async function get_data() {
 await get_data();
 </script>
 <template>
-	<RateTableView :data="res_data" />
+	<HouseholdMonthlyView :data="res_data" />
 </template>

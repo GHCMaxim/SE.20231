@@ -38,7 +38,7 @@ async function getData() {
     }
 };
 
-function toggleFromList(index: number,householderId: string, eventTarget: EventTarget | null) {
+function toggleFromList(index: number, householderId: string, eventTarget: EventTarget | null) {
     if (eventTarget === null) {
         return;
     }
@@ -58,7 +58,7 @@ async function ChangeOwner() {
     const response = await fetch(`http://localhost:8000/api/household_registrations/${householdId.value}`);
     const data = await response.json();
     HouseholdType.value = data;
-    
+
     if (HouseholdType.value) {
         HouseholdType.value.owner = selectedHouseholders.value[0];
     }
@@ -80,8 +80,8 @@ async function ChangeOwner() {
 
 <template>
     <div class="flex flex-col gap-3">
-        <input type="text" placeholder="Nhập số hộ khẩu" class="input input-bordered w-full max-w-xs"
-            v-model="householdId" @change="getData" />
+        <input type="text" placeholder="Nhập số hộ khẩu" class="input input-bordered w-full max-w-xs" v-model="householdId"
+            @change="getData" />
 
         <table>
             <thead class="[&_th]:min-w-[200px] [&_th]:px-4 [&_th]:py-2">
@@ -91,27 +91,18 @@ async function ChangeOwner() {
                     <th>Chọn</th>
                 </tr>
             </thead>
-            <tbody
-                class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
-			>
-                <tr
-                    v-for="(item, index) in householders"
-                    :key="`${item.household_id}-${index}`"
-                    >
+            <tbody class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2">
+                <tr v-for="(item, index) in householders" :key="`${item.household_id}-${index}`">
                     <td>{{ item.household_id }}</td>
                     <td>{{ item.cccd }}</td>
                     <td>
-                        <input
-                            type="checkbox"
-                            :value="item.household_id"
-                            :checked="selectedCheckbox === index"
-                            @change="toggleFromList(index, item.household_id, $event.target)"
-                        />
+                        <input type="checkbox" :value="item.household_id" :checked="selectedCheckbox === index"
+                            @change="toggleFromList(index, item.household_id, $event.target)" />
                     </td>
                 </tr>
-                </tbody>
+            </tbody>
         </table>
-        <button class="btn btn-primary" @click="ChangeOwner">Đổi chủ hộ</button>
+        <button class="btn btn-primary w-80 self-center" @click="ChangeOwner">Đổi chủ hộ</button>
         <div v-if="message">{{ message }}</div>
     </div>
 </template>

@@ -16,12 +16,20 @@ const message = ref("");
 async function handleAddNewHousehold() {
 	message.value = "";
 
-	const fields = [household_ssn, location, owner, name, creation_date, house_type, house_size];
+	const fields = [
+		household_ssn,
+		location,
+		owner,
+		name,
+		creation_date,
+		house_type,
+		house_size,
+	];
+	console.log(fields);
 	if (!fields.every((field) => field.value)) {
 		message.value = "Vui lòng điền đầy đủ thông tin";
 		return;
 	}
-
 
 	const response = await fetch(API + "/api/household_registrations", {
 		method: "POST",
@@ -71,8 +79,7 @@ async function handleAddNewHousehold() {
 
 			<div class="mx-auto flex h-full w-full max-w-2xl flex-col items-center justify-center col-span-2">
 				<div class="mb-2 text-start w-full">Địa chỉ</div>
-				<input type="text" placeholder="Nhập địa chỉ" class="input input-bordered w-full mb-4"
-					@update="location = $event.value" />
+				<input v-model="location" type="text" placeholder="Nhập địa chỉ" class="input input-bordered w-full mb-4" />
 				<button type="submit" class="btn btn-primary w-80 self-center">
 					Tạo mới
 				</button>

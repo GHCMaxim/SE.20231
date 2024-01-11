@@ -19,53 +19,35 @@ const currentEntryRef = ref(FinanceEntryType.ParkingFee);
 	<div>
 		<NavigationBar />
 		<div class="flex flex-row">
-			<SideBar
-				:current-entry="currentEntryRef"
-				@update:current-entry="currentEntryRef = $event"
-			/>
+			<SideBar :current-entry="currentEntryRef" @update:current-entry="currentEntryRef = $event" />
 			<RightSideContainer>
 				<Suspense>
-					<BillEssentials
-						v-if="
-							currentEntryRef === FinanceEntryType.BillEssentials
-						"
-					/>
+					<ParkingFee v-if="currentEntryRef === FinanceEntryType.ParkingFee" />
 				</Suspense>
 				<Suspense>
-					<BillByHousehold
-						v-if="
-							currentEntryRef === FinanceEntryType.BillByHousehold
-						"
-					/>
+					<BillEssentials v-if="currentEntryRef === FinanceEntryType.BillEssentials
+						" />
 				</Suspense>
 				<Suspense>
-					<ContributionInfo
-						v-if="
-							currentEntryRef ===
-							FinanceEntryType.ContributionInfo
-						"
-					/>
+					<ServiceFee v-if="currentEntryRef === FinanceEntryType.ServiceFee" />
 				</Suspense>
 				<Suspense>
-					<ManagementFee
-						v-if="
-							currentEntryRef === FinanceEntryType.ManagementFee
-						"
-					/>
+					<ManagementFee v-if="currentEntryRef === FinanceEntryType.ManagementFee
+						" />
 				</Suspense>
 				<Suspense>
-					<ParkingFee
-						v-if="currentEntryRef === FinanceEntryType.ParkingFee"
-					/>
+					<BillByHousehold v-if="currentEntryRef === FinanceEntryType.BillByHousehold
+						" />
 				</Suspense>
-				<QuarterlyReport
-					v-if="currentEntryRef === FinanceEntryType.QuarterlyReport"
-				/>
+
 				<Suspense>
-					<ServiceFee
-						v-if="currentEntryRef === FinanceEntryType.ServiceFee"
-					/>
+					<ContributionInfo v-if="currentEntryRef ===
+						FinanceEntryType.ContributionInfo
+						" />
 				</Suspense>
+
+				<QuarterlyReport v-if="currentEntryRef === FinanceEntryType.QuarterlyReport" />
+
 			</RightSideContainer>
 		</div>
 	</div>
