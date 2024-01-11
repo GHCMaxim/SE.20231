@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PropType, ref } from "vue";
+import { PropType, ref} from "vue";
 import { PeopleTableViewType } from "./PeopleTableViewType";
 
 const props = defineProps({
@@ -8,7 +8,11 @@ const props = defineProps({
 		required: true,
 	},
 });
-
+const currentlyModifying = ref(-1);
+const current_religion = ref("");
+const current_ethnicity = ref("");
+const current_job = ref("");
+const current_jobL = ref("");
 const dataSplitted = ref<PeopleTableViewType[]>([]);
 const dataPerPage = ref(10);
 const currentPage = ref(1);
@@ -27,6 +31,24 @@ function splitData() {
 	dataSplitted.value.push(temp);
 }
 
+function seeDetails(index: number) {
+	if (index < 0 || index >= props.data.length) {
+		return;
+	}
+	currentlyModifying.value = index;
+	current_religion.value = props.data[index].religion;
+	current_ethnicity.value = props.data[index].religion;
+	current_job.value = props.data[index].job;
+	current_jobL.value = props.data[index].job_location;
+}	
+
+function Ok(){
+	currentlyModifying.value = -1;
+	current_religion.value = "";
+	current_ethnicity.value = "";
+	current_job.value = "";
+	current_jobL.value = "";
+}
 splitData();
 
 function nextPage() {
@@ -103,24 +125,23 @@ function lastPage() {
                     <th>Ngày sinh</th>
 					<th>Giới tính</th>
 					<th>SĐT</th>
-					<th>Tôn giáo</th>
-                    <th>Dân tộc</th>
-                    <th>Công việc</th>
-                    <th>Địa chỉ công việc</th>
+					<th>Hành động</th>
 				</tr>
 			</thead>
 			<tbody
 				class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
 			>
-				<tr v-for="(item) in dataSplitted[currentPage]">
+				<tr v-for="(item, index) in dataSplitted[currentPage]">
 					<td>{{ item.cccd }}</td>
 					<td>{{ item.name }}</td>
 					<td>{{ item.dob }}</td>
+					<td>{{ item.sex }}</td>
                     <td>{{ item.phone_number }}</td>
-                    <td>{{ item.religion }}</td>
-                    <td>{{ item.ethnicity }}</td>
-                    <td>{{ item.job }}</td>
-                    <td>{{ item.job_location }}</td>
+                    <td>
+						<button class="btn btn-primary btn-sm" @click="seeDetails(index)">
+							Xem thêm
+						</button>
+					</td>
 					<!-- <td class="flex items-center justify-center gap-2">
 						<button
 							class="btn btn-primary btn-sm"
@@ -140,6 +161,18 @@ function lastPage() {
 		</table>
 		<div v-else class="text-center">
 			<h1 class="text-2xl font-bold">Không có dữ liệu</h1>
+		</div>
+		<div
+			class = "popup"
+			v-show="currentlyModifying !== -1">
+			<div class="popup-content">
+			<h2>Thông tin chi tiết</h2>
+			<p>Tôn giáo: {{ current_religion }}</p>
+			<p>Dân tộc: {{ current_ethnicity }}</p>
+			<p>Nghê nghiệp: {{ current_job }}</p>
+			<p>Nơi làm việc: {{ current_jobL }}</p>
+			<button class="btn btn-primary btn-sm" @click="Ok()">OK</button>
+		</div>
 		</div>
 		</div>
 		<div class="flex flex-row items-center justify-center gap-4">
@@ -173,3 +206,23 @@ function lastPage() {
 			</button>
 		</div>
 </template>
+
+<style scoped>
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+</style>

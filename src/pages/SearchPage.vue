@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import NavigationBar from "../components/NavigationBar.vue";
 import SidebarEntry from "../components/SidebarEntry.vue";
 import RightSideContainer from "../components/RightSideContainer.vue";
@@ -76,6 +76,14 @@ function changeSearchCategory(index: number) {
 	searchCategoryPlaceholder.value = correspondFields[index][1];
 	currentSearchCategory.value = correspondFields[index][2] as SearchCategory;
 }
+
+watch(currentSearchCategory, async (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+        await getData();
+    }
+});
+
+
 </script>
 
 <template>
@@ -110,7 +118,7 @@ function changeSearchCategory(index: number) {
 						:placeholder="searchCategoryPlaceholder"
 						class="input input-bordered w-full max-w-xs"
 					/>
-					<button @click="getData()">Tìm kiếm</button>
+					<button class="btn btn-primary w-full mt-4" @click="getData()">Tìm kiếm</button>
 				</div>
 			</div>
 
