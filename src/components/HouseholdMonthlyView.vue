@@ -1,51 +1,41 @@
 <script setup lang="ts">
-import { PropType, ref, computed, watchEffect } from "vue";
-import { HouseholdTableViewType } from "./HouseholdTableViewType";
+import { PropType, ref } from "vue";
+import { HouseholdMonthlyViewType } from "./HouseholdMonthlyViewType";
 
 const props = defineProps({
 	data: {
-		type: Array as PropType<HouseholdTableViewType>,
+		type: Array as PropType<HouseholdMonthlyViewType>,
 		required: true,
 	},
 });
 
-const dataSplitted = ref<HouseholdTableViewType[]>([]);
+const dataSplitted = ref<HouseholdMonthlyViewType[]>([]);
 const dataPerPage = ref(10);
 const currentPage = ref(1);
-const searchTerm = ref('');
-const filteredData = computed(() => {
-  if (!searchTerm.value) {
-    return props.data;
-  }
-  return props.data.filter(item =>
-    item.owner.toString().toLowerCase().includes(searchTerm.value.toLowerCase())
-  );
-});
-
-const totalPages = computed(() => Math.ceil(filteredData.value.length / dataPerPage.value));
+const totalPages = Math.ceil(props.data.length / dataPerPage.value);
 
 function splitData() {
 	dataSplitted.value = [];
-	let temp: HouseholdTableViewType = [];
-	for (let i = 0; i < filteredData.value.length; i++) {
-        if (i % dataPerPage.value === 0) {
-            dataSplitted.value.push(temp);
-            temp = [];
-        }
-        temp.push(filteredData.value[i]);
-    }
-    dataSplitted.value.push(temp);
+	let temp: HouseholdMonthlyViewType = [];
+	for (let i = 0; i < props.data.length; i++) {
+		if (i % dataPerPage.value === 0) {
+			dataSplitted.value.push(temp);
+			temp = [];
+		}
+		temp.push(props.data[i]);
+	}
+	dataSplitted.value.push(temp);
 }
 
 splitData();
 
 function nextPage() {
-	const totalPagesValue = totalPages.value;
-	if (currentPage.value + 1 > totalPagesValue) {
+	if (currentPage.value + 1 > totalPages) {
 		return;
 	}
 	currentPage.value++;
 }
+
 function prevPage() {
 	if (currentPage.value - 1 < 1) {
 		return;
@@ -58,9 +48,15 @@ function firstPage() {
 }
 
 function lastPage() {
-	currentPage.value = totalPages.value;
+	currentPage.value = totalPages;
 }
 
+// const currentlyModifying = ref(-1);
+// const new_id = ref("");
+// const new_date = ref("");
+// const new_household_id = ref("");
+// const new_total = ref("");
+// const new_description = ref("");
 
 // function deleteEntry(index: number) {
 // 	props.data.splice(index, 1);
@@ -100,37 +96,32 @@ function lastPage() {
 // 	new_household_id.value = "";
 // 	new_total.value = "";
 // }
-watchEffect(() => {
-	splitData();
-});
 </script>
-
 <template>
 	<div
 		class="h-120 flex flex-col items-center justify-center gap-4 overflow-y-auto"
 	>
-		<div class="search-container ">
-			<input class="border rounded mx-auto bg-white mt-2 mb-2" v-model="searchTerm" type="text" placeholder=" Tìm kiếm theo CCCD..." />
-		</div>
 		<table v-if="props.data.length">
 			<thead class="[&_th]:min-w-[200px] [&_th]:px-4 [&_th]:py-2">
 				<tr>
-					<th>Mã</th>
-					<th>Tên căn hộ</th>
-					<th>Địa chỉ căn hộ</th>
-					<th>Ngày tạo</th>
-					<th>CCCD chủ hộ</th>
+					<th>Mã hộ khẩu</th>
+					<th>Tiền xe</th>
+					<th>Tiền nhà</th>
+					<th>Tiền dịch vụ</th>
+					<th>Tổng giá trị</th>
+					<th>Tổng đã trả</th>
 				</tr>
 			</thead>
 			<tbody
 				class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
 			>
 				<tr v-for="(item) in dataSplitted[currentPage]">
-					<td>{{ item.id }}</td>
-					<td>{{ item.name }}</td>
-					<td>{{ item.location }}</td>
-					<td>{{ item.creation_date }}</td>
-					<td>{{ item.owner }}</td>
+					<td>{{ item.household }}</td>
+					<td>{{ item.vehicle_payment }}</td>
+					<td>{{ item.house_payment }}</td>
+					<td>{{ item.service_payment }}</td>
+					<td>{{ item.total_payment }}</td>
+                    <td>{{ item.total_paid }}</td>
 					<!-- <td class="flex items-center justify-center gap-2">
 						<button
 							class="btn btn-primary btn-sm"
@@ -151,7 +142,41 @@ watchEffect(() => {
 		<div v-else class="text-center">
 			<h1 class="text-2xl font-bold">Không có dữ liệu</h1>
 		</div>
-		</div>
+		<!-- <div
+			v-show="currentlyModifying !== -1"
+			class="flex flex-row items-center justify-center gap-4"
+		>
+			<input
+				v-model="new_date"
+				type="date"
+				placeholder="Ngày đóng góp"
+				class="input input-bordered w-full"
+			/>
+			<input
+				v-model="new_household_id"
+				type="number"
+				placeholder="Nhà đóng góp"
+				class="input input-bordered w-full"
+			/>
+			<input
+				v-model="new_description"
+				type="text"
+				placeholder="Nội dung"
+				class="input input-bordered w-full"
+			/>
+			<input
+				v-model="new_total"
+				type="number"
+				placeholder="Tổng giá trị"
+				class="input input-bordered w-full"
+			/>
+			<button class="btn btn-primary btn-sm" @click="saveModification()">
+				Lưu
+			</button>
+			<button class="btn btn-error btn-sm" @click="cancelModification()">
+				Hủy
+			</button>
+		</div> -->
 		<div class="flex flex-row items-center justify-center gap-4">
 			<button
 				class="btn btn-primary btn-sm"
@@ -182,4 +207,5 @@ watchEffect(() => {
 				Trang cuối
 			</button>
 		</div>
+	</div>
 </template>

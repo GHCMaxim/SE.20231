@@ -20,7 +20,7 @@ const filteredData = computed(() => {
 		return props.data;
 	}
 	return props.data.filter((item) =>
-		item.id.toString().includes(searchTerm.value)
+		item.id.toString().includes(searchTerm.value.toLowerCase())
 	);
 });
 

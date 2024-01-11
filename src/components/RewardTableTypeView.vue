@@ -19,7 +19,7 @@ const filteredData = computed(() => {
     return props.data;
   }
   return props.data.filter(item =>
-    item.id.toString().includes(searchTerm.value.toLowerCase())
+    item.id.toString().toLowerCase().includes(searchTerm.value.toLowerCase())
   );
 });
 
@@ -28,12 +28,12 @@ const totalPages = computed(() => Math.ceil(filteredData.value.length / dataPerP
 function splitData() {
 	dataSplitted.value = [];
 	let temp: RewardTableType = [];
-	for (let i = 0; i < props.data.length; i++) {
+	for (let i = 0; i < filteredData.value.length; i++) {
 		if (i % dataPerPage.value === 0) {
 			dataSplitted.value.push(temp);
 			temp = [];
 		}
-		temp.push(props.data[i]);
+		temp.push(filteredData.value[i]);
 	}
 	dataSplitted.value.push(temp);
 }
