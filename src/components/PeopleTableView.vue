@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { PropType, ref} from "vue";
+import { PropType, ref, computed, watchEffect} from "vue";
 import { PeopleTableViewType } from "./PeopleTableViewType";
+
 
 const props = defineProps({
 	data: {
@@ -16,19 +17,29 @@ const current_jobL = ref("");
 const dataSplitted = ref<PeopleTableViewType[]>([]);
 const dataPerPage = ref(10);
 const currentPage = ref(1);
-const totalPages = Math.ceil(props.data.length / dataPerPage.value);
+const searchTerm = ref('');
+const filteredData = computed(() => {
+  if (!searchTerm.value) {
+    return props.data;
+  }
+  return props.data.filter(item =>
+    item.cccd.toLowerCase().includes(searchTerm.value.toLowerCase())
+  );
+});
+
+const totalPages = computed(() => Math.ceil(filteredData.value.length / dataPerPage.value));
 
 function splitData() {
-	dataSplitted.value = [];
-	let temp: PeopleTableViewType = [];
-	for (let i = 0; i < props.data.length; i++) {
-		if (i % dataPerPage.value === 0) {
-			dataSplitted.value.push(temp);
-			temp = [];
-		}
-		temp.push(props.data[i]);
-	}
-	dataSplitted.value.push(temp);
+    dataSplitted.value = [];
+    let temp: PeopleTableViewType = [];
+    for (let i = 0; i < filteredData.value.length; i++) {
+        if (i % dataPerPage.value === 0) {
+            dataSplitted.value.push(temp);
+            temp = [];
+        }
+        temp.push(filteredData.value[i]);
+    }
+    dataSplitted.value.push(temp);
 }
 
 function seeDetails(index: number) {
@@ -52,7 +63,8 @@ function Ok(){
 splitData();
 
 function nextPage() {
-	if (currentPage.value + 1 > totalPages) {
+	const totalPagesValue = totalPages.value;
+	if (currentPage.value + 1 > totalPagesValue) {
 		return;
 	}
 	currentPage.value++;
@@ -70,7 +82,7 @@ function firstPage() {
 }
 
 function lastPage() {
-	currentPage.value = totalPages;
+	currentPage.value = totalPages.value;
 }
 
 
@@ -112,11 +124,18 @@ function lastPage() {
 // 	new_household_id.value = "";
 // 	new_total.value = "";
 // }
+
+watchEffect(() => {
+	splitData();
+});
 </script>
 <template>
 	<div
 		class="h-120 flex flex-col items-center justify-center gap-4 overflow-y-auto"
 	>
+		<div class="search-container ">
+			<input class="border rounded mx-auto bg-white mt-2 mb-2" v-model="searchTerm" type="number" placeholder=" Tìm kiếm theo CCCD..." />
+		</div>
 		<table v-if="props.data.length">
 			<thead class="[&_th]:min-w-[200px] [&_th]:px-4 [&_th]:py-2">
 				<tr>
@@ -131,7 +150,7 @@ function lastPage() {
 			<tbody
 				class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
 			>
-				<tr v-for="(item, index) in dataSplitted[currentPage]">
+				<tr :key="index" v-for="(item, index) in dataSplitted[currentPage]">
 					<td>{{ item.cccd }}</td>
 					<td>{{ item.name }}</td>
 					<td>{{ item.dob }}</td>

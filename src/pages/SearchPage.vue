@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import NavigationBar from "../components/NavigationBar.vue";
 import SidebarEntry from "../components/SidebarEntry.vue";
 import RightSideContainer from "../components/RightSideContainer.vue";
@@ -17,41 +17,7 @@ const PeopleData = ref<PeopleTableViewType>([]);
 const RewardData = ref<RewardTableType>([]);
 const PaymentData = ref<PaymentByHouseholdType>([]);
 
-const inputValue = ref("");
 
-async function getData(){
-	let endpoint;
-	switch(currentSearchCategory.value){
-		case SearchCategory.HouseholdInfo:
-			endpoint = `/api/households/${inputValue.value}`;
-			break;
-		case SearchCategory.PersonInfo:
-			endpoint = `/api/people/${inputValue.value}`;
-			break;
-		case SearchCategory.Contributions:
-			endpoint = `/api/payments/by_household/${inputValue.value}`;
-			break;
-		case SearchCategory.Rewards:
-			endpoint = `/api/rewards/${inputValue.value}`;
-			break;
-	}
-	const response = await fetch(API + endpoint);
-	const data = await response.json();
-	switch(currentSearchCategory.value){
-		case SearchCategory.HouseholdInfo:
-			HouseholdData.value = data;
-			break;
-		case SearchCategory.PersonInfo:
-			PeopleData.value = data;
-			break;
-		case SearchCategory.Contributions:
-			PaymentData.value = data;
-			break;
-		case SearchCategory.Rewards:
-			RewardData.value = data;
-			break;
-	}
-}
 
 enum SearchCategory {
 	HouseholdInfo = "Thông tin về hộ khẩu",
@@ -71,19 +37,34 @@ const searchCategoryTitle = ref(correspondFields[0][0]);
 const searchCategoryPlaceholder = ref(correspondFields[0][1]);
 const currentSearchCategory = ref(SearchCategory.HouseholdInfo);
 
+function getData() {
+	Promise.all([
+		fetch(new URL(`/api/household_registrations`, API).toString()),
+		fetch(new URL(`/api/people`, API).toString()),
+		fetch(new URL(`/api/payments`, API).toString()),
+		fetch(new URL(`/api/rewards`, API).toString()),
+	]).then((responses) => {
+		Promise.all([
+			responses[0].json(),
+			responses[1].json(),
+			responses[2].json(),
+			responses[3].json(),
+		]).then((data) => {
+			HouseholdData.value = data[0];
+			PeopleData.value = data[1];
+			PaymentData.value = data[2];
+			RewardData.value = data[3];
+		});
+	});
+}
+
 function changeSearchCategory(index: number) {
 	searchCategoryTitle.value = correspondFields[index][0];
 	searchCategoryPlaceholder.value = correspondFields[index][1];
 	currentSearchCategory.value = correspondFields[index][2] as SearchCategory;
 }
 
-watch(currentSearchCategory, async (newVal, oldVal) => {
-    if (newVal !== oldVal) {
-        await getData();
-    }
-});
-
-
+getData();
 </script>
 
 <template>
@@ -94,45 +75,35 @@ watch(currentSearchCategory, async (newVal, oldVal) => {
 				<SidebarEntry title="tìm kiếm" icon="search" />
 				<div class="px-10">
 					<div class="mb-3 text-start">Tìm kiếm theo</div>
-					<select
-						class="select select-primary w-full max-w-xs"
-						title="Chọn"
-						@change="
-							// @ts-ignore
-							changeSearchCategory($event.target?.selectedIndex)
-						"
-					>
-						<option
-							v-for="(field, index) in correspondFields"
-							:key="index"
-							:selected="index === 0"
-						>
+					<select class="select select-primary w-full max-w-xs" title="Chọn" @change="
+						// @ts-ignore
+						changeSearchCategory($event.target?.selectedIndex)
+						">
+						<option v-for="(field, index) in correspondFields" :key="index" :selected="index === 0">
 							{{ field[2] }}
 						</option>
 					</select>
 					<div class="my-3 text-start">
 						{{ searchCategoryTitle }}
 					</div>
-					<input
-						type="text"
-						:placeholder="searchCategoryPlaceholder"
-						class="input input-bordered w-full max-w-xs"
-					/>
-					<button class="btn btn-primary w-full mt-4" @click="getData()">Tìm kiếm</button>
+					<input type="text" :placeholder="searchCategoryPlaceholder"
+						class="input input-bordered w-full max-w-xs" />
+					<button class="btn btn-primary w-full mt-4" @click="getData()">Tìm
+						kiếm</button>
 				</div>
 			</div>
 
-			<RightSideContainer> 
-				<div v-if="currentSearchCategory === SearchCategory.HouseholdInfo" >
+			<RightSideContainer>
+				<div v-if="currentSearchCategory === SearchCategory.HouseholdInfo">
 					<HouseholdTableView :data="HouseholdData" />
 				</div>
-				<div v-else-if="currentSearchCategory === SearchCategory.PersonInfo" >
+				<div v-else-if="currentSearchCategory === SearchCategory.PersonInfo">
 					<PeopleTableView :data="PeopleData" />
 				</div>
-				<div v-else-if="currentSearchCategory === SearchCategory.Contributions" >
+				<div v-else-if="currentSearchCategory === SearchCategory.Contributions">
 					<PaymentByHouseholdView :data="PaymentData" />
 				</div>
-				<div v-else-if="currentSearchCategory === SearchCategory.Rewards" >
+				<div v-else-if="currentSearchCategory === SearchCategory.Rewards">
 					<RewardTableTypeView :data="RewardData" />
 				</div>
 			</RightSideContainer>

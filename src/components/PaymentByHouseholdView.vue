@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PropType, ref } from "vue";
+import { PropType, ref, computed, watchEffect } from "vue";
 import { PaymentByHouseholdType } from "./PaymentByHouseholdType";
 
 const props = defineProps({
@@ -12,25 +12,34 @@ const props = defineProps({
 const dataSplitted = ref<PaymentByHouseholdType[]>([]);
 const dataPerPage = ref(10);
 const currentPage = ref(1);
-const totalPages = Math.ceil(props.data.length / dataPerPage.value);
+const searchTerm = ref('');
+const filteredData = computed(() => {
+  if (!searchTerm.value) {
+    return props.data;
+  }
+  return props.data.filter(item =>
+    item.household.toLowerCase().includes(searchTerm.value.toLowerCase())
+  );
+});
 
+const totalPages = computed(() => Math.ceil(filteredData.value.length / dataPerPage.value));
 function splitData() {
 	dataSplitted.value = [];
 	let temp: PaymentByHouseholdType = [];
-	for (let i = 0; i < props.data.length; i++) {
-		if (i % dataPerPage.value === 0) {
-			dataSplitted.value.push(temp);
-			temp = [];
-		}
-		temp.push(props.data[i]);
-	}
-	dataSplitted.value.push(temp);
+	for (let i = 0; i < filteredData.value.length; i++) {
+        if (i % dataPerPage.value === 0) {
+            dataSplitted.value.push(temp);
+            temp = [];
+        }
+        temp.push(filteredData.value[i]);
+    }
+    dataSplitted.value.push(temp);
 }
-
 splitData();
 
 function nextPage() {
-	if (currentPage.value + 1 > totalPages) {
+	const totalPagesValue = totalPages.value;
+	if (currentPage.value + 1 > totalPagesValue) {
 		return;
 	}
 	currentPage.value++;
@@ -48,7 +57,7 @@ function firstPage() {
 }
 
 function lastPage() {
-	currentPage.value = totalPages;
+	currentPage.value = totalPages.value;
 }
 
 
@@ -90,11 +99,17 @@ function lastPage() {
 // 	new_household_id.value = "";
 // 	new_total.value = "";
 // }
+watchEffect(() => {
+	splitData();
+});
 </script>
 <template>
 	<div
 		class="h-120 flex flex-col items-center justify-center gap-4 overflow-y-auto"
 	>
+		<div class="search-container ">
+			<input class="border rounded mx-auto bg-white mt-2 mb-2" v-model="searchTerm" type="number" placeholder=" Tìm kiếm mã hộ khẩu..." />
+		</div>
 		<table v-if="props.data.length">
 			<thead class="[&_th]:min-w-[200px] [&_th]:px-4 [&_th]:py-2">
 				<tr>
