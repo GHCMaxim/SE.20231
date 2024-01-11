@@ -36,6 +36,7 @@ class PaymentTypeCreate(PaymentBase):
 
 class PaymentType(PaymentBase):
     id: int
+    name: str
     rate: int
     active: bool
 
@@ -45,6 +46,7 @@ class PaymentType(PaymentBase):
 
 class PaymentTypeModify(PaymentBase):
     id: int
+    name: str
     rate: int
     active: bool
 

@@ -1,3 +1,5 @@
+import uuid
+import datetime
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
@@ -20,7 +22,10 @@ def get_payments_by_household(
 
 
 def create_payment(db: Session, payment: schemas.payment.PaymentCreate):
+    id = uuid.uuid4()
     db_payment = models.Payment(
+        id = id,
+        name= payment.name,
         type_id=payment.type_id,
         creation_date=payment.creation_date,
         expiration_date=payment.expiration_date,
@@ -49,7 +54,7 @@ def create_payment_type(db: Session, payment_type: schemas.payment.PaymentTypeCr
         name=payment_type.name,
         rate=payment_type.rate,
         active=payment_type.active,
-        type = payment_type.type,
+        id = payment_type.id,
     )
 
     db.add(db_payment_type)
@@ -79,3 +84,4 @@ def update_payment_type(
         .filter(models.PaymentType.id == payment_type.id)
         .first()
     )
+        
