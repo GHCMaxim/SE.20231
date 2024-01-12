@@ -18,7 +18,7 @@ const filteredData = computed(() => {
 		return props.data;
 	}
 	return props.data.filter((item) =>
-		item.owner
+		item.id
 			.toString()
 			.toLowerCase()
 			.includes(searchTerm.value.toLowerCase()),
@@ -118,7 +118,7 @@ watchEffect(() => {
 				v-model="searchTerm"
 				class="mx-auto my-2 rounded border bg-white"
 				type="text"
-				placeholder=" Tìm kiếm theo CCCD..."
+				placeholder=" Tìm kiếm theo số hộ khẩu..."
 			/>
 		</div>
 		<table v-if="props.data.length">

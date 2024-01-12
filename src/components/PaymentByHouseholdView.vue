@@ -8,6 +8,11 @@ const props = defineProps({
 		required: true,
 	},
 });
+const currentlyModifying = ref(-1);
+const current_typeID = ref("");
+const current_id = ref("");
+const current_incomeID = ref("");
+const current_creationDate = ref("");
 
 const dataSplitted = ref<PaymentByHouseholdType[]>([]);
 const dataPerPage = ref(10);
@@ -36,6 +41,25 @@ function splitData() {
 		temp.push(filteredData.value[i]);
 	}
 	dataSplitted.value.push(temp);
+}
+
+function seeDetails(index: number){
+	if(index < 0 || index >= props.data.length){
+		return;
+	}
+	currentlyModifying.value = index;
+	current_typeID.value =(props.data[index].type_id).toString();
+	current_id.value = (props.data[index].id).toString();
+	current_incomeID.value = (props.data[index].income_id).toString();
+	current_creationDate.value = props.data[index].creation_date;
+}
+
+function Ok(){
+	currentlyModifying.value = -1;
+	current_typeID.value = "";
+	current_id.value = "";
+	current_incomeID.value = "";
+	current_creationDate.value = "";
 }
 splitData();
 
@@ -121,28 +145,27 @@ watchEffect(() => {
 				<tr>
 					<th>Hộ khẩu</th>
 					<th>Tên hoá đơn</th>
-					<th>Mã hoá đơn</th>
-					<th>Loại hoá đơn</th>
-					<th>Ngày tạo</th>
-					<th>Ngày hết hạn</th>
 					<th>Giá trị</th>
 					<th>Đã trả</th>
-					<th>Mã tính thu</th>
+					<th>Hành động</th>
 				</tr>
 			</thead>
 			<tbody
 				class="[&_td]:min-w-[200px] [&_td]:border [&_td]:px-4 [&_td]:py-2"
 			>
-				<tr v-for="item in dataSplitted[currentPage]">
+				<tr v-for="(item,index) in dataSplitted[currentPage]" :key="index">
 					<td>{{ item.household }}</td>
 					<td>{{ item.name }}</td>
-					<td>{{ item.id }}</td>
-					<td>{{ item.type_id }}</td>
-					<td>{{ item.creation_date }}</td>
-					<td>{{ item.expiration_date }}</td>
 					<td>{{ item.price }}</td>
 					<td>{{ item.paid }}</td>
-					<td>{{ item.income_id }}</td>
+					<td>
+						<button
+							class="btn btn-primary btn-sm"
+							@click="seeDetails(index)"
+						>
+							Xem chi tiết
+						</button>
+					</td>
 					<!-- <td class="flex items-center justify-center gap-2">
 						<button
 							class="btn btn-primary btn-sm"
@@ -162,6 +185,16 @@ watchEffect(() => {
 		</table>
 		<div v-else class="text-center">
 			<h1 class="text-2xl font-bold">Không có dữ liệu</h1>
+		</div>
+		<div v-show="currentlyModifying !== -1" class="popup">
+			<div class="popup-content">
+				<h2>Thông tin chi tiết</h2>
+				<p>Mã hoá đơn {{ current_id }} </p>
+				<p>Loại hoá đơn {{ current_typeID }} </p>
+				<p>Mã thu nhập {{ current_incomeID }} </p>
+				<p>Ngày tạo {{ current_creationDate }} </p>
+				<button class="btn btn-primary btn-sm" @click="Ok()">OK</button>
+			</div>
 		</div>
 	</div>
 	<div class="flex flex-row items-center justify-center gap-4">
@@ -195,3 +228,23 @@ watchEffect(() => {
 		</button>
 	</div>
 </template>
+
+<style scoped>
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.popup-content {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+</style>

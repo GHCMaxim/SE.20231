@@ -5,9 +5,7 @@ import SideBar from "./SideBar.vue";
 import BillEssentials from "./EntryComponents/BillEssentials.vue";
 import BillByHousehold from "./EntryComponents/BillByHousehold.vue";
 import ContributionInfo from "./EntryComponents/ContributionInfo.vue";
-import ManagementFee from "./EntryComponents/ManagementFee.vue";
 import ParkingFee from "./EntryComponents/ParkingFee.vue";
-import QuarterlyReport from "./EntryComponents/QuarterlyReport.vue";
 import ServiceFee from "./EntryComponents/ServiceFee.vue";
 import CreateContributionEvent from "./EntryComponents/CreateContributionEvent.vue";
 import CreateContribution from "./EntryComponents/CreateContribution.vue";
@@ -34,10 +32,6 @@ const currentEntryRef = ref(FinanceEntryType.ParkingFee);
 					<ServiceFee v-if="currentEntryRef === FinanceEntryType.ServiceFee" />
 				</Suspense>
 				<Suspense>
-					<ManagementFee v-if="currentEntryRef === FinanceEntryType.ManagementFee
-						" />
-				</Suspense>
-				<Suspense>
 					<BillByHousehold v-if="currentEntryRef === FinanceEntryType.BillByHousehold
 						" />
 				</Suspense>
@@ -57,7 +51,6 @@ const currentEntryRef = ref(FinanceEntryType.ParkingFee);
 						" />
 				</Suspense>
 
-				<QuarterlyReport v-if="currentEntryRef === FinanceEntryType.QuarterlyReport" />
 			</RightSideContainer>
 		</div>
 	</div>

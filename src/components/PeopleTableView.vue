@@ -49,7 +49,7 @@ function seeDetails(index: number) {
 	}
 	currentlyModifying.value = index;
 	current_religion.value = props.data[index].religion;
-	current_ethnicity.value = props.data[index].religion;
+	current_ethnicity.value = props.data[index].ethnicity;
 	current_job.value = props.data[index].job;
 	current_jobL.value = props.data[index].job_location;
 }

@@ -29,7 +29,6 @@ const entriesTop = [
 	FinanceEntryType.ParkingFee,
 	FinanceEntryType.BillEssentials,
 	FinanceEntryType.ServiceFee,
-	FinanceEntryType.ManagementFee,
 	FinanceEntryType.BillByHousehold,
 ];
 
@@ -37,7 +36,6 @@ const entriesBottom = [
 	FinanceEntryType.CreateContributionEvent,
 	FinanceEntryType.CreateContribution,
 	FinanceEntryType.ContributionInfo,
-	FinanceEntryType.QuarterlyReport,
 ];
 
 async function handleEmit(entry: FinanceEntryType) {
